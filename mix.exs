@@ -43,7 +43,7 @@ defmodule Bonfire.Spark.MixProject do
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
-    Mess.deps([path: "#{@config_path}deps.path", git: "#{@config_path}deps.git", hex: "#{@config_path}deps.hex"], [
+    Mess.deps((if System.get_env("WITH_FORKS", "1")=="1", do: [path: "#{@config_path}deps.path", git: "#{@config_path}deps.git", hex: "#{@config_path}deps.hex"], else: [git: "#{@config_path}deps.git", hex: "#{@config_path}deps.hex"]) |> IO.inspect(label: "sources"), [
       # error reporting
       {:sentry, "~> 8.0", only: [:dev, :prod]},
 
@@ -51,6 +51,6 @@ defmodule Bonfire.Spark.MixProject do
       {:phoenix_live_reload, "~> 1.3", only: :dev}
     ])
     |> Enum.reject(& elem(&1, 0)==:bonfire)
-    |> IO.inspect
+    # |> IO.inspect
   end
 end
