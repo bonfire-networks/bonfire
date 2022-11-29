@@ -1,30 +1,31 @@
 if not Code.ensure_loaded?(Bonfire.Mixer) do
   defmodule Bonfire.Mixer do
-    def deps(config, deps_subtype)
+    def deps(config, deps_subtype, extensions \\ [])
 
-    def deps(config, :bonfire) do
+    def deps(config, :bonfire, extensions) do
+      extensions = umbrella_extension_names()
       prefixes = multirepo_prefixes(config)
+
       (config[:deps] || config)
-      |> Enum.filter(&in_multirepo?(&1, prefixes))
+      |> Enum.filter(&in_multirepo?(&1, prefixes, extensions))
     end
 
-    def deps(config, :update = deps_subtype) do
+    def deps(config, :update = deps_subtype, extensions) do
+      # extensions = extensions #|| umbrella_extension_names()
       prefixes = multirepo_prefixes(config)
 
       (config[:deps] || config)
       |> Enum.filter(
         &(include_dep?(deps_subtype, &1, config[:deps_prefixes][deps_subtype]) ||
-            in_multirepo?(&1, prefixes))
+            in_multirepo?(&1, prefixes, extensions))
       )
     end
 
-    def deps(config, deps_subtype) when is_atom(deps_subtype),
+    def deps(config, deps_subtype, _) when is_atom(deps_subtype),
       do:
         (config[:deps] || config)
         # |> IO.inspect(limit: :infinity)
-        |> Enum.filter(
-          &include_dep?(deps_subtype, &1, config[:deps_prefixes][deps_subtype])
-        )
+        |> Enum.filter(&include_dep?(deps_subtype, &1, config[:deps_prefixes][deps_subtype]))
 
     def deps_names_for(type, deps \\ mix_config()) do
       deps(deps, type)
@@ -43,6 +44,29 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         else: Bonfire.Application.deps()
     end
 
+    def umbrella_extensions do
+      # || Mix.Dep.Umbrella.loaded()
+      Mix.Project.apps_paths() ||
+        Mess.deps([path: "config/deps.path"], [], umbrella_only: true) ||
+        []
+    end
+
+    def umbrella_extension_names do
+      umbrella_extensions()
+      |> Enum.map(fn
+        %{app: name} -> name
+        {name, _path} -> name
+      end)
+    end
+
+    def umbrella_extension_paths do
+      umbrella_extensions()
+      |> Enum.map(fn
+        {name, path} when is_binary(path) -> {name, path: path}
+        dep -> dep
+      end)
+    end
+
     def mix_config do
       if function_exported?(Mix.Project, :config, 0),
         do: Mix.Project.config(),
@@ -55,8 +79,10 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         |> Enum.flat_map(fn {_, list} -> list || [] end)
         |> Enum.uniq()
 
-    def in_multirepo?(dep, deps_prefixes \\ multirepo_prefixes()),
-      do: include_dep?(:bonfire, dep, deps_prefixes)
+    def in_multirepo?(dep, deps_prefixes \\ multirepo_prefixes(), extensions \\ nil),
+      do:
+        include_dep?(:bonfire, dep, deps_prefixes) ||
+          elem(dep, 0) in (extensions || umbrella_extension_names())
 
     def deps_recompile(deps \\ deps_names(:bonfire)),
       do: Mix.Task.run("bonfire.dep.compile", ["--force"] ++ List.wrap(deps))
@@ -103,22 +129,30 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     # Specifies which paths to include in docs
 
-    def beam_paths(deps, type \\ :all) do
+    def beam_paths(deps \\ mix_config(), type \\ :bonfire, extras \\ []) do
       build = Mix.Project.build_path()
 
-      ([:bonfire] ++ deps(deps, type))
+      (extras ++ deps_names_for(type, deps))
+      # |> IO.inspect
       |> Enum.map(&beam_path(&1, build))
     end
 
     defp beam_path(app, build),
       do: Path.join([build, "lib", dep_name(app), "ebin"])
 
+    def docs_beam_paths(config \\ mix_config()) do
+      beam_paths(config, :docs, umbrella_extension_names() || [])
+    end
+
     def readme_paths(config),
       do:
         List.wrap(config[:guides]) ++
           Enum.map(Path.wildcard("flavours/*/README.md"), &flavour_readme/1) ++
           Enum.map(Path.wildcard("docs/DEPENDENCIES/*.md"), &flavour_deps_doc/1) ++
-          Enum.flat_map(deps(config, :docs), &readme_path/1)
+          Enum.flat_map(
+            deps_names_for(:docs, config) ++ umbrella_extension_paths(),
+            &readme_path/1
+          )
 
     defp readme_path(dep) when not is_nil(dep),
       do: dep_paths(dep, "README.md") |> List.first() |> readme_path(dep)
@@ -150,8 +184,8 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
          ]}
 
     # [plug: "https://myserver/plug/"]
-    def doc_deps(config), do: deps(config, :docs) |> Enum.map(&doc_dep/1)
-    defp doc_dep(dep), do: {elem(dep, 0), "./"}
+    def doc_dep_urls(config), do: deps(config, :docs) |> Enum.map(&doc_dep_url/1)
+    defp doc_dep_url(dep), do: {elem(dep, 0), "./"}
 
     def source_url_pattern("deps/" <> _ = path, line),
       do: bonfire_ext_pattern(path, line)

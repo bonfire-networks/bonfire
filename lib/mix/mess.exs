@@ -24,15 +24,24 @@ if not Code.ensure_loaded?(Mess) do
       do: Enum.uniq_by(packages ++ extra_deps, &elem(&1, 0)) |> maybe_filter_umbrella(opts)
 
     defp maybe_filter_umbrella(deps, opts) do
-      if opts[:umbrella_root?] do
-        Enum.reject(deps, fn dep ->
-          dep_opts = elem(dep, 1)
-          is_list(dep_opts) and dep_opts[:from_umbrella]
-        end)
+      cond do
+        opts[:umbrella_root?] == true ->
+          Enum.reject(deps, fn dep ->
+            dep_opts = elem(dep, 1)
+            is_list(dep_opts) and dep_opts[:from_umbrella]
+          end)
 
         # |> IO.inspect(label: "umbrella_root")
-      else
-        if umbrella_path(opts) do
+
+        opts[:umbrella_only] == true ->
+          Enum.filter(deps, fn dep ->
+            dep_opts = elem(dep, 1)
+            is_list(dep_opts) and dep_opts[:from_umbrella]
+          end)
+
+        # |> IO.inspect(label: "umbrella_only")
+
+        umbrella_path(opts) != nil ->
           umbrella_deps = read_umbrella("../../config/deps.path", opts)
 
           deps
@@ -52,10 +61,9 @@ if not Code.ensure_loaded?(Mess) do
             end
           end)
 
-          # |> IO.inspect(label: "in_umbrella")
-        else
+        # |> IO.inspect(label: "in_umbrella")
+        true ->
           deps
-        end
       end
     end
 
@@ -68,11 +76,14 @@ if not Code.ensure_loaded?(Mess) do
       end
     end
 
-    defp read(path, kind) when is_binary(path), do: have_read(File.read(path), kind)
+    defp read(path, kind) when is_binary(path), do: have_read(File.read(path), path, kind)
 
-    defp have_read({:error, :enoent}, _kind), do: []
+    defp have_read({:error, :enoent}, path, _kind) do
+      # IO.puts("Could not find #{path} in #{File.cwd!()}")
+      []
+    end
 
-    defp have_read({:ok, file}, kind),
+    defp have_read({:ok, file}, _, kind),
       do: Enum.map(String.split(file, @newline), &read_line(&1, kind))
 
     defp read_line(line, kind),

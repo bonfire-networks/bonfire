@@ -3,7 +3,7 @@ defmodule Mix.Tasks.Bonfire.Secrets do
 
   @moduledoc """
   Generates secrets and prints to the terminal.
-      mix secrets [length]
+      mix bonfire.secrets [length]
   By default, it generates keys 64 characters long.
   The minimum value for `length` is 32.
   """
