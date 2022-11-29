@@ -18,7 +18,8 @@ defmodule Iconify.Lucide.Milestone do
         stroke-linejoin="round"
         stroke-width="2"
         d="M18 6H5a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h13l4-3.5L18 6Zm-6 7v9m0-20v4"
-      />
+      >
+      </path>
     </svg>
     """
   end

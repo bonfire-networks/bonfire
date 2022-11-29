@@ -18,7 +18,8 @@ defmodule Iconify.HeroiconsOutline.MenuAlt2 do
         stroke-linejoin="round"
         stroke-width="2"
         d="M4 6h16M4 12h16M4 18h7"
-      />
+      >
+      </path>
     </svg>
     """
   end

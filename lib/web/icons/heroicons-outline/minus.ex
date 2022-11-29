@@ -18,7 +18,8 @@ defmodule Iconify.HeroiconsOutline.Minus do
         stroke-linejoin="round"
         stroke-width="2"
         d="M20 12H4"
-      />
+      >
+      </path>
     </svg>
     """
   end

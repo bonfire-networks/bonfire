@@ -18,7 +18,8 @@ defmodule Iconify.Ion.ChevronBack do
         stroke-linejoin="round"
         stroke-width="48"
         d="M328 112L184 256l144 144"
-      />
+      >
+      </path>
     </svg>
     """
   end

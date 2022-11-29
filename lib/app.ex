@@ -11,8 +11,11 @@ defmodule Bonfire.Application do
   @env Application.compile_env!(@top_otp_app, :env)
   @endpoint_module Application.compile_env!(@top_otp_app, :endpoint_module)
   @repo_module Application.compile_env!(@top_otp_app, :repo_module)
-  @project (if Code.ensure_loaded?(Bonfire.Umbrella.MixProject), do: Bonfire.Umbrella.MixProject.project())
-  @config (if Code.ensure_loaded?(Bonfire.Umbrella.MixProject), do: Bonfire.Umbrella.MixProject.config(), else: Mix.Project.config())
+  @project if Code.ensure_loaded?(Bonfire.Umbrella.MixProject),
+             do: Bonfire.Umbrella.MixProject.project()
+  @config if Code.ensure_loaded?(Bonfire.Umbrella.MixProject),
+            do: Bonfire.Umbrella.MixProject.config(),
+            else: Mix.Project.config()
   @deps_loaded Bonfire.Common.Extensions.loaded_deps(:nested)
   @deps_loaded_flat Bonfire.Common.Extensions.loaded_deps(deps_loaded: @deps_loaded)
   # 6 hours
