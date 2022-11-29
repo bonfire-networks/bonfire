@@ -51,6 +51,6 @@ defmodule Bonfire.Spark.MixProject do
       {:phoenix_live_reload, "~> 1.3", only: :dev}
     ])
     |> Enum.reject(& elem(&1, 0)==:bonfire)
-    # |> IO.inspect
+    |> IO.inspect
   end
 end
