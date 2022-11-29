@@ -11,7 +11,8 @@ defmodule Bonfire.Application do
   @env Application.compile_env!(@top_otp_app, :env)
   @endpoint_module Application.compile_env!(@top_otp_app, :endpoint_module)
   @repo_module Application.compile_env!(@top_otp_app, :repo_module)
-  @config Mix.Project.config()
+  @project (if Code.ensure_loaded?(Bonfire.Umbrella.MixProject), do: Bonfire.Umbrella.MixProject.project())
+  @config (if Code.ensure_loaded?(Bonfire.Umbrella.MixProject), do: Bonfire.Umbrella.MixProject.config(), else: Mix.Project.config())
   @deps_loaded Bonfire.Common.Extensions.loaded_deps(:nested)
   @deps_loaded_flat Bonfire.Common.Extensions.loaded_deps(deps_loaded: @deps_loaded)
   # 6 hours
@@ -63,12 +64,13 @@ defmodule Bonfire.Application do
     }
   ]
 
+  def project, do: @project
   def config, do: @config
   def name, do: Application.get_env(:bonfire, :app_name) || config()[:name]
   def version, do: config()[:version]
   def named_version, do: "#{name()} #{version()}"
-  def repository, do: config()[:sources_url] || config()[:source_url]
-  def required_deps, do: config()[:required_deps]
+  def repository, do: project()[:sources_url] || project()[:source_url]
+  def required_deps, do: project()[:required_deps]
   def deps(opt \\ nil)
   # as loaded at compile time, nested
   def deps(:nested), do: @deps_loaded
