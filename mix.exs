@@ -6,7 +6,7 @@ defmodule Bonfire.Spark.MixProject do
   @config_path "../../config/"
 
   def project do
-    if File.exists?("../../.is_umbrella.exs") do
+    if System.get_env("AS_UMBRELLA") == "1" do
       [
         build_path: "../../_build",
         config_path: "#{@config_path}config.exs",
@@ -43,7 +43,7 @@ defmodule Bonfire.Spark.MixProject do
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
-    Mess.deps((if System.get_env("WITH_FORKS", "1")=="1", do: [path: "#{@config_path}deps.path", git: "#{@config_path}deps.git", hex: "#{@config_path}deps.hex"], else: [git: "#{@config_path}deps.git", hex: "#{@config_path}deps.hex"]) |> IO.inspect(label: "sources"), [
+    Mess.deps((if System.get_env("WITH_FORKS", "1")=="1", do: [path: "#{@config_path}deps.path", git: "#{@config_path}deps.git", hex: "#{@config_path}deps.hex"], else: [git: "#{@config_path}deps.git", hex: "#{@config_path}deps.hex"]), [
       # error reporting
       {:sentry, "~> 8.0", only: [:dev, :prod]},
 
