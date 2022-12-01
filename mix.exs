@@ -48,7 +48,7 @@ defmodule Bonfire.Spark.MixProject do
       {:sentry, "~> 8.0", only: [:dev, :prod]},
 
       ## dev conveniences
-      {:phoenix_live_reload, "~> 1.3", only: :dev}
+      {:phoenix_live_reload, "~> 1.3"}
     ])
     |> Enum.reject(& elem(&1, 0)==:bonfire)
     # |> IO.inspect
