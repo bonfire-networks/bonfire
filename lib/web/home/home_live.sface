@@ -1,9 +1,9 @@
 {#if !@current_user}
   <!-- <Bonfire.UI.Common.LogoGuestLive :if={!@current_user} /> -->
-  <div class="grid items-start max-w-screen-lg grid-cols-1 gap-4 mx-auto mt-6 md:grid-cols-2 justify-items-start">
+  <div class="grid items-start max-w-[680px] grid-cols-1 gap-4 mt-0 pt-0 mx-auto md:grid-cols-2 justify-items-start">
     <div class="flex flex-col items-start justify-center w-full gap-3 mx-auto">
       <div
-        class="w-full bg-center bg-no-repeat bg-cover h-[250px] md:rounded-xl"
+        class="w-full bg-center bg-no-repeat bg-cover h-[250px] md:rounded"
         style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
       >
       </div>
@@ -44,14 +44,14 @@
             }}
           />
       {/case}
+      <Bonfire.UI.Me.WidgetAdminsLive />
 
       <!-- <Bonfire.UI.Common.WidgetLinksLive links={@links} /> -->
-      <Bonfire.UI.Common.WidgetAppsLive />
+      <!-- <Bonfire.UI.Common.WidgetAppsLive /> -->
       <!-- <Bonfire.UI.Common.WidgetFeedbackLive :if={not is_nil(@current_user)} /> -->
     </div>
     <div class="flex flex-col w-full gap-3">
       <Bonfire.UI.Me.LoginViewLive :if={is_nil(@current_user)} form={@form} error={@error} />
-      <Bonfire.UI.Me.WidgetAdminsLive />
       <Bonfire.Tag.Web.WidgetTagsLive :if={not is_nil(@current_user)} />
     </div>
   </div>
@@ -113,7 +113,7 @@
       feed_id={@feed_id}
       feed_ids={@feed_ids}
       feed={@feed}
-      tabs_class="mb-3 flex items-center gap-8 border-b border-base-content/10 justify-evenly"
+      tabs_class="mb-3 flex items-center gap-8 border-b border-base-300 bg-base-content/5 justify-evenly"
       tab_class="feed_tab text-sm cursor-pointer hover:bg-base-content/5 font-medium tracking-wide text-base-content/60 p-4"
       page_info={@page_info}
       tab_path_prefix="/feed/"
