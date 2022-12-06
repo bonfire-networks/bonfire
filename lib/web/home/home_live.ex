@@ -45,7 +45,7 @@ defmodule Bonfire.Web.HomeLive do
      socket
      |> assign(
        page: "home",
-       selected_tab: "home",
+       selected_tab: nil,
        page_title:
          if(Utils.current_user(socket),
            do: app <> " " <> l("dashboard"),
