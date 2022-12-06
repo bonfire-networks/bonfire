@@ -19,7 +19,13 @@ defmodule Bonfire.Logging do
     if Application.get_env(:opentelemetry, :disabled, true) != true do
       IO.puts("NOTE: OTLP (open telemetry) data is being collected")
 
-      :ok = :opentelemetry_cowboy.setup()
+      if Application.get_env(:bonfire, Bonfire.Web.Endpoint, [])[:adapter] in [
+           Phoenix.Endpoint.Cowboy2Adapter,
+           nil
+         ] do
+        :ok = :opentelemetry_cowboy.setup()
+      end
+
       :ok = OpentelemetryPhoenix.setup()
       :ok = OpentelemetryLiveView.setup()
       # Only trace Oban jobs to minimize noise

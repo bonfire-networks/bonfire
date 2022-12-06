@@ -85,13 +85,16 @@ defmodule Bonfire.Application do
   def start(_type, _args) do
     Bonfire.Logging.setup(@env, @repo_module)
 
+    # Application.get_env(:bonfire, Bonfire.Web.Endpoint, [])
+    # |> IO.inspect()
+
     applications(
       @env,
       System.get_env("TEST_INSTANCE") == "yes",
       Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
         Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL.Schema)
     )
-    # |> IO.inspect(label: "apps tree")
+    |> IO.inspect(label: "apps tree")
     |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
   end
 
