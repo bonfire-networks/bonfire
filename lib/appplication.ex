@@ -83,11 +83,7 @@ defmodule Bonfire.Application do
   def deps(_), do: config()[:deps]
 
   def start(_type, _args) do
-    EctoSparkles.Log.setup(@repo_module)
-    # Ecto.DevLogger.install(@repo_module)
-
-    Bonfire.ObanLogger.setup()
-    Oban.Telemetry.attach_default_logger()
+    Bonfire.Logging.setup(@env, @repo_module)
 
     applications(
       @env,
