@@ -52,6 +52,7 @@ defmodule Releaser.VersionUtils do
         Mix.Project.config()[:version]
       else
         contents = File.read!(mix_path <> "/mix.exs")
+        # |> IO.inspect
         Regex.run(@version_line_regex, contents) |> Enum.fetch!(2)
       end
       |> IO.inspect()

@@ -1,34 +1,32 @@
-{#if !@current_user}
-  <!-- <Bonfire.UI.Common.LogoGuestLive :if={!@current_user} /> -->
-  <div class="grid items-start max-w-[680px] grid-cols-1 gap-4 mt-0 pt-0 mx-auto md:grid-cols-2 justify-items-start">
-    <div class="flex flex-col items-start justify-center w-full gap-3 mx-auto">
-      <div
-        class="w-full bg-center bg-no-repeat bg-cover h-[250px] md:rounded"
-        style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
-      >
-      </div>
+<!-- <Bonfire.UI.Common.LogoGuestLive :if={!@current_user} /> -->
 
-      <!-- FIXME : should be able to see these when logged in! -->
-      {#case @selected_tab}
-        {#match "code-of-conduct"}
-          {#case Config.get([:bonfire, :terms, :conduct], nil)}
-            {#match terms when is_binary(terms)}
-              <Bonfire.UI.Common.WidgetTextLive text={terms} />
-            {#match _}
-          {/case}
-        {#match "privacy-policy"}
-          {#case Config.get([:bonfire, :terms, :privacy], nil)}
-            {#match terms when is_binary(terms)}
-              <Bonfire.UI.Common.WidgetTextLive text={terms} />
-            {#match _}
-          {/case}
-        {#match "changelog"}
-          {#case @changelog}
-            {#match changelog when is_binary(changelog)}
-              <Bonfire.UI.Common.WidgetTextLive text={changelog} />
-            {#match _}
-          {/case}
-        {#match _}
+{#case @selected_tab}
+  {#match "code-of-conduct"}
+    {#case Config.get([:bonfire, :terms, :conduct], nil)}
+      {#match terms when is_binary(terms)}
+        <Bonfire.UI.Common.WidgetTextLive text={terms} />
+      {#match _}
+    {/case}
+  {#match "privacy-policy"}
+    {#case Config.get([:bonfire, :terms, :privacy], nil)}
+      {#match terms when is_binary(terms)}
+        <Bonfire.UI.Common.WidgetTextLive text={terms} />
+      {#match _}
+    {/case}
+  {#match "changelog"}
+    {#case @changelog}
+      {#match changelog when is_binary(changelog)}
+        <Bonfire.UI.Common.WidgetTextLive text={changelog} />
+      {#match _}
+    {/case}
+  {#match _}
+    {#if !@current_user}
+      <div class="grid items-start max-w-[680px] grid-cols-1 gap-4 mt-0 pt-0 mx-auto md:grid-cols-2 justify-items-start">
+        <div class="flex flex-col items-start justify-center w-full gap-3 mx-auto">
+          <div
+            class="w-full bg-center bg-no-repeat bg-cover h-[250px] md:rounded"
+            style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
+          />
           <Bonfire.UI.Common.WidgetTextLive
             banner_image={Config.get([:ui, :theme, :instance_image], nil)}
             text={Config.get([:ui, :theme, :instance_welcome, :description], nil) ||
@@ -44,21 +42,21 @@
               }
             }}
           />
-      {/case}
-      <Bonfire.UI.Me.WidgetAdminsLive />
 
-      <!-- <Bonfire.UI.Common.WidgetLinksLive links={@links} /> -->
-      <!-- <Bonfire.UI.Common.WidgetAppsLive /> -->
-      <!-- <Bonfire.UI.Common.WidgetFeedbackLive :if={not is_nil(@current_user)} /> -->
-    </div>
-    <div class="flex flex-col w-full gap-3">
-      <Bonfire.UI.Me.LoginViewLive :if={is_nil(@current_user)} form={@form} error={@error} />
-      <Bonfire.Tag.Web.WidgetTagsLive :if={not is_nil(@current_user)} />
-    </div>
-  </div>
-{#else}
-  <div class="max-w-screen-md mx-auto">
-    <!-- <div x-data="{selectedId: 'posts'}" class="block mt-6 mb-3 rounded-md shadow bg-base-100">
+          <Bonfire.UI.Me.WidgetAdminsLive />
+
+          <!-- <Bonfire.UI.Common.WidgetLinksLive links={@links} /> -->
+          <!-- <Bonfire.UI.Common.WidgetAppsLive /> -->
+          <!-- <Bonfire.UI.Common.WidgetFeedbackLive :if={not is_nil(@current_user)} /> -->
+        </div>
+        <div class="flex flex-col w-full gap-3">
+          <Bonfire.UI.Me.LoginViewLive :if={is_nil(@current_user)} form={@form} error={@error} />
+          <Bonfire.Tag.Web.WidgetTagsLive :if={not is_nil(@current_user)} />
+        </div>
+      </div>
+    {#else}
+      <div class="max-w-screen-md mx-auto">
+        <!-- <div x-data="{selectedId: 'posts'}" class="block mt-6 mb-3 rounded-md shadow bg-base-100">
       <div
         x-ref="tablist"
         @keydown.right.prevent.stop="$focus.wrap().next()"
@@ -101,7 +99,7 @@
       </div>
     </div> -->
 
-    <!-- <div class="mt-6">
+        <!-- <div class="mt-6">
       <Bonfire.UI.Common.MyPinnedLive
         object_types={ValueFlows.Process}
         load_pointer
@@ -109,17 +107,18 @@
       />
     </div> -->
 
-    <Bonfire.UI.Social.FeedLive
-      id={@feed_component_id}
-      feed_id={@feed_id}
-      feed_ids={@feed_ids}
-      feed={@feed}
-      tabs_class="mb-3 flex items-center gap-8 border-b border-base-300 bg-base-content/5 justify-evenly"
-      tab_class="feed_tab text-sm cursor-pointer hover:bg-base-content/5 font-medium tracking-wide text-base-content/60 p-4"
-      page_info={@page_info}
-      loading={@loading}
-      tab_path_prefix="/feed/"
-      tab_link_component={LinkLive}
-    />
-  </div>
-{/if}
+        <Bonfire.UI.Social.FeedLive
+          id={@feed_component_id}
+          feed_id={@feed_id}
+          feed_ids={@feed_ids}
+          feed={@feed}
+          tabs_class="mb-3 flex items-center gap-8 border-b border-base-300 bg-base-content/5 justify-evenly"
+          tab_class="feed_tab text-sm cursor-pointer hover:bg-base-content/5 font-medium tracking-wide text-base-content/60 p-4"
+          page_info={@page_info}
+          loading={@loading}
+          tab_path_prefix="/feed/"
+          tab_link_component={LinkLive}
+        />
+      </div>
+    {/if}
+{/case}
