@@ -6,7 +6,7 @@ defmodule Bonfire.Web.HomeLive do
   alias Bonfire.UI.Me.LivePlugs
   alias Bonfire.Me.Accounts
 
-  @changelog File.read!("#{File.cwd!}/docs/CHANGELOG.md")
+  @changelog File.read!("../../docs/CHANGELOG.md")
 
   def mount(%{"dashboard" => _} = params, session, socket) do
     live_plug(params, session, socket, [
