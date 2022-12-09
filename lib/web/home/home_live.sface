@@ -8,6 +8,7 @@
       >
       </div>
 
+      <!-- FIXME : should be able to see these when logged in! -->
       {#case @selected_tab}
         {#match "code-of-conduct"}
           {#case Config.get([:bonfire, :terms, :conduct], nil)}
