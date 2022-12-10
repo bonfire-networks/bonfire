@@ -7,9 +7,9 @@ defmodule Bonfire.Logging do
     EctoSparkles.Log.setup(repo_module)
     # Ecto.DevLogger.install(repo_module)
 
-    if Code.ensure_loaded?(Mix) and Mix.env() == :dev do
-      OnePlusNDetector.setup(repo_module)
-    end
+    # if Code.ensure_loaded?(Mix) and Mix.env() == :dev do
+    #   OnePlusNDetector.setup(repo_module)
+    # end
 
     setup_oban()
   end
