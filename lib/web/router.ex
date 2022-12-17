@@ -80,7 +80,10 @@ defmodule Bonfire.Web.Router do
     # TODO: make the homepage non-live
     live("/", Bonfire.Web.HomeLive, as: :home, private: %{cache: true})
     live("/about/:tab", Bonfire.Web.HomeLive, private: %{cache: true})
-    live("/terms/:tab", Bonfire.Web.HomeLive, private: %{cache: true})
+    live("/terms", Bonfire.Web.TermsLive, private: %{cache: true})
+    live("/conduct", Bonfire.Web.CodeOfConductLive, private: %{cache: true})
+    live("/changelog", Bonfire.Web.ChangelogLive, private: %{cache: true})
+
 
     # a default homepage which you can customise (at path "/")
     # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename this default path (eg. to "/home")

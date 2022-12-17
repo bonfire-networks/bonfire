@@ -1,0 +1,5 @@
+{#case @changelog}
+  {#match changelog when is_binary(changelog)}
+    <Bonfire.UI.Common.WidgetTextLive text={changelog} />
+  {#match _}
+{/case}
