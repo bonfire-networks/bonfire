@@ -7,7 +7,6 @@ defmodule Bonfire.Web.ChangelogLive do
   alias Bonfire.Me.Accounts
   @changelog File.read!("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
 
-
   def mount(params, session, socket) do
     live_plug(params, session, socket, [
       LivePlugs.LoadCurrentAccount,
@@ -18,7 +17,6 @@ defmodule Bonfire.Web.ChangelogLive do
       &mounted/3
     ])
   end
-
 
   defp mounted(params, _session, socket) do
     app = String.capitalize(Bonfire.Application.name())
@@ -40,6 +38,4 @@ defmodule Bonfire.Web.ChangelogLive do
        without_sidebar: true
      )}
   end
-
-
-  end
+end

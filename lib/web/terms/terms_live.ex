@@ -5,5 +5,4 @@ defmodule Bonfire.Web.TermsLive do
   use Bonfire.UI.Common.Web, :surface_live_view
   alias Bonfire.UI.Me.LivePlugs
   alias Bonfire.Me.Accounts
-
 end
