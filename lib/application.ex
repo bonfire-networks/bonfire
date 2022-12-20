@@ -33,7 +33,8 @@ defmodule Bonfire.Application do
     # load instance Settings from DB into Config
     Bonfire.Me.Settings.LoadInstanceConfig,
     # PubSub
-    {Phoenix.PubSub, [name: Bonfire.PubSub, adapter: Phoenix.PubSub.PG2]},
+    {Phoenix.PubSub, [name: Bonfire.Common.PubSub, adapter: Phoenix.PubSub.PG2]},
+    Bonfire.Common.Presence,
     # Persistent Data Services
     Pointers.Tables
     # Bonfire.Data.AccessControl.Accesses,
