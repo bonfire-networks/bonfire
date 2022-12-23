@@ -1,4 +1,6 @@
 {#if !@current_user}
+
+<div class="max-w-[1260px] mx-auto">
   <div class="max-w-[520px] mx-auto my-12">
     <div
       class="bg-center mx-auto bg-no-repeat bg-cover h-[250px] w-full rounded-2xl"
@@ -45,6 +47,7 @@
       <a class="link link-hover text-base-content/70">{l("Privacy")}</a>
     </div>
   </footer>
+</div>
 {#else}
   <div class="max-w-screen-md mx-auto">
     <Bonfire.UI.Social.FeedLive
