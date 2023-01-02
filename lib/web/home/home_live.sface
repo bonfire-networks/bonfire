@@ -1,51 +1,50 @@
 {#if !@current_user}
+  <div class="max-w-[1120px] mx-auto">
+    <div class="max-w-[520px] mx-auto mt-0 tablet-lg:mt-12 my-12">
+      <div
+        class="bg-center mx-auto bg-no-repeat bg-cover h-[250px] w-full rounded-md"
+        style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
+      />
+      <h1 class="mt-8 text-xl font-semibold leading-relaxed tracking-wider text-center text-base-content/90">
+        {Config.get([:ui, :theme, :instance_description], "")}
+      </h1>
+    </div>
 
-<div class="max-w-[1120px] mx-auto">
-  <div class="max-w-[520px] mx-auto mt-0 tablet-lg:mt-12 my-12">
-    <div
-      class="bg-center mx-auto bg-no-repeat bg-cover h-[250px] w-full rounded-md"
-      style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
-    />
-    <h1 class="mt-8 text-xl font-semibold leading-relaxed tracking-wider text-center text-base-content/90">
-      {Config.get([:ui, :theme, :instance_description], "")}
-    </h1>
-  </div>
-
-  <div class="mx-4 my-16 tablet-lg:mx-0">
-    <Bonfire.UI.Common.InstancePinnedLive
-      title={l("Featured discussions")}
-      object_types={Bonfire.Data.Social.Post}
-    />
-  </div>
-
-  <div class="flex items-start gap-8">
-    <div class="tablet-lg:min-w-[680px] w-full max-w-[680px] mb-12 mx-4 md:mx-auto">
-      <div class="p-3 rounded-t-xl bg-base-100">
-        <div class="w-full pb-3 text-sm font-medium tracking-wide border-b border-base-content/10 text-base-content/60">{l("Recent activities")}</div>
-      </div>
-      <Bonfire.UI.Social.FeedLive
-        id={e(@feed_id, :local)}
-        hide_tabs
-        feed_id={@feed_id}
-        page_title={@page_title}
-        feed={@feed}
-        page_info={@page_info}
-        loading={@loading}
+    <div class="mx-4 my-16 tablet-lg:mx-0">
+      <Bonfire.UI.Common.InstancePinnedLive
+        title={l("Featured discussions")}
+        object_types={Bonfire.Data.Social.Post}
       />
     </div>
-    <div class="hidden w-full tablet-lg:flex">
-      <Bonfire.Tag.Web.WidgetTagsLive />
+
+    <div class="flex items-start gap-8">
+      <div class="tablet-lg:min-w-[680px] w-full max-w-[680px] mb-12 mx-4 md:mx-auto">
+        <div class="p-3 rounded-t-xl bg-base-100">
+          <div class="w-full pb-3 text-sm font-medium tracking-wide border-b border-base-content/10 text-base-content/60">{l("Recent activities")}</div>
+        </div>
+        <Bonfire.UI.Social.FeedLive
+          id={e(@feed_id, :local)}
+          hide_tabs
+          feed_id={@feed_id}
+          page_title={@page_title}
+          feed={@feed}
+          page_info={@page_info}
+          loading={@loading}
+        />
+      </div>
+      <div class="hidden w-full tablet-lg:flex">
+        <Bonfire.Tag.Web.WidgetTagsLive />
+      </div>
     </div>
+    <footer class="p-10 rounded footer footer-center text-base-content/70">
+      <div class="grid grid-flow-col gap-4">
+        <a class="link link-hover text-base-content/70">{l("About us")}</a>
+        <a class="link link-hover text-base-content/70">{l("Contact")}</a>
+        <a class="link link-hover text-base-content/70">{l("Terms")}</a>
+        <a class="link link-hover text-base-content/70">{l("Privacy")}</a>
+      </div>
+    </footer>
   </div>
-  <footer class="p-10 rounded footer footer-center text-base-content/70">
-    <div class="grid grid-flow-col gap-4">
-      <a class="link link-hover text-base-content/70">{l("About us")}</a>
-      <a class="link link-hover text-base-content/70">{l("Contact")}</a>
-      <a class="link link-hover text-base-content/70">{l("Terms")}</a>
-      <a class="link link-hover text-base-content/70">{l("Privacy")}</a>
-    </div>
-  </footer>
-</div>
 {#else}
   <div class="">
     <Bonfire.UI.Social.FeedLive
