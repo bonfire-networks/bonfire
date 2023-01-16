@@ -65,7 +65,7 @@ defmodule Bonfire.Web.HomeLive do
        #  without_sidebar: true,
        sidebar_widgets: [
          guests: [
-          secondary: [{Bonfire.Tag.Web.WidgetTagsLive, []}]
+           secondary: [{Bonfire.Tag.Web.WidgetTagsLive, []}]
          ],
          users: [
            secondary: [
