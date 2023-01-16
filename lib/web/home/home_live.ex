@@ -64,6 +64,9 @@ defmodule Bonfire.Web.HomeLive do
        nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
        #  without_sidebar: true,
        sidebar_widgets: [
+         guests: [
+          secondary: [{Bonfire.Tag.Web.WidgetTagsLive, []}]
+         ],
          users: [
            secondary: [
              {Bonfire.Tag.Web.WidgetTagsLive, []}
