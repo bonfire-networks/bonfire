@@ -137,9 +137,11 @@ defmodule Bonfire.Web.Router do
           long_running_queries: [threshold: "400 milliseconds"]
         ],
         metrics: Bonfire.Web.Telemetry,
+        metrics_history:
+          if(Mix.env() == :dev, do: {Bonfire.TelemetryStorage, :metrics_history, []}),
         # metrics: FlamegraphsWeb.Telemetry,
         additional_pages: [
-          flame_on: FlameOn.DashboardPage
+          # flame_on: FlameOn.DashboardPage
           # _profiler: {PhoenixProfiler.Dashboard, []}
         ]
       )

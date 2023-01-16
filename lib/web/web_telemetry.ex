@@ -26,7 +26,8 @@ defmodule Bonfire.Web.Telemetry do
       # Phoenix
       summary("phoenix.endpoint.stop.duration", unit: @millis),
       summary("phoenix.router_dispatch.stop.duration",
-        tags: [:route],
+        tags: [:method, :route],
+        tag_values: &get_and_put_http_method/1,
         unit: @millis
       ),
       summary("phoenix.error_rendered.duration", unit: @millis),
@@ -35,17 +36,53 @@ defmodule Bonfire.Web.Telemetry do
       summary("phoenix.channel_joined.duration", unit: @millis),
 
       # Phoenix LiveView
-      summary("phoenix.live_view.mount.stop.duration", unit: @millis),
-      summary("phoenix.live_view.mount.exception.duration", unit: @millis),
-      summary("phoenix.live_view.handle_params.stop.duration", unit: @millis),
-      summary("phoenix.live_view.handle_params.exception.duration",
-        unit: @millis
+      summary("phoenix.live_view.mount.stop.duration",
+        unit: @millis,
+        tags: [:view, :connected?],
+        tag_values: &live_view_metric_tag_values/1
       ),
-      summary("phoenix.live_view.handle_event.stop.duration", unit: @millis),
-      summary("phoenix.live_view.handle_event.exception.duration", unit: @millis),
-      summary("phoenix.live_component.handle_event.stop.duration", unit: @millis),
+      summary("phoenix.live_view.mount.exception.duration",
+        unit: @millis,
+        tags: [:view, :connected?],
+        tag_values: &live_view_metric_tag_values/1
+      ),
+      summary("phoenix.live_view.handle_params.stop.duration",
+        unit: @millis,
+        tags: [:view, :connected?],
+        tag_values: &live_view_metric_tag_values/1
+      ),
+      summary("phoenix.live_view.handle_params.exception.duration",
+        unit: @millis,
+        tags: [:view, :connected?],
+        tag_values: &live_view_metric_tag_values/1
+      ),
+      summary("phoenix.live_view.handle_event.stop.duration",
+        unit: @millis,
+        tags: [:view, :event],
+        tag_values: fn metadata ->
+          Map.put(metadata, :view, "#{inspect(metadata.socket.view)}")
+        end
+      ),
+      summary("phoenix.live_view.handle_event.exception.duration",
+        unit: @millis,
+        tags: [:view, :event],
+        tag_values: fn metadata ->
+          Map.put(metadata, :view, "#{inspect(metadata.socket.view)}")
+        end
+      ),
+      summary("phoenix.live_component.handle_event.stop.duration",
+        unit: @millis,
+        tags: [:view, :event],
+        tag_values: fn metadata ->
+          Map.put(metadata, :view, "#{inspect(metadata.socket.view)}")
+        end
+      ),
       summary("phoenix.live_component.handle_event.exception.duration",
-        unit: @millis
+        unit: @millis,
+        tags: [:view, :event],
+        tag_values: fn metadata ->
+          Map.put(metadata, :view, "#{inspect(metadata.socket.view)}")
+        end
       ),
 
       # Database Metrics
@@ -70,4 +107,17 @@ defmodule Bonfire.Web.Telemetry do
       # {Bonfire.UI.Common.Web, :count_users, []}
     ]
   end
+
+  defp get_and_put_http_method(%{conn: %{method: method}} = metadata) do
+    Map.put(metadata, :method, method)
+  end
+
+  defp live_view_metric_tag_values(metadata) do
+    metadata
+    |> Map.put(:view, inspect(metadata.socket.view))
+    |> Map.put(:connected?, get_connection_status(Phoenix.LiveView.connected?(metadata.socket)))
+  end
+
+  defp get_connection_status(true), do: "Connected"
+  defp get_connection_status(_), do: "Disconnected"
 end

@@ -120,6 +120,10 @@ defmodule Bonfire.Application do
       @apps_after
   end
 
+  def applications(:dev, _test_instance?, _any) do
+    [{Bonfire.TelemetryStorage, Bonfire.Web.Telemetry.metrics()}] ++ applications(nil, nil, nil)
+  end
+
   # default apps
   def applications(_env, _test_instance?, _any) do
     @apps_before ++
