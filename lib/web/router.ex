@@ -79,7 +79,7 @@ defmodule Bonfire.Web.Router do
 
     # TODO: make the homepage non-live
     live("/", Bonfire.Web.HomeLive, as: :home, private: %{cache: true})
-    live("/about/:tab", Bonfire.Web.HomeLive, private: %{cache: true})
+    live("/about", Bonfire.Web.HomeLive, private: %{cache: true})
     live("/terms", Bonfire.Web.TermsLive, private: %{cache: true})
     live("/conduct", Bonfire.Web.CodeOfConductLive, private: %{cache: true})
     live("/changelog", Bonfire.Web.ChangelogLive, private: %{cache: true})
