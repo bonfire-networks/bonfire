@@ -1,0 +1,1 @@
+<Bonfire.UI.Common.WidgetTextLive :if={is_binary(@terms)} text={@terms} />

@@ -32,9 +32,6 @@ defmodule Bonfire.Web.HomeLive do
   end
 
   defp mounted(params, _session, socket) do
-    app = String.capitalize(Bonfire.Application.name())
-    instance_name = Config.get([:ui, :theme, :instance_name], app)
-
     links =
       Config.get([:ui, :theme, :instance_welcome, :links], %{
         l("About Bonfire") => "https://bonfirenetworks.org/",
@@ -46,11 +43,6 @@ defmodule Bonfire.Web.HomeLive do
      |> assign(
        page: "home",
        selected_tab: nil,
-       page_title:
-         if(Utils.current_user(socket),
-           do: app <> " " <> l("dashboard"),
-           else: l("An  instance of") <> " " <> app
-         ),
        links: links,
        changelog: @changelog,
        error: nil,
@@ -78,15 +70,31 @@ defmodule Bonfire.Web.HomeLive do
 
   defp login_form(params), do: Accounts.changeset(:login, params)
 
-  def do_handle_params(%{"tab" => tab} = _params, _url, socket) do
-    debug(tab)
-    {:noreply, assign(socket, selected_tab: tab)}
-  end
+  # def do_handle_params(%{"tab" => tab} = _params, _url, socket) do
+  #   debug(tab)
+  #   {:noreply, assign(socket, selected_tab: tab)}
+  # end
 
   def do_handle_params(params, _url, socket) do
-    debug(params, "param")
+    # debug(params, "param")
 
-    {:noreply, socket}
+    app = String.capitalize(Bonfire.Application.name())
+
+    instance_name =
+      Config.get([:ui, :theme, :instance_name]) || l("An instance of %{app}", app: app)
+
+    show_about_instance? = !current_user(socket) or current_url(socket) == "/about"
+
+    {:noreply,
+     socket
+     |> assign(
+       show_about_instance?: show_about_instance?,
+       page_title:
+         if(show_about_instance?,
+           do: instance_name,
+           else: l("%{app} dashboard", app: app)
+         )
+     )}
   end
 
   def handle_params(params, uri, socket),
