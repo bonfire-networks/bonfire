@@ -24,7 +24,7 @@ defmodule Bonfire.Web.CodeOfConductLive do
        page: "conduct",
        page_title: l("Code of conduct"),
        without_sidebar: false,
-       terms: Config.get([:bonfire, :terms, :conduct], nil)
+       terms: Config.get([:terms, :conduct])
      )}
   end
 end

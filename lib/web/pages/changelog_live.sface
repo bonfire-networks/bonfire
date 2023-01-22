@@ -1,1 +1,1 @@
-<Bonfire.UI.Common.WidgetTextLive :if={is_binary(@changelog)} text={@changelog} />
+<Bonfire.UI.Common.WidgetTextLive :if={@changelog} text={@changelog} />

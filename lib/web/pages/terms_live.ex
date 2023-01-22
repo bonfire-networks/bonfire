@@ -24,7 +24,7 @@ defmodule Bonfire.Web.TermsLive do
        page: "conduct",
        page_title: l("Privacy policy"),
        without_sidebar: false,
-       terms: Config.get([:bonfire, :terms, :privacy], nil)
+       terms: Config.get([:terms, :privacy])
      )}
   end
 end
