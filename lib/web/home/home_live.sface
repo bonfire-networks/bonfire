@@ -1,31 +1,29 @@
-<div class="w-full bg-base-100">
-  {#if @show_about_instance?}
+{#if !@current_user}
+  <div class="w-full bg-base-100">
     <div class="">
       <div
         class="bg-center mx-auto bg-no-repeat bg-cover h-[250px] w-full"
         style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
       />
-      <h1 class="m-8 font-medium leading-relaxed tracking-wider text-center text-md text-base-content/90">
+      <h1 class="m-8 text-lg font-medium leading-relaxed tracking-wider text-center text-base-content/90">
         {Config.get([:ui, :theme, :instance_description], "")}
       </h1>
     </div>
 
-    <!-- <div class="mx-4 my-16">
+    <div class="mx-4 my-16">
       <Bonfire.UI.Common.InstancePinnedLive
         title={l("Featured discussions")}
         object_types={Bonfire.Data.Social.Post}
       />
-    </div> -->
-  {/if}
+    </div>
 
-  {#if !@current_user}
     <div class="flex items-start gap-8">
       <div class="">
         <div class="p-3 rounded-t-xl bg-base-100">
           <div class="w-full pb-3 text-sm font-medium tracking-wide border-b border-base-content/10 text-base-content/60">{l("Recent activities")}</div>
         </div>
         <Bonfire.UI.Social.FeedLive
-          id={@feed_component_id}
+          id={e(@feed_id, :local)}
           hide_tabs
           feed_id={@feed_id}
           page_title={@page_title}
@@ -46,7 +44,9 @@
         <a class="link link-hover text-base-content/70">{l("Privacy")}</a>
       </div>
     </footer> -->
-  {#else}
+  </div>
+{#else}
+  <div class="">
     <Bonfire.UI.Social.FeedLive
       id={@feed_component_id}
       feed_id={@feed_id}
@@ -59,5 +59,5 @@
       tab_path_prefix="/feed/"
       tab_link_component={LinkLive}
     />
-  {/if}
-</div>
+  </div>
+{/if}
