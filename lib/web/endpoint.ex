@@ -2,6 +2,7 @@ defmodule Bonfire.Web.Endpoint do
   use Phoenix.Endpoint, otp_app: :bonfire
   use Bonfire.UI.Common.EndpointTemplate
   alias Bonfire.Common.Utils
+  alias Bonfire.Common.Types
   alias Bonfire.Common.Config
 
   # Code reloading can be explicitly enabled under the
@@ -33,7 +34,7 @@ defmodule Bonfire.Web.Endpoint do
 
     font_family =
       Bonfire.Me.Settings.get([:ui, :font_family], "Inter (Latin Languages)", conn)
-      |> Utils.maybe_to_string()
+      |> Types.maybe_to_string()
       |> String.trim_trailing(" Languages)")
       |> String.replace([" ", "-", "(", ")"], "-")
       |> String.replace("--", "-")
