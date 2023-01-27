@@ -20,7 +20,7 @@
 
   {#if !@current_user}
     <div class="flex items-start gap-8">
-      <div class="">
+      <div class="w-full">
         <div class="p-3 rounded-t-xl bg-base-100">
           <div class="w-full pb-3 text-sm font-medium tracking-wide border-b border-base-content/10 text-base-content/60">{l("Recent activities")}</div>
         </div>
