@@ -18,7 +18,7 @@
     </div> -->
   {/if}
 
-  {#if !@current_user}
+  {#if !@current_user and @feed_component_id}
     <div class="flex items-start gap-8">
       <div class="w-full">
         <div class="p-3 rounded-t-xl bg-base-100">
@@ -46,7 +46,7 @@
         <a class="link link-hover text-base-content/70">{l("Privacy")}</a>
       </div>
     </footer> -->
-  {#else}
+  {#elseif @feed_component_id}
     <Bonfire.UI.Social.FeedLive
       id={@feed_component_id}
       feed_id={@feed_id}

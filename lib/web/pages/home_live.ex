@@ -51,7 +51,7 @@ defmodule Bonfire.Web.HomeLive do
        feed: nil,
        feed_id: nil,
        feed_ids: nil,
-       feed_component_id: :feeds,
+       feed_component_id: nil,
        page_info: nil,
        nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
        #  without_sidebar: true,
@@ -65,6 +65,9 @@ defmodule Bonfire.Web.HomeLive do
            ]
          ]
        ]
+     )
+     |> assign(
+       Bonfire.Social.Feeds.LiveHandler.feed_assigns_maybe_async({:default, params}, socket)
      )}
   end
 
