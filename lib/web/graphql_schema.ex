@@ -217,22 +217,22 @@ if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
         # %ValueFlows.EconomicEvent{} -> :economic_event
 
         object ->
-          case Bonfire.Common.Types.object_type(object) do
+          case Bonfire.Common.Types.typeof(object) do
             type when is_atom(type) and not is_nil(type) ->
-              Logger.debug("API any_context: object_type recognised: #{type}")
+              debug(type, "any_context: object type recognised :-)")
 
               if recursing != true do
                 schema_to_api_type(struct(type), true)
               else
-                Logger.error("API any_context: no API type is defined for schema #{type}")
-
-                IO.inspect(object, label: "API any_context object")
+                error(type, "any_context: no API type is defined for schema")
+                debug(object, "any_context object")
                 nil
               end
 
             _ ->
-              Logger.warn(
-                "API any_context: resolved to an unknown type: #{inspect(object, pretty: true)}"
+              warn(
+                object,
+                "any_context: resolved to an unknown type"
               )
 
               nil
