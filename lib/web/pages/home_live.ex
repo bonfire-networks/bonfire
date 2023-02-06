@@ -58,9 +58,9 @@ defmodule Bonfire.Web.HomeLive do
        sidebar_widgets: [
          guests: [
            secondary: [
-            {Bonfire.Tag.Web.WidgetTagsLive, []},
-            {Bonfire.UI.Me.WidgetAdminsLive, []}
-          ]
+             {Bonfire.Tag.Web.WidgetTagsLive, []},
+             {Bonfire.UI.Me.WidgetAdminsLive, []}
+           ]
          ],
          users: [
            secondary: [
