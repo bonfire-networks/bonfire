@@ -1,4 +1,4 @@
-defmodule Bonfire.Web.CodeOfConductLive do
+defmodule Bonfire.Web.AboutLive do
   @moduledoc """
   The main instance home page, mainly for guests visiting the instance
   """
@@ -21,11 +21,23 @@ defmodule Bonfire.Web.CodeOfConductLive do
     {:ok,
      socket
      |> assign(
-       page: "conduct",
-       page_title: l("Code of conduct"),
-       without_sidebar: false,
+       page: "Instance defaults",
        nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
-       terms: Config.get([:terms, :conduct])
+       page_title: l("About ") <> Config.get([:ui, :theme, :instance_name], Bonfire.Application.name()),
+       sidebar_widgets: [
+        guests: [
+          secondary: [
+            {Bonfire.Tag.Web.WidgetTagsLive, []},
+            {Bonfire.UI.Me.WidgetAdminsLive, []}
+          ]
+        ],
+        users: [
+          secondary: [
+            {Bonfire.Tag.Web.WidgetTagsLive, []},
+            {Bonfire.UI.Me.WidgetAdminsLive, []}
+          ]
+        ]
+      ]
      )}
   end
 end

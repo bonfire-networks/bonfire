@@ -81,7 +81,7 @@ defmodule Bonfire.Web.Router do
     # , private: %{cache: true}
     live "/", Bonfire.Web.HomeLive, as: :home
     # , private : %{cache: true}
-    live "/about", Bonfire.Web.HomeLive
+    live "/about", Bonfire.Web.AboutLive
     # , private: %{cache: true}
     live "/privacy", Bonfire.Web.TermsLive
     # , private: %{cache: true}
