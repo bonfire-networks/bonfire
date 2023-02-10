@@ -57,7 +57,7 @@
      <div class="flex items-center justify-between">
         <div class="flex flex-col gap-1">
           <div class="text-sm font-bold">{l("Instance preferences")}</div>
-          <div class="text-sm font-light text-base-content/70">{l("Check how this instance is customised by the admins")}</div>
+          <div class="text-sm font-light text-base-content/70">{l("See how this instance is configured")}</div>
         </div>
         <button
           type="button"
@@ -72,7 +72,7 @@
           <div class="mb-4 text-sm font-bold">{l("Active extensions")}</div>
             <Bonfire.UI.Common.WidgetAppsLive showing_within={:settings} cols="4" />
           </div>
-          <div class="py-4">
+          <!-- <div class="py-4">
             <div class="flex items-center gap-4">
               {#if Settings.get(:invite_only, nil, :instance)}
                 <Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
@@ -84,7 +84,7 @@
                 <div class="text-sm font-light text-base-content/70">{l("Only people with a valid invite link can sign up to this instance.")}</div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="py-4">
             <div class="flex items-center gap-4">
@@ -107,7 +107,12 @@
                 <Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
               {/if}
               <div class="flex flex-col">
-                <div class="text-sm font-bold">{l("Hide the number of total users on this instance")}</div>
+                {#if Bonfire.Me.Settings.get([Bonfire.Me.Users, :public_count], true, :instance)}
+                  <div class="text-sm font-bold">{l("Show the number of total users on this instance")}</div>
+                {#else}
+                  <div class="text-sm font-bold">{l("Hide the number of total users on this instance")}</div>
+                {/if}
+                
               </div>
             </div>
           </div>
@@ -134,12 +139,8 @@
           <div x-data="{open: false}" class="py-4">
             <div class="flex items-center justify-between gap-2">
               <div class="flex flex-col gap-1">
-                <div class="text-sm font-bold">{l("Who can see the list of local users?")}</div>
-                <!-- <div class="text-sm font-light text-base-content/70">The details used to identify your publication around the web</div> -->
+                <div class="text-sm font-bold">{l("Who can see the list of local users")}: <span class="badge h-[1.75rem] font-medium rounded">{Bonfire.Me.Settings.get([Bonfire.UI.Me.UsersDirectoryLive, :show_to], :users, :instance)}</span></div>
               </div>
-            </div>
-            <div class="flex flex-wrap gap-3 mt-4 flex-items">
-              <div class="badge h-[1.75rem] font-medium rounded">{Bonfire.Me.Settings.get([Bonfire.UI.Me.UsersDirectoryLive, :show_to], :users, :instance)}</div>
             </div>
           </div>
 
