@@ -4,57 +4,55 @@
     style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
   />
   <div class="flex flex-col items-center -mt-12 text-center place-content-center">
-  
     <div
-      class={"w-24 h-24 bg-center rounded bg-no-repeat ring-4 ring-base-100 bg-contain"}
+      class="w-24 h-24 bg-center rounded bg-no-repeat ring-4 ring-base-100 bg-contain"
       style={"background-image: url(#{Config.get([:ui, :theme, :instance_icon], nil)})"}
     />
-    <div class={"text-2xl mt-4  font-bold text-base-content"}>{Config.get([:ui, :theme, :instance_name], Bonfire.Application.name())}</div>
-
+    <div class="text-2xl mt-4  font-bold text-base-content">{Config.get([:ui, :theme, :instance_name], Bonfire.Application.name())}</div>
   </div>
   <h2 class="m-8 mt-3 font-normal leading-relaxed tracking-wider text-center text-md text-base-content/80">
     {Config.get([:ui, :theme, :instance_description], "")}
   </h2>
-    <div class="flex items-center gap-4 my-8 place-content-center">
-      {#if Bonfire.Me.Accounts.instance_is_invite_only?()}
-        <div class="h-[1.75rem] badge badge-warning">
-          <div class="flex items-center gap-2">
+  <div class="flex items-center gap-4 my-8 place-content-center">
+    {#if Bonfire.Me.Accounts.instance_is_invite_only?()}
+      <div class="h-[1.75rem] badge badge-warning">
+        <div class="flex items-center gap-2">
           <Icon iconify="mingcute:invite-fill" class="w-4 h-4" />
-          {l "Invite only"}
-          </div>
+          {l("Invite only")}
         </div>
-      {#else}
-        <div class="badge h-[1.75rem] badge-success">
-          <div class="flex items-center gap-2">
+      </div>
+    {#else}
+      <div class="badge h-[1.75rem] badge-success">
+        <div class="flex items-center gap-2">
           <Icon iconify="mdi:account-plus" class="w-4 h-4" />
-          {l "Open registration"}
-          </div>
-        </div>  
-      {/if}
-      {#if Bonfire.Me.Settings.get([:activity_pub, :instance, :federating], true, :instance)}
+          {l("Open registration")}
+        </div>
+      </div>
+    {/if}
+    {#if Bonfire.Me.Settings.get([:activity_pub, :instance, :federating], true, :instance)}
       <div class="badge h-[1.75rem]">
         <div class="flex items-center gap-2">
           <Icon iconify="ph:globe-bold" class="w-4 h-4" />
           {l("Federation enabled")}
         </div>
       </div>
-      {#else}
+    {#else}
       <div class="badge h-[1.75rem]">
         <div class="flex items-center gap-2">
           <Icon iconify="icon-park-solid:local" class="w-4 h-4" />
           {l("Local only instance")}
         </div>
       </div>
-      {/if}
-    </div>
+    {/if}
+  </div>
   <div class="mt-12">
-  <div
+    <div
       x-data="{
         open: false
       }"
       class="p-4 rounded-lg shadow-lg bg-base-content/5"
     >
-     <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between">
         <div class="flex flex-col gap-1">
           <div class="text-sm font-bold">{l("Instance preferences")}</div>
           <div class="text-sm font-light text-base-content/70">{l("See how this instance is configured")}</div>
@@ -69,7 +67,7 @@
       <div x-show="open" x-cloak x-collapse>
         <div class="mt-3 divide-y rounded-lg divide-base-300">
           <div class="py-4">
-          <div class="mb-4 text-sm font-bold">{l("Active extensions")}</div>
+            <div class="mb-4 text-sm font-bold">{l("Active extensions")}</div>
             <Bonfire.UI.Common.WidgetAppsLive showing_within={:settings} cols="4" />
           </div>
           <!-- <div class="py-4">
@@ -112,19 +110,17 @@
                 {#else}
                   <div class="text-sm font-bold">{l("Hide the number of total users on this instance")}</div>
                 {/if}
-                
               </div>
             </div>
           </div>
 
-
           <div class="py-4">
             <div class="flex items-center gap-4">
               {#if Bonfire.Me.Settings.get(
-                [Bonfire.UI.Common.AvatarLive, :animal_avatars],
-                true,
-                :instance
-              )}
+                  [Bonfire.UI.Common.AvatarLive, :animal_avatars],
+                  true,
+                  :instance
+                )}
                 <Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
               {#else}
                 <Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
@@ -154,48 +150,68 @@
             <div class="flex flex-wrap gap-3 mt-4 flex-items">
               <div class={
                 "badge h-[1.75rem] font-medium rounded",
-                "badge-success": true}
-              >{l("Posts and other activities from followed people")}</div>
-              <div class={
-                "badge h-[1.75rem] font-medium rounded",
-                "badge-success": Bonfire.Me.Settings.get(
-                  [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
-                  true,
-                  :instance
-                )}
-              }>{l("Boosts")}</div>
-              <div class={
-                "badge h-[1.75rem] font-medium rounded",
-                "badge-success": Bonfire.Me.Settings.get(
-                  [Bonfire.Social.Feeds, :my_feed_includes, :reply],
-                  true,
-                  :instance
-                )}
-              }>{l("Replies")}</div>
-              <div class={
-                "badge h-[1.75rem] font-medium rounded",
-                "badge-success": Bonfire.Me.Settings.get(
-                  [Bonfire.Social.Feeds, :my_feed_includes, :follows],
-                  true,
-                  :instance
-                )}
-              }>{l("Follows")}</div>
-              <div class={
-                "badge h-[1.75rem] font-medium rounded",
-                "badge-success": Bonfire.Me.Settings.get(
-                  [Bonfire.Social.Feeds, :my_feed_includes, :outbox],
-                  true,
-                  :instance
-                )}
-              }>{l("My own activities")}</div>
-              <div class={
-                "badge h-[1.75rem] font-medium rounded",
-                "badge-success": Bonfire.Me.Settings.get(
-                  [Bonfire.Social.Feeds, :my_feed_includes, :notifications],
-                  true,
-                  :instance
-                )}
-              }>{l("Notifications")}</div>
+                "badge-success": true
+              }>{l("Posts and other activities from followed people")}</div>
+              <div
+                class={
+                  "badge h-[1.75rem] font-medium rounded",
+                  "badge-success":
+                    Bonfire.Me.Settings.get(
+                      [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
+                      true,
+                      :instance
+                    )
+                }
+                }
+              >{l("Boosts")}</div>
+              <div
+                class={
+                  "badge h-[1.75rem] font-medium rounded",
+                  "badge-success":
+                    Bonfire.Me.Settings.get(
+                      [Bonfire.Social.Feeds, :my_feed_includes, :reply],
+                      true,
+                      :instance
+                    )
+                }
+                }
+              >{l("Replies")}</div>
+              <div
+                class={
+                  "badge h-[1.75rem] font-medium rounded",
+                  "badge-success":
+                    Bonfire.Me.Settings.get(
+                      [Bonfire.Social.Feeds, :my_feed_includes, :follows],
+                      true,
+                      :instance
+                    )
+                }
+                }
+              >{l("Follows")}</div>
+              <div
+                class={
+                  "badge h-[1.75rem] font-medium rounded",
+                  "badge-success":
+                    Bonfire.Me.Settings.get(
+                      [Bonfire.Social.Feeds, :my_feed_includes, :outbox],
+                      true,
+                      :instance
+                    )
+                }
+                }
+              >{l("My own activities")}</div>
+              <div
+                class={
+                  "badge h-[1.75rem] font-medium rounded",
+                  "badge-success":
+                    Bonfire.Me.Settings.get(
+                      [Bonfire.Social.Feeds, :my_feed_includes, :notifications],
+                      true,
+                      :instance
+                    )
+                }
+                }
+              >{l("Notifications")}</div>
               <div class="badge h-[1.75rem] font-medium rounded">{l("Messages")}</div>
             </div>
           </div>
