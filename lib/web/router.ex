@@ -2,7 +2,7 @@ defmodule Bonfire.Web.Router do
   use Bonfire.UI.Common.Web, :router
   # use Plug.ErrorHandler
 
-  alias Bonfire.Common.Config
+  # alias Bonfire.Common.Config
 
   pipeline :load_current_auth do
     plug(Bonfire.UI.Me.Plugs.LoadCurrentAccount)
