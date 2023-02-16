@@ -4,7 +4,6 @@ defmodule Bonfire.Web.ChangelogLive do
   """
   use Bonfire.UI.Common.Web, :surface_live_view
   alias Bonfire.UI.Me.LivePlugs
-  alias Bonfire.Me.Accounts
   @changelog File.read!("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
 
   def mount(params, session, socket) do
@@ -18,9 +17,9 @@ defmodule Bonfire.Web.ChangelogLive do
     ])
   end
 
-  defp mounted(params, _session, socket) do
+  defp mounted(_params, _session, socket) do
     app = String.capitalize(Bonfire.Application.name())
-    instance_name = Config.get([:ui, :theme, :instance_name], app)
+    # instance_name = Config.get([:ui, :theme, :instance_name], app)
 
     links =
       Config.get([:ui, :theme, :instance_welcome, :links], %{

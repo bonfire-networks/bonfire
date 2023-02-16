@@ -3,7 +3,7 @@ defmodule Bonfire.Web.Endpoint do
   use Bonfire.UI.Common.EndpointTemplate
   alias Bonfire.Common.Utils
   alias Bonfire.Common.Types
-  alias Bonfire.Common.Config
+  # alias Bonfire.Common.Config
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -72,7 +72,10 @@ defmodule Bonfire.Web.Endpoint do
 
   def reload!(), do: Phoenix.CodeReloader.reload!(__MODULE__)
 
+  @doc "(re)generates the reverse router (useful so it can be re-generated when extensions are enabled/disabled)"
   def generate_reverse_router!() do
+    Code.put_compiler_option(:ignore_module_conflict, true)
     Code.eval_file(Path.join(:code.priv_dir(:bonfire), "extras/router_reverse.ex"))
+    Code.put_compiler_option(:ignore_module_conflict, false)
   end
 end

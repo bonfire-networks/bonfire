@@ -61,6 +61,6 @@ defmodule Bonfire.Logging do
       |> Map.take([:id, :args, :meta, :queue, :worker])
       |> Map.merge(measure)
 
-    Bonfire.Common.Utils.debug_log(extra, meta.error, meta.stacktrace, :error)
+    Bonfire.Common.Errors.debug_log(extra, meta.error, meta.stacktrace, :error)
   end
 end

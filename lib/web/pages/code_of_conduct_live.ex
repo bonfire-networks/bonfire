@@ -4,7 +4,6 @@ defmodule Bonfire.Web.CodeOfConductLive do
   """
   use Bonfire.UI.Common.Web, :surface_live_view
   alias Bonfire.UI.Me.LivePlugs
-  alias Bonfire.Me.Accounts
 
   def mount(params, session, socket) do
     live_plug(params, session, socket, [
@@ -17,7 +16,7 @@ defmodule Bonfire.Web.CodeOfConductLive do
     ])
   end
 
-  defp mounted(params, _session, socket) do
+  defp mounted(_params, _session, socket) do
     {:ok,
      socket
      |> assign(

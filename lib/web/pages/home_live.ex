@@ -81,7 +81,7 @@ defmodule Bonfire.Web.HomeLive do
   #   {:noreply, assign(socket, selected_tab: tab)}
   # end
 
-  def do_handle_params(params, _url, socket) do
+  def do_handle_params(_params, _url, socket) do
     # debug(params, "param")
 
     app = String.capitalize(Bonfire.Application.name())
