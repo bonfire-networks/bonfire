@@ -97,7 +97,7 @@ defmodule Bonfire.Web.HomeLive do
        show_about_instance?: show_about_instance?,
        page_title:
          if(show_about_instance?,
-           do: instance_name,
+           do: l("A %{app} federated instance", app: app),
            else: l("%{app} dashboard", app: app)
          )
      )}
