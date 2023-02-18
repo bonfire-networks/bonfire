@@ -18,7 +18,7 @@ defmodule Bonfire.Web.ChangelogLive do
   end
 
   defp mounted(_params, _session, socket) do
-    app = String.capitalize(Bonfire.Application.name())
+    # app = String.capitalize(Bonfire.Application.name())
     # instance_name = Config.get([:ui, :theme, :instance_name], app)
 
     links =

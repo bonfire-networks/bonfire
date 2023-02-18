@@ -86,8 +86,8 @@ defmodule Bonfire.Web.HomeLive do
 
     app = String.capitalize(Bonfire.Application.name())
 
-    instance_name =
-      Config.get([:ui, :theme, :instance_name]) || l("An instance of %{app}", app: app)
+    # instance_name =
+    #   Config.get([:ui, :theme, :instance_name]) || l("An instance of %{app}", app: app)
 
     show_about_instance? = !current_user(socket) or current_url(socket) == "/about"
 
