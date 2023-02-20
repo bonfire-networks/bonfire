@@ -1,4 +1,5 @@
 defmodule Iconify.Fluent.MailEdit20Filled do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

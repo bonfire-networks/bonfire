@@ -1,4 +1,5 @@
 defmodule Iconify.EmojioneMonotone.Eyes do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

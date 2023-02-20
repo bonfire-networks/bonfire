@@ -1,4 +1,5 @@
 defmodule Iconify.VscodeIcons.FileTypeTodo do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

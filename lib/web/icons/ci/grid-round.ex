@@ -1,4 +1,5 @@
 defmodule Iconify.Ci.GridRound do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

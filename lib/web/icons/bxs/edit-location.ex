@@ -1,4 +1,5 @@
 defmodule Iconify.Bxs.EditLocation do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

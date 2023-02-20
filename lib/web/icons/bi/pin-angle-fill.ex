@@ -1,4 +1,5 @@
 defmodule Iconify.Bi.PinAngleFill do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

@@ -1,4 +1,5 @@
 defmodule Iconify.FaSolid.PrayingHands do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

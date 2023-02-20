@@ -1,4 +1,5 @@
 defmodule Iconify.NotoV1.CheckMark do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

@@ -1,4 +1,5 @@
 defmodule Iconify.Pajamas.ExpandUp do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

@@ -1,4 +1,5 @@
 defmodule Iconify.Fluent.Feed16Regular do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

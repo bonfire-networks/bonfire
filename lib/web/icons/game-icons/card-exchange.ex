@@ -1,4 +1,5 @@
 defmodule Iconify.GameIcons.CardExchange do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

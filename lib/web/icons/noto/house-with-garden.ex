@@ -1,4 +1,5 @@
 defmodule Iconify.Noto.HouseWithGarden do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

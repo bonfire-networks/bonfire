@@ -1,4 +1,5 @@
 defmodule Iconify.Twemoji.Envelope do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

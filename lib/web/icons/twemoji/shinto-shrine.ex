@@ -1,4 +1,5 @@
 defmodule Iconify.Twemoji.ShintoShrine do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

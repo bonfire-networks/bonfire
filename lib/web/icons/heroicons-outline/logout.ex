@@ -1,4 +1,5 @@
 defmodule Iconify.HeroiconsOutline.Logout do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

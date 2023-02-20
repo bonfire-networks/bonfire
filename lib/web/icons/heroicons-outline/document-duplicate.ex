@@ -1,4 +1,5 @@
 defmodule Iconify.HeroiconsOutline.DocumentDuplicate do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

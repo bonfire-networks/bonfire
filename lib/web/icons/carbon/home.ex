@@ -1,4 +1,5 @@
 defmodule Iconify.Carbon.Home do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

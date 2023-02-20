@@ -1,4 +1,5 @@
 defmodule Iconify.HeroiconsOutline.Reply do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

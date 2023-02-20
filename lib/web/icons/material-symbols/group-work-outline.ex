@@ -1,4 +1,5 @@
 defmodule Iconify.MaterialSymbols.GroupWorkOutline do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

@@ -1,4 +1,5 @@
 defmodule Iconify.IconParkOutline.CycleOne do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

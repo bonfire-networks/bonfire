@@ -1,4 +1,5 @@
 defmodule Iconify.Fa6Solid.Shapes do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

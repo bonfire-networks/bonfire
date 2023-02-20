@@ -1,4 +1,5 @@
 defmodule Iconify.El.Network do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

@@ -1,4 +1,5 @@
 defmodule Iconify.Octicon.X16 do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

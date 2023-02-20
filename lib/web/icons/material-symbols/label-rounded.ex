@@ -1,4 +1,5 @@
 defmodule Iconify.MaterialSymbols.LabelRounded do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

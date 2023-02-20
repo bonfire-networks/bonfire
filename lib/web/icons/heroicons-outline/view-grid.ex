@@ -1,4 +1,5 @@
 defmodule Iconify.HeroiconsOutline.ViewGrid do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

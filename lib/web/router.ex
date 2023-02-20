@@ -60,7 +60,7 @@ defmodule Bonfire.Web.Router do
   use_if_enabled(Bonfire.API.GraphQL.Router)
 
   # include federation routes
-  use_if_enabled(ActivityPubWeb.Router)
+  use_if_enabled(ActivityPub.Web.Router)
 
   # include nodeinfo routes
   use_if_enabled(NodeinfoWeb.Router)

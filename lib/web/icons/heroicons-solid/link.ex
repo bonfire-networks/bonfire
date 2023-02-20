@@ -1,4 +1,5 @@
 defmodule Iconify.HeroiconsSolid.Link do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

@@ -1,4 +1,5 @@
 defmodule Iconify.HeroiconsSolid.ChevronLeft do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

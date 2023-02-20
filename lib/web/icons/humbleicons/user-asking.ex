@@ -1,4 +1,5 @@
 defmodule Iconify.Humbleicons.UserAsking do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

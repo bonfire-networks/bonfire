@@ -1,4 +1,5 @@
 defmodule Iconify.Iconoir.DragHandGesture do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

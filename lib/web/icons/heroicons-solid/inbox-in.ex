@@ -1,4 +1,5 @@
 defmodule Iconify.HeroiconsSolid.InboxIn do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

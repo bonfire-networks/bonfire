@@ -1,4 +1,5 @@
 defmodule Iconify.Heroicons.PencilSquare20Solid do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

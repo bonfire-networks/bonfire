@@ -1,4 +1,5 @@
 defmodule Iconify.IconPark.CycleArrow do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

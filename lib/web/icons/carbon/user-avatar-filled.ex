@@ -1,4 +1,5 @@
 defmodule Iconify.Carbon.UserAvatarFilled do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

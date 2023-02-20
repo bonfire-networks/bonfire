@@ -1,4 +1,5 @@
 defmodule Iconify.Gg.MenuLeftAlt do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

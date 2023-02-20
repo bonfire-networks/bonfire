@@ -1,4 +1,5 @@
 defmodule Iconify.Bx.Gift do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

@@ -1,4 +1,5 @@
 defmodule Iconify.Typcn.InfoLarge do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

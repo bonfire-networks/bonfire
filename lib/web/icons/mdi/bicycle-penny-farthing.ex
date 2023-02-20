@@ -1,4 +1,5 @@
 defmodule Iconify.Mdi.BicyclePennyFarthing do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

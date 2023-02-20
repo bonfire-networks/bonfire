@@ -1,4 +1,5 @@
 defmodule Iconify.Ep.RemoveFilled do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

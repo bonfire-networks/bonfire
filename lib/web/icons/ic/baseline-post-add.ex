@@ -1,4 +1,5 @@
 defmodule Iconify.Ic.BaselinePostAdd do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

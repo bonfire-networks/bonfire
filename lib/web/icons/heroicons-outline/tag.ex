@@ -1,4 +1,5 @@
 defmodule Iconify.HeroiconsOutline.Tag do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

@@ -1,4 +1,5 @@
 defmodule Iconify.Bx.CalendarEdit do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

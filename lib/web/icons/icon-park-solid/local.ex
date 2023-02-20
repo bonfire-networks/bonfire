@@ -1,4 +1,5 @@
 defmodule Iconify.IconParkSolid.Local do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

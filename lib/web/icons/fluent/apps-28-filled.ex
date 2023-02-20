@@ -1,4 +1,5 @@
 defmodule Iconify.Fluent.Apps28Filled do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

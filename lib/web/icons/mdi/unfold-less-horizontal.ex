@@ -1,4 +1,5 @@
 defmodule Iconify.Mdi.UnfoldLessHorizontal do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

@@ -1,4 +1,5 @@
 defmodule Iconify.Gis.WorldMap do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

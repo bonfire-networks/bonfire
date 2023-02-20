@@ -1,4 +1,5 @@
 defmodule Iconify.Mdi.Offer do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

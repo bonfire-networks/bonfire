@@ -1,4 +1,5 @@
 defmodule Iconify.Ri.HomeLine do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

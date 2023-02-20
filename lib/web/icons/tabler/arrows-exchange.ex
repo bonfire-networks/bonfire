@@ -1,4 +1,5 @@
 defmodule Iconify.Tabler.ArrowsExchange do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

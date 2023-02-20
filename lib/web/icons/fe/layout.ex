@@ -1,4 +1,5 @@
 defmodule Iconify.Fe.Layout do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

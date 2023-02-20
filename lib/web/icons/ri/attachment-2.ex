@@ -1,4 +1,5 @@
 defmodule Iconify.Ri.Attachment2 do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

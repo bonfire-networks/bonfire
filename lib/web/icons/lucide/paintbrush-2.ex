@@ -1,4 +1,5 @@
 defmodule Iconify.Lucide.Paintbrush2 do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

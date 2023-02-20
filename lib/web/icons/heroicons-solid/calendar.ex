@@ -1,4 +1,5 @@
 defmodule Iconify.HeroiconsSolid.Calendar do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

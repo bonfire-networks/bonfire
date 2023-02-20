@@ -1,4 +1,5 @@
 defmodule Iconify.Fluent.Drafts16Filled do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

@@ -1,4 +1,5 @@
 defmodule Iconify.AkarIcons.ChatDots do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

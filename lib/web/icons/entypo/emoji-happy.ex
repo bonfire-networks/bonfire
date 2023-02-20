@@ -1,4 +1,5 @@
 defmodule Iconify.Entypo.EmojiHappy do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

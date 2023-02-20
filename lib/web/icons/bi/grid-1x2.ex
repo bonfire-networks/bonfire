@@ -1,4 +1,5 @@
 defmodule Iconify.Bi.Grid1x2 do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do

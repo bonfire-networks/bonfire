@@ -1,4 +1,5 @@
 defmodule Iconify.Majesticons.ViewColumns do
+  @moduledoc false
   use Phoenix.Component
 
   def render(assigns) do
