@@ -43,6 +43,7 @@ defmodule Bonfire.Web.HomeLive do
      |> assign(
        page: "home",
        selected_tab: nil,
+       page_title: l("Bonfire"),
        links: links,
        changelog: @changelog,
        error: nil,
@@ -97,7 +98,7 @@ defmodule Bonfire.Web.HomeLive do
        show_about_instance?: show_about_instance?,
        page_title:
          if(show_about_instance?,
-           do: l("A %{app} federated instance", app: app),
+           do: l("%{app}", app: app),
            else: l("%{app} dashboard", app: app)
          )
      )}
