@@ -10,7 +10,7 @@
     />
     <div class="text-2xl mt-4  font-bold text-base-content">{Config.get([:ui, :theme, :instance_name], Bonfire.Application.name())}</div>
   </div>
-  <h2 class="m-8 mt-3 font-normal leading-relaxed tracking-wider text-center text-md text-base-content/80">
+  <h2 class="m-8 mt-3 font-normal leading-relaxed tracking-wider text-center text-md text-base-content/70">
     {Config.get([:ui, :theme, :instance_description], "")}
   </h2>
   <div class="flex items-center gap-4 my-8 place-content-center">
