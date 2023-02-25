@@ -84,6 +84,14 @@
             </div>
           </div> -->
 
+          <Bonfire.UI.Common.Settings.NumberLive
+            read_only
+            scope={:instance}
+            name={l("Maximum length of text inputs (e.g. posts)")}
+            settings_key={[Bonfire.UI.Common.SmartInputLive, :max_length]}
+            unit={l("words")}
+          />
+
           <div class="py-4">
             <div class="flex items-center gap-4">
               {#if Bonfire.Me.Settings.get([Bonfire.UI.Me.WidgetUsersLive, :show_guests], true, :instance)}
@@ -129,6 +137,7 @@
                 <div class="text-sm font-bold">{l("Default avatars")}</div>
                 <div class="text-sm font-light text-base-content/70">{l("Show randomly-generated animal avatars for users without a profile picture")}</div>
               </div>
+              <Bonfire.UI.Common.AvatarLive />
             </div>
           </div>
 
