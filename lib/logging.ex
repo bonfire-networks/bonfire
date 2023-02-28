@@ -7,7 +7,7 @@ defmodule Bonfire.Logging do
     EctoSparkles.Log.setup(repo_module)
     # Ecto.DevLogger.install(repo_module)
 
-    # if Code.ensure_loaded?(Mix) and Mix.env() == :dev do
+    # if Code.ensure_loaded?(Mix) and Config.env() == :dev do
     #   OnePlusNDetector.setup(repo_module)
     # end
 
@@ -32,6 +32,7 @@ defmodule Bonfire.Logging do
 
       :ok = OpentelemetryPhoenix.setup()
       :ok = OpentelemetryLiveView.setup()
+
       # Only trace Oban jobs to minimize noise
       :ok = OpentelemetryOban.setup(trace: [:jobs])
 

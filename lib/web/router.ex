@@ -129,9 +129,12 @@ defmodule Bonfire.Web.Router do
     #   Surface.Catalogue.Router.surface_catalogue "/ui/"
     # end
 
+    if Config.env() |> debug("ennnv") != :test do
+      pipe_through(:admin_required)
+    end
+
     if module_enabled?(Phoenix.LiveDashboard.Router) do
       import Phoenix.LiveDashboard.Router
-      pipe_through(:admin_required)
 
       live_dashboard("/admin/system",
         ecto_repos: [Bonfire.Common.Repo],
@@ -140,9 +143,10 @@ defmodule Bonfire.Web.Router do
         ],
         metrics: Bonfire.Web.Telemetry,
         metrics_history:
-          if(Mix.env() == :dev, do: {Bonfire.TelemetryStorage, :metrics_history, []}),
+          if(Config.env() == :dev, do: {Bonfire.TelemetryStorage, :metrics_history, []}),
         # metrics: FlamegraphsWeb.Telemetry,
         additional_pages: [
+          oban_queues: Bonfire.Web.ObanDashboard
           # flame_on: FlameOn.DashboardPage
           # _profiler: {PhoenixProfiler.Dashboard, []}
         ]
@@ -150,7 +154,7 @@ defmodule Bonfire.Web.Router do
     end
   end
 
-  if Mix.env() in [:dev, :test] do
+  if Config.env() in [:dev, :test] do
     scope "/" do
       pipe_through(:browser)
 
