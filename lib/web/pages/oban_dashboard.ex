@@ -2,6 +2,7 @@ defmodule Bonfire.Web.ObanDashboard do
   @moduledoc false
   use Phoenix.LiveDashboard.PageBuilder
   import Ecto.Query
+  alias Bonfire.Common.Utils
 
   @impl true
   def menu_link(_, _) do
@@ -40,8 +41,8 @@ defmodule Bonfire.Web.ObanDashboard do
           |> Map.merge(%{
             job: &1.args["op"],
             scheduled_at: DateTime.to_string(&1.scheduled_at),
-            data: &1.args["params"]["json"],
-            params: inspect(Map.drop(&1.args["params"], ["json"]))
+            data: Utils.e(&1.args, "params", "json", nil),
+            params: inspect(Map.drop(&1.args["params"] || %{}, ["json"]))
           })
           |> Map.take([:id, :state, :job, :data, :params, :errors, :attempt, :scheduled_at]))
       )

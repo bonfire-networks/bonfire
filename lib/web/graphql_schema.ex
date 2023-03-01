@@ -13,7 +13,7 @@ if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
 
     # @pipeline_modifier Bonfire.API.GraphQL.SchemaPipelines
 
-    require Logger
+    import Untangle
 
     alias Bonfire.API.GraphQL.SchemaUtils
     alias Bonfire.API.GraphQL.Middleware.CollapseErrors
