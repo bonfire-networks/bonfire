@@ -43,7 +43,7 @@ defmodule Bonfire.Web.ObanDashboard do
             scheduled_at: DateTime.to_string(&1.scheduled_at),
             data: Utils.e(&1.args, "params", "json", nil),
             params: inspect(Map.drop(&1.args["params"] || %{}, ["json"])),
-            errors: inspect(&1.errors),
+            errors: inspect(&1.errors)
           })
           |> Map.take([:id, :state, :job, :data, :params, :errors, :attempt, :scheduled_at]))
       )
