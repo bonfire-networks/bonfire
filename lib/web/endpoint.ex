@@ -25,13 +25,6 @@ defmodule Bonfire.Web.Endpoint do
   end
 
   def include_assets(conn, :top) do
-    # unused?
-    # <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
-    # <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-
-    # imported into main CSS already
-    # <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
-
     font_family =
       Bonfire.Me.Settings.get([:ui, :font_family], "Inter (Latin Languages)", conn)
       |> Types.maybe_to_string()
@@ -40,9 +33,18 @@ defmodule Bonfire.Web.Endpoint do
       |> String.replace("--", "-")
       |> String.downcase()
 
+    # unused?
+    # <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    # <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+    # imported into main CSS already
+    # <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+    # <link phx-track-static rel='stylesheet' href='#{static_path("/images/icons/icons.css")}'/>
     """
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
+    <script phx-track-static crossorigin='anonymous' src='#{static_path("/images/icons/svg-inject.min.js")}'></script>
     <link phx-track-static rel='stylesheet' href='#{static_path("/assets/bonfire_basic.css")}'/>
     <link phx-track-static rel='stylesheet' href='#{static_path("/fonts/#{font_family}.css")}'/>
 
