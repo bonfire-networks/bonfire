@@ -94,6 +94,12 @@ defmodule Bonfire.Web.Router do
     # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename this default path (eg. to "/home")
     # live "/", Bonfire.Website.HomeGuestLive, as: :landing
     # live "/home", Bonfire.Web.HomeLive, as: :home
+
+    if !module_enabled?(Bonfire.UI.Groups),
+      do: live("/&:username", Bonfire.UI.Me.CharacterLive, as: :group)
+
+    if !module_enabled?(Bonfire.UI.Topics),
+      do: live("/+:username", Bonfire.UI.Me.CharacterLive, as: Bonfire.Classify.Category)
   end
 
   # pages only guests can view
