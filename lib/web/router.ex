@@ -1,7 +1,7 @@
 defmodule Bonfire.Web.Router do
   use Bonfire.UI.Common.Web, :router
   # use Plug.ErrorHandler
-
+  require OrionWeb.Router
   # alias Bonfire.Common.Config
 
   pipeline :load_current_auth do
@@ -136,9 +136,15 @@ defmodule Bonfire.Web.Router do
     #   Surface.Catalogue.Router.surface_catalogue "/ui/"
     # end
 
-    if Config.env() |> debug("ennnv") != :test do
+    if Config.env() != :test do
       pipe_through(:admin_required)
     end
+
+    OrionWeb.Router.live_orion("/admin/system/orion",
+      on_mount: [Bonfire.UI.Me.LivePlugs.LoadCurrentUser, Bonfire.UI.Me.LivePlugs.AdminRequired]
+    )
+
+    # {Bonfire.UI.Common.LivePlugs, Bonfire.UI.Me.LivePlugs.UserRequired}
 
     if module_enabled?(Phoenix.LiveDashboard.Router) do
       import Phoenix.LiveDashboard.Router
@@ -153,7 +159,8 @@ defmodule Bonfire.Web.Router do
           if(Config.env() == :dev, do: {Bonfire.TelemetryStorage, :metrics_history, []}),
         # metrics: FlamegraphsWeb.Telemetry,
         additional_pages: [
-          oban_queues: Bonfire.Web.ObanDashboard
+          oban_queues: Bonfire.Web.ObanDashboard,
+          orion: Bonfire.Web.OrionLink
           # flame_on: FlameOn.DashboardPage
           # _profiler: {PhoenixProfiler.Dashboard, []}
         ]
