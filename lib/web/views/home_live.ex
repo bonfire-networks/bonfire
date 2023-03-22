@@ -3,18 +3,14 @@ defmodule Bonfire.Web.HomeLive do
   The main instance home page, mainly for guests visiting the instance
   """
   use Bonfire.UI.Common.Web, :surface_live_view
-  alias Bonfire.UI.Me.LivePlugs
+
   alias Bonfire.Me.Accounts
 
   @changelog File.read!("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
 
   def mount(%{"dashboard" => _} = params, session, socket) do
-    live_plug(params, session, socket, [
-      LivePlugs.LoadCurrentAccount,
-      LivePlugs.LoadCurrentUser,
-      Bonfire.UI.Common.LivePlugs.StaticChanged,
-      Bonfire.UI.Common.LivePlugs.Csrf,
-      Bonfire.UI.Common.LivePlugs.Locale,
+    Bonfire.UI.Common.LivePlugs.live_plug(params, session, socket, [
+      Bonfire.UI.Me.LivePlugs.LoadCurrentUser,
       &mounted/3
     ])
   end

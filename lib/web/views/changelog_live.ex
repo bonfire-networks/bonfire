@@ -3,21 +3,12 @@ defmodule Bonfire.Web.ChangelogLive do
   The main instance home page, mainly for guests visiting the instance
   """
   use Bonfire.UI.Common.Web, :surface_live_view
-  alias Bonfire.UI.Me.LivePlugs
+
   @changelog File.read!("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
 
-  def mount(params, session, socket) do
-    live_plug(params, session, socket, [
-      LivePlugs.LoadCurrentAccount,
-      LivePlugs.LoadCurrentUser,
-      Bonfire.UI.Common.LivePlugs.StaticChanged,
-      Bonfire.UI.Common.LivePlugs.Csrf,
-      Bonfire.UI.Common.LivePlugs.Locale,
-      &mounted/3
-    ])
-  end
+  on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.LoadCurrentUser]}
 
-  defp mounted(_params, _session, socket) do
+  def mount(_params, _session, socket) do
     # app = String.capitalize(Bonfire.Application.name())
     # instance_name = Config.get([:ui, :theme, :instance_name], app)
 
