@@ -137,7 +137,7 @@
                 <div class="text-sm font-bold">{l("Default avatars")}</div>
                 <div class="text-sm font-light text-base-content/70">{l("Show randomly-generated animal avatars for users without a profile picture")}</div>
               </div>
-              <Bonfire.UI.Common.AvatarLive />
+              <Bonfire.UI.Common.AvatarLive parent_id="about" />
             </div>
           </div>
 
