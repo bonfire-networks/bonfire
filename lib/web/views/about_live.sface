@@ -17,14 +17,14 @@
     {#if Bonfire.Me.Accounts.instance_is_invite_only?()}
       <div class="h-[1.75rem] badge badge-warning">
         <div class="flex items-center gap-2">
-          <Icon iconify="mingcute:invite-fill" class="w-4 h-4" />
+          <#Icon iconify="mingcute:invite-fill" class="w-4 h-4" />
           {l("Invite only")}
         </div>
       </div>
     {#else}
       <div class="badge h-[1.75rem] badge-success">
         <div class="flex items-center gap-2">
-          <Icon iconify="mdi:account-plus" class="w-4 h-4" />
+          <#Icon iconify="mdi:account-plus" class="w-4 h-4" />
           {l("Open registration")}
         </div>
       </div>
@@ -32,14 +32,14 @@
     {#if Bonfire.Me.Settings.get([:activity_pub, :instance, :federating], true, :instance)}
       <div class="badge h-[1.75rem]">
         <div class="flex items-center gap-2">
-          <Icon iconify="ph:globe-bold" class="w-4 h-4" />
+          <#Icon iconify="ph:globe-bold" class="w-4 h-4" />
           {l("Federation enabled")}
         </div>
       </div>
     {#else}
       <div class="badge h-[1.75rem]">
         <div class="flex items-center gap-2">
-          <Icon iconify="icon-park-solid:local" class="w-4 h-4" />
+          <#Icon iconify="icon-park-solid:local" class="w-4 h-4" />
           {l("Local only instance")}
         </div>
       </div>
@@ -73,9 +73,9 @@
           <!-- <div class="py-4">
             <div class="flex items-center gap-4">
               {#if Settings.get(:invite_only, nil, :instance)}
-                <Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
+                <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
               {#else}
-                <Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
+                <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
               {/if}
               <div class="flex flex-col">
                 <div class="text-sm font-bold">{l("Make invite only")}</div>
@@ -95,9 +95,9 @@
           <div class="py-4">
             <div class="flex items-center gap-4">
               {#if Bonfire.Me.Settings.get([Bonfire.UI.Me.WidgetUsersLive, :show_guests], true, :instance)}
-                <Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
+                <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
               {#else}
-                <Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
+                <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
               {/if}
               <div class="flex flex-col">
                 <div class="text-sm font-bold">{l("Show list of admins on public homepage")}</div>
@@ -108,9 +108,9 @@
           <div class="py-4">
             <div class="flex items-center gap-4">
               {#if Bonfire.Me.Settings.get([Bonfire.Me.Users, :public_count], true, :instance)}
-                <Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
+                <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
               {#else}
-                <Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
+                <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
               {/if}
               <div class="flex flex-col">
                 {#if Bonfire.Me.Settings.get([Bonfire.Me.Users, :public_count], true, :instance)}
@@ -129,9 +129,9 @@
                   true,
                   :instance
                 )}
-                <Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
+                <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
               {#else}
-                <Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
+                <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
               {/if}
               <div class="flex flex-col gap-0">
                 <div class="text-sm font-bold">{l("Default avatars")}</div>
