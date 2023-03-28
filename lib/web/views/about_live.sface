@@ -68,7 +68,7 @@
         <div class="mt-3 divide-y rounded-lg divide-base-300">
           <div class="py-4">
             <div class="mb-4 text-sm font-bold">{l("Active extensions")}</div>
-            <Bonfire.UI.Common.WidgetAppsLive showing_within={:settings} cols="4" />
+            <Bonfire.UI.Common.WidgetAppsLive context={:instance} showing_within={:settings} cols="4" />
           </div>
           <!-- <div class="py-4">
             <div class="flex items-center gap-4">

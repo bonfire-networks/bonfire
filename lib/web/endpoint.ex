@@ -40,11 +40,11 @@ defmodule Bonfire.Web.Endpoint do
     # imported into main CSS already
     # <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 
-    # <link phx-track-static rel='stylesheet' href='#{static_path("/images/icons/icons.css")}'/>
+    # <script phx-track-static crossorigin='anonymous' src='#{static_path("/images/icons/svg-inject.min.js")}'></script>
+
     """
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
-    <script phx-track-static crossorigin='anonymous' src='#{static_path("/images/icons/svg-inject.min.js")}'></script>
     <link phx-track-static rel='stylesheet' href='#{static_path("/assets/bonfire_basic.css")}'/>
     <link phx-track-static rel='stylesheet' href='#{static_path("/fonts/#{font_family}.css")}'/>
 
@@ -69,6 +69,7 @@ defmodule Bonfire.Web.Endpoint do
     """
     #{PhoenixGon.View.render_gon_script(conn) |> Phoenix.HTML.safe_to_string()}
     <script defer phx-track-static crossorigin='anonymous' src='#{js}'></script>
+    <link phx-track-static rel='stylesheet' href='#{static_path("/images/icons/icons.css")}'/>
     """
   end
 
