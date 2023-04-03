@@ -18,8 +18,9 @@ defmodule Bonfire.Application do
             else: Mix.Project.config()
   @deps_loaded Bonfire.Common.Extensions.loaded_deps(:nested)
   @deps_loaded_flat Bonfire.Common.Extensions.loaded_deps(deps_loaded: @deps_loaded)
-  # 6 hours
-  @default_cache_ttl 1_000 * 60 * 60 * 6
+
+  @default_cache_in_hours 3
+  @default_cache_ttl 1_000 * 60 * 60 * @default_cache_in_hours
 
   @apps_before [
     # Metrics
@@ -56,13 +57,17 @@ defmodule Bonfire.Application do
          [
            :bonfire_cache,
            [
-             expiration:
-               Cachex.Spec.expiration(
-                 default: @default_cache_ttl,
-                 interval: 1000
-               ),
+             expiration: Cachex.Spec.expiration(default: @default_cache_ttl),
              # increase for instances with more users (at least num. of users*2+1)
-             limit: 5000
+             limit:
+               Cachex.Spec.limit(
+                 # max number of entries
+                 size: 2_500,
+                 # the policy to use for eviction
+                 policy: Cachex.Policy.LRW,
+                 # what % to reclaim when limit is reached
+                 reclaim: 0.1
+               )
            ]
          ]}
     }
