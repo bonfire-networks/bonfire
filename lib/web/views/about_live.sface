@@ -29,7 +29,7 @@
         </div>
       </div>
     {/if}
-    {#if Bonfire.Me.Settings.get([:activity_pub, :instance, :federating], true, :instance)}
+    {#if Config.get([:activity_pub, :instance, :federating])}
       <div class="badge h-[1.75rem]">
         <div class="flex items-center gap-2">
           <#Icon iconify="ph:globe-bold" class="w-4 h-4" />
