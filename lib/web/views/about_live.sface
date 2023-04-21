@@ -8,8 +8,6 @@
     {Config.get([:ui, :theme, :instance_description], "")}
   </h2>
 
-
-
   <div class="mt-12">
     <div
       x-data="{
@@ -27,7 +25,7 @@
           x-on:click="open = !open"
           class="normal-case btn-circle btn btn-ghost btn-sm"
         >
-         <#Icon solid="ChevronRight" class="w-6 h-6 text-base-content/70" />
+          <#Icon solid="ChevronRight" class="w-6 h-6 text-base-content/70" />
         </button>
         <button
           x-show="open"
@@ -35,7 +33,7 @@
           x-on:click="open = !open"
           class="normal-case btn-circle btn btn-ghost btn-sm"
         >
-         <#Icon solid="ChevronDown" class="w-6 h-6 text-base-content/70" />
+          <#Icon solid="ChevronDown" class="w-6 h-6 text-base-content/70" />
         </button>
       </div>
       <div x-show="open" x-cloak x-collapse>
@@ -62,7 +60,7 @@
           x-on:click="open = !open"
           class="normal-case btn-circle btn btn-ghost btn-sm"
         >
-         <#Icon solid="ChevronRight" class="w-6 h-6 text-base-content/70" />
+          <#Icon solid="ChevronRight" class="w-6 h-6 text-base-content/70" />
         </button>
         <button
           x-show="open"
@@ -70,7 +68,7 @@
           x-on:click="open = !open"
           class="normal-case btn-circle btn btn-ghost btn-sm"
         >
-         <#Icon solid="ChevronDown" class="w-6 h-6 text-base-content/70" />
+          <#Icon solid="ChevronDown" class="w-6 h-6 text-base-content/70" />
         </button>
       </div>
       <div x-show="open" x-cloak x-collapse>
@@ -79,46 +77,42 @@
             <div class="mb-4 text-sm font-medium">{l("Active extensions")}</div>
             <Bonfire.UI.Common.WidgetAppsLive context={:instance} showing_within={:settings} cols="4" />
           </div>
-        
 
           <div class="py-4">
             <div class="flex items-center justify-between flex-1 items-center gap-4">
-              
               <div class="flex gap-2">
                 <div class="text-sm font-medium">{l("Open registration")}</div>
               </div>
 
-                {#if !Settings.get(:invite_only, nil, :instance)}
+              {#if !Settings.get(:invite_only, nil, :instance)}
                 <div class="text-success flex items-center gap-2 text-sm font-medium">
                   <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
-                  {l "Enabled"}
+                  {l("Enabled")}
                 </div>
               {#else}
                 <div class="text-base-content flex items-center gap-2 text-sm font-medium">
                   <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-base-content" />
-                  {l "Disabled"}
+                  {l("Disabled")}
                 </div>
               {/if}
             </div>
           </div>
 
-
           <div class="py-4">
             <div class="flex items-center justify-between flex-1 items-center gap-4">
-              
               <div class="flex gap-2">
                 <div class="text-sm font-medium">{l("Federation enabled")}</div>
               </div>
 
-                {#if ActivityPub.Config.federating?()}
+              {#if ActivityPub.Config.federating?()}
                 <div class="text-success flex items-center gap-2 text-sm font-medium">
                   <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
-                  {l "Enabled"}
+                  {l("Enabled")}
                 </div>
               {#else}
                 <div class="text-base-content flex items-center gap-2 text-sm font-medium">
                   <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-base-content" />
-                  {l "Disabled"}
+                  {l("Disabled")}
                 </div>
               {/if}
             </div>
@@ -126,23 +120,20 @@
 
           <div class="py-4">
             <div class="flex items-center justify-between flex-1 items-center gap-4">
-              
               <div class="flex gap-2">
                 <div class="text-sm font-medium">{l("Maximum length of text inputs (e.g. posts)")}</div>
               </div>
 
               <span class="flex-none badge h-[1.75rem] font-medium badge-outline border-base-content/30 rounded">{Bonfire.Me.Settings.get(
-               [Bonfire.UI.Common.SmartInputLive, :max_length],
-                0,
-                @__context__[:instance_settings])
-               } {l("words")}</span>
+                  [Bonfire.UI.Common.SmartInputLive, :max_length],
+                  0,
+                  @__context__[:instance_settings]
+                )} {l("words")}</span>
             </div>
           </div>
 
-      
           <div class="py-4">
             <div class="flex items-center justify-between flex-1 items-center gap-4">
-              
               <div class="flex gap-2">
                 <div class="text-sm font-medium">{l("Show list of admins on public homepage")}</div>
               </div>
@@ -150,12 +141,12 @@
               {#if Bonfire.Me.Settings.get([Bonfire.UI.Me.WidgetUsersLive, :show_guests], true, :instance)}
                 <div class="text-success flex items-center gap-2 text-sm font-medium">
                   <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
-                  {l "Enabled"}
+                  {l("Enabled")}
                 </div>
               {#else}
                 <div class="text-base-content flex items-center gap-2 text-sm font-medium">
                   <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-base-content" />
-                  {l "Disabled"}
+                  {l("Disabled")}
                 </div>
               {/if}
             </div>
@@ -163,20 +154,19 @@
 
           <div class="py-4">
             <div class="flex items-center justify-between flex-1 items-center gap-4">
-              
               <div class="flex flex-col">
-                  <div class="text-sm font-medium">{l("Show the number of total users on this instance")}</div>
+                <div class="text-sm font-medium">{l("Show the number of total users on this instance")}</div>
               </div>
 
               {#if Bonfire.Me.Settings.get([Bonfire.Me.Users, :public_count], true, :instance)}
                 <div class="text-success flex items-center gap-2 text-sm font-medium">
                   <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
-                  {l "Enabled"}
+                  {l("Enabled")}
                 </div>
               {#else}
                 <div class="text-base-content flex items-center gap-2 text-sm font-medium">
                   <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-base-content" />
-                  {l "Disabled"}
+                  {l("Disabled")}
                 </div>
               {/if}
             </div>
@@ -197,14 +187,18 @@
                 <div class="text-sm font-medium">{l("Default avatars")}</div>
                 <div class="text-sm font-light text-base-content/70">{l("Show randomly-generated animal avatars for users without a profile picture")}</div>
               </div>
-              <Bonfire.UI.Common.AvatarLive class="w-14 h-14 border-base-content/30 border rounded" parent_id="about" />
+              <Bonfire.UI.Common.AvatarLive
+                class="w-14 h-14 border-base-content/30 border rounded"
+                parent_id="about"
+              />
             </div>
           </div>
 
           <div x-data="{open: false}" class="py-4">
             <div class="flex items-center justify-between gap-2">
               <div class="flex gap-1 justify-between flex-1 items-center">
-                <div class="text-sm flex-1 font-medium">{l("Who can see the list of local users")} </div>
+                <div class="text-sm flex-1 font-medium">{l("Who can see the list of local users")}
+                </div>
                 <span class="badge h-[1.75rem] font-medium border-base-content/30 badge-outline rounded">{Bonfire.Me.Settings.get([Bonfire.UI.Me.UsersDirectoryLive, :show_to], :users, :instance)}</span>
               </div>
             </div>
@@ -225,53 +219,76 @@
                 <#Icon :if={true} iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
                 <span class="text-success">{l("Posts and other activities from followed people")}</span>
               </div>
-              <div
-                class={
-                  "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
-                  "!border-success":
+              <div class={
+                "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
+                "!border-success":
+                  Bonfire.Me.Settings.get(
+                    [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
+                    true,
+                    :instance
+                  )
+              }>
+                {#if Bonfire.Me.Settings.get(
+                    [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
+                    true,
+                    :instance
+                  )}
+                  <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
+                {#else}
+                  <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
+                {/if}
+                <span class={
+                  "text-error",
+                  "!text-success":
                     Bonfire.Me.Settings.get(
                       [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
                       true,
                       :instance
                     )
-                }
-              >
-              {#if Bonfire.Me.Settings.get(
-                [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
-                true,
-                :instance
-              )}
-                <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
-              {#else}
-                <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
-              {/if}
-              <span class={
-                "text-error",
-                "!text-success":
-                    Bonfire.Me.Settings.get(
-                      [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
-                      true,
-                      :instance
-                    )
-              }>{l("Boosts")}</span>
+                }>{l("Boosts")}</span>
               </div>
-              <div
-                class={
-                  "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
-                  "!border-success":
+              <div class={
+                "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
+                "!border-success":
+                  Bonfire.Me.Settings.get(
+                    [Bonfire.Social.Feeds, :my_feed_includes, :reply],
+                    true,
+                    :instance
+                  )
+              }>
+                {#if Bonfire.Me.Settings.get(
+                    [Bonfire.Social.Feeds, :my_feed_includes, :reply],
+                    true,
+                    :instance
+                  )}
+                  <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
+                {#else}
+                  <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
+                {/if}
+                <span class={
+                  "text-error",
+                  "!text-success":
                     Bonfire.Me.Settings.get(
                       [Bonfire.Social.Feeds, :my_feed_includes, :reply],
                       true,
                       :instance
                     )
-                }
-              >
-              
+                }>{l("Replies")}</span>
+              </div>
+              <div class={
+                "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
+                "!border-success":
+                  Bonfire.Me.Settings.get(
+                    [Bonfire.Social.Feeds, :my_feed_includes, :follows],
+                    true,
+                    :instance
+                  )
+              }>
                 {#if Bonfire.Me.Settings.get(
-                  [Bonfire.Social.Feeds, :my_feed_includes, :reply],
-                  true,
-                  :instance
-                )}
+                    [Bonfire.Social.Feeds, :my_feed_includes, :follows],
+                    true,
+                    :instance
+                  )}
                   <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
                 {#else}
                   <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
@@ -279,30 +296,27 @@
                 <span class={
                   "text-error",
                   "!text-success":
-                      Bonfire.Me.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :reply],
-                        true,
-                        :instance
-                      )
-                }>{l("Replies")}</span>
-              </div>
-              <div
-                class={
-                  "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
-                  "!border-success":
                     Bonfire.Me.Settings.get(
                       [Bonfire.Social.Feeds, :my_feed_includes, :follows],
                       true,
                       :instance
                     )
-                }
-              >
-              
-              {#if Bonfire.Me.Settings.get(
-                  [Bonfire.Social.Feeds, :my_feed_includes, :follows],
-                  true,
-                  :instance
-                )}
+                }>{l("Follows")}</span>
+              </div>
+              <div class={
+                "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
+                "!border-success":
+                  Bonfire.Me.Settings.get(
+                    [Bonfire.Social.Feeds, :my_feed_includes, :outbox],
+                    true,
+                    :instance
+                  )
+              }>
+                {#if Bonfire.Me.Settings.get(
+                    [Bonfire.Social.Feeds, :my_feed_includes, :outbox],
+                    true,
+                    :instance
+                  )}
                   <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
                 {#else}
                   <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
@@ -310,74 +324,39 @@
                 <span class={
                   "text-error",
                   "!text-success":
-                      Bonfire.Me.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :follows],
-                        true,
-                        :instance
-                      )
-                }>{l("Follows")}</span>
-              
-              </div>
-              <div
-                class={
-                  "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
-                  "!border-success":
                     Bonfire.Me.Settings.get(
                       [Bonfire.Social.Feeds, :my_feed_includes, :outbox],
                       true,
                       :instance
                     )
-                }
-              >
-              
-              {#if Bonfire.Me.Settings.get(
-                  [Bonfire.Social.Feeds, :my_feed_includes, :outbox],
-                  true,
-                  :instance
-                )}
+                }>{l("My own activities")}</span>
+              </div>
+              <div class={
+                "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
+                "!border-success":
+                  Bonfire.Me.Settings.get(
+                    [Bonfire.Social.Feeds, :my_feed_includes, :notifications],
+                    true,
+                    :instance
+                  )
+              }>
+                {#if Bonfire.Me.Settings.get(
+                    [Bonfire.Social.Feeds, :my_feed_includes, :notifications],
+                    true,
+                    :instance
+                  )}
                   <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
                 {#else}
-                 <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
+                  <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
                 {/if}
                 <span class={
                   "text-error",
                   "!text-success":
-                      Bonfire.Me.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :outbox],
-                        true,
-                        :instance
-                      )
-                }>{l("My own activities")}</span>
-                
-                </div>
-              <div
-                class={
-                  "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
-                  "!border-success":
                     Bonfire.Me.Settings.get(
                       [Bonfire.Social.Feeds, :my_feed_includes, :notifications],
                       true,
                       :instance
                     )
-                }
-              >
-              {#if Bonfire.Me.Settings.get(
-                  [Bonfire.Social.Feeds, :my_feed_includes, :notifications],
-                  true,
-                  :instance
-                )}
-                  <#Icon iconify="mdi:check-bold" class="flex-shrink-0 w-4 h-4 text-success" />
-                {#else}
-                 <#Icon iconify="ps:forbidden" class="flex-shrink-0 w-4 h-4 text-error" />
-                {/if}
-                <span class={
-                  "text-error",
-                  "!text-success":
-                      Bonfire.Me.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :notifications],
-                        true,
-                        :instance
-                      )
                 }>{l("Notifications")}</span>
               </div>
               <div class="badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded">
@@ -408,7 +387,7 @@
           x-on:click="open = !open"
           class="normal-case btn-circle btn btn-ghost btn-sm"
         >
-         <#Icon solid="ChevronRight" class="w-6 h-6 text-base-content/70" />
+          <#Icon solid="ChevronRight" class="w-6 h-6 text-base-content/70" />
         </button>
         <button
           x-show="open"
@@ -416,11 +395,11 @@
           x-on:click="open = !open"
           class="normal-case btn-circle btn btn-ghost btn-sm"
         >
-         <#Icon solid="ChevronDown" class="w-6 h-6 text-base-content/70" />
+          <#Icon solid="ChevronDown" class="w-6 h-6 text-base-content/70" />
         </button>
       </div>
       <div x-show="open" x-cloak x-collapse>
-        <article class="prose max-w-max mt-3 prose-sm">{templated_or_remote_markdown(Config.get([:terms, :conduct]))}</article>      
+        <article class="prose max-w-max mt-3 prose-sm">{templated_or_remote_markdown(Config.get([:terms, :conduct]))}</article>
       </div>
     </div>
   </div>
