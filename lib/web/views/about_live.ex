@@ -12,6 +12,7 @@ defmodule Bonfire.Web.AboutLive do
      |> assign(
        page: "Instance defaults",
        nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
+       page_header: false,
        page_title:
          l("About ") <> Config.get([:ui, :theme, :instance_name], Bonfire.Application.name()),
        sidebar_widgets: [
