@@ -3,6 +3,7 @@ defmodule Bonfire.Web.Router do
   # use Plug.ErrorHandler
   require OrionWeb.Router
   # alias Bonfire.Common.Config
+  require LiveAdmin.Router
 
   pipeline :load_current_auth do
     plug(Bonfire.UI.Me.Plugs.LoadCurrentAccount)
@@ -144,6 +145,14 @@ defmodule Bonfire.Web.Router do
 
     OrionWeb.Router.live_orion("/admin/system/orion",
       on_mount: [Bonfire.UI.Me.LivePlugs.LoadCurrentUser, Bonfire.UI.Me.LivePlugs.AdminRequired]
+    )
+
+    LiveAdmin.Router.live_admin("/admin/data",
+      resources: Pointers.Tables.schema_modules(),
+      ecto_repo: Bonfire.Common.Repo,
+      title: "Bonfire Data Admin",
+      immutable_fields: [:id, :inserted_at, :updated_at],
+      label_with: :name
     )
 
     # {Bonfire.UI.Common.LivePlugs, Bonfire.UI.Me.LivePlugs.UserRequired}
