@@ -8,11 +8,10 @@ defmodule Bonfire.Web.HomeLive do
 
   @changelog File.read!("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
 
+  on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.LoadCurrentUser]}
+
   def mount(%{"dashboard" => _} = params, session, socket) do
-    Bonfire.UI.Common.LivePlugs.live_plug(params, session, socket, [
-      Bonfire.UI.Me.LivePlugs.LoadCurrentUser,
-      &mounted/3
-    ])
+    mounted(params, session, socket)
   end
 
   def mount(params, session, socket) do
@@ -23,7 +22,7 @@ defmodule Bonfire.Web.HomeLive do
          |> redirect_to(url, fallback: "/dashboard", replace: false)}
 
       _ ->
-        mount(Map.put(params, "dashboard", nil), session, socket)
+        mounted(params, session, socket)
     end
   end
 
