@@ -66,7 +66,8 @@ defmodule Bonfire.Web.HomeLive do
        ]
      )
      |> assign(
-       Bonfire.Social.Feeds.LiveHandler.feed_assigns_maybe_async({:default, params}, socket)
+       Bonfire.Social.Feeds.LiveHandler.feed_default_assigns({:default, params}, socket)
+       #  Bonfire.Social.Feeds.LiveHandler.feed_assigns_maybe_async({:default, params}, socket)
      )}
   end
 
