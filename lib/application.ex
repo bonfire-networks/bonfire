@@ -35,7 +35,7 @@ defmodule Bonfire.Application do
     Bonfire.Me.Settings.LoadInstanceConfig,
     # PubSub
     {Phoenix.PubSub, [name: Bonfire.Common.PubSub, adapter: Phoenix.PubSub.PG2]},
-    Bonfire.Common.Presence,
+    Bonfire.UI.Common.Presence,
     # Persistent Data Services
     Pointers.Tables
     # Bonfire.Data.AccessControl.Accesses,
