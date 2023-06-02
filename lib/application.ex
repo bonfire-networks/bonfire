@@ -25,6 +25,7 @@ defmodule Bonfire.Application do
   @apps_before [
     # Metrics
     Bonfire.Web.Telemetry,
+    {PlugAttack.Storage.Ets, name: Bonfire.UI.Common.PlugAttack.Storage, clean_period: 60_000},
     # Database
     @repo_module,
     EctoSparkles.AutoMigrator,
