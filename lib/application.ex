@@ -127,7 +127,7 @@ defmodule Bonfire.Application do
   end
 
   def applications(:dev, _test_instance?, _any) do
-    [{Bonfire.TelemetryStorage, Bonfire.Web.Telemetry.metrics()}] ++ applications(nil, nil, nil)
+    [{Bonfire.Telemetry.Storage, Bonfire.Web.Telemetry.metrics()}] ++ applications(nil, nil, nil)
   end
 
   # default apps

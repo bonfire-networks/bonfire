@@ -169,7 +169,7 @@ defmodule Bonfire.Web.Router do
         ],
         metrics: Bonfire.Web.Telemetry,
         metrics_history:
-          if(Config.env() == :dev, do: {Bonfire.TelemetryStorage, :metrics_history, []}),
+          if(Config.env() == :dev, do: {Bonfire.Telemetry.Storage, :metrics_history, []}),
         # metrics: FlamegraphsWeb.Telemetry,
         additional_pages: [
           oban_queues: Bonfire.Web.ObanDashboard,

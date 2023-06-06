@@ -1,4 +1,4 @@
-defmodule Bonfire.TelemetryStorage do
+defmodule Bonfire.Telemetry.Storage do
   use GenServer
 
   @history_buffer_size 50
