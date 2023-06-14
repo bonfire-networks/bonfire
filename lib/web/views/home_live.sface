@@ -28,6 +28,7 @@
           id={@feed_component_id}
           hide_tabs
           feed_id={@feed_id}
+          tabs_class="flex gap-3 pb-3 px-4 scrollable"
           page_title={@page_title}
           feed={@feed}
           page_info={@page_info}
@@ -51,6 +52,7 @@
       id={@feed_component_id}
       feed_id={@feed_id}
       feed_ids={@feed_ids}
+      tabs_class="flex gap-3 pb-3 px-4 scrollable"
       feed={@feed}
       page_info={@page_info}
       loading={@loading}
