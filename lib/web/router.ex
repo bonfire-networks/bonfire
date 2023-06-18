@@ -46,13 +46,12 @@ defmodule Bonfire.Web.Router do
   use_if_enabled(Bonfire.UI.Topics.Routes)
   use_if_enabled(Bonfire.UI.Groups.Routes)
   use_if_enabled(Bonfire.Geolocate.Web.Routes)
-
-  use_if_enabled(Bonfire.UI.Reflow.Routes)
   use_if_enabled(Bonfire.UI.Coordination.Routes)
   use_if_enabled(Bonfire.UI.Kanban.Routes)
   use_if_enabled(Bonfire.Breadpub.Web.Routes)
   use_if_enabled(Bonfire.Recyclapp.Routes)
   use_if_enabled(Bonfire.Upcycle.Web.Routes)
+  use_if_enabled(Bonfire.UI.Reflow.Routes)
 
   use_if_enabled(RauversionExtension.UI.Routes)
 
