@@ -173,6 +173,34 @@
                     "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
                     "!border-success":
                       Bonfire.Me.Settings.get(
+                        [Bonfire.Social.Feeds, :my_feed_includes, :followed_categories],
+                        true,
+                        :instance
+                      )
+                  }>
+                    {#if Bonfire.Me.Settings.get(
+                        [Bonfire.Social.Feeds, :my_feed_includes, :followed_categories],
+                        true,
+                        :instance
+                      )}
+                      <#Icon iconify="mdi:check-circle-outline" class="flex-shrink-0 w-4 h-4 text-success" />
+                    {#else}
+                      <#Icon iconify="mdi:close-circle-outline" class="flex-shrink-0 w-4 h-4 text-error" /><span class="sr-only">{l("No")}</span>
+                    {/if}
+                    <span class={
+                      "text-error",
+                      "!text-success":
+                        Bonfire.Me.Settings.get(
+                          [Bonfire.Social.Feeds, :my_feed_includes, :followed_categories],
+                          true,
+                          :instance
+                        )
+                    }>{l("Activities from followed groups")}</span>
+                  </div>
+                  <div class={
+                    "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
+                    "!border-success":
+                      Bonfire.Me.Settings.get(
                         [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
                         true,
                         :instance
@@ -185,7 +213,7 @@
                       )}
                       <#Icon iconify="mdi:check-circle-outline" class="flex-shrink-0 w-4 h-4 text-success" />
                     {#else}
-                      <#Icon iconify="mdi:close-circle-outline" class="flex-shrink-0 w-4 h-4 text-error" />
+                      <#Icon iconify="mdi:close-circle-outline" class="flex-shrink-0 w-4 h-4 text-error" /><span class="sr-only">{l("No")}</span>
                     {/if}
                     <span class={
                       "text-error",
@@ -213,7 +241,7 @@
                       )}
                       <#Icon iconify="mdi:check-circle-outline" class="flex-shrink-0 w-4 h-4 text-success" />
                     {#else}
-                      <#Icon iconify="mdi:close-circle-outline" class="flex-shrink-0 w-4 h-4 text-error" />
+                      <#Icon iconify="mdi:close-circle-outline" class="flex-shrink-0 w-4 h-4 text-error" /><span class="sr-only">{l("No")}</span>
                     {/if}
                     <span class={
                       "text-error",
@@ -241,7 +269,7 @@
                       )}
                       <#Icon iconify="mdi:check-circle-outline" class="flex-shrink-0 w-4 h-4 text-success" />
                     {#else}
-                      <#Icon iconify="mdi:close-circle-outline" class="flex-shrink-0 w-4 h-4 text-error" />
+                      <#Icon iconify="mdi:close-circle-outline" class="flex-shrink-0 w-4 h-4 text-error" /><span class="sr-only">{l("No")}</span>
                     {/if}
                     <span class={
                       "text-error",
@@ -269,7 +297,7 @@
                       )}
                       <#Icon iconify="mdi:check-circle-outline" class="flex-shrink-0 w-4 h-4 text-success" />
                     {#else}
-                      <#Icon iconify="mdi:close-circle-outline" class="flex-shrink-0 w-4 h-4 text-error" />
+                      <#Icon iconify="mdi:close-circle-outline" class="flex-shrink-0 w-4 h-4 text-error" /><span class="sr-only">{l("No")}</span>
                     {/if}
                     <span class={
                       "text-error",
@@ -297,7 +325,7 @@
                       )}
                       <#Icon iconify="mdi:check-circle-outline" class="flex-shrink-0 w-4 h-4 text-success" />
                     {#else}
-                      <#Icon iconify="mdi:close-circle-outline" class="flex-shrink-0 w-4 h-4 text-error" />
+                      <#Icon iconify="mdi:close-circle-outline" class="flex-shrink-0 w-4 h-4 text-error" /><span class="sr-only">{l("No")}</span>
                     {/if}
                     <span class={
                       "text-error",
@@ -311,7 +339,7 @@
                   </div>
                   <div class="badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded">
                     <#Icon iconify="mdi:close-circle-outline" class="flex-shrink-0 w-4 h-4 text-error" />
-                    <span class="text-error">{l("Messages")}</span>
+                    <span class="text-error"><span class="sr-only">{l("No")}</span> {l("Messages")}</span>
                   </div>
                 </div>
               </div>
