@@ -11,7 +11,7 @@ defmodule Bonfire.Web.ObanDashboard do
 
   @impl true
   def render_page(_assigns) do
-    table(
+    live_table(
       columns: table_columns(),
       id: :oban,
       #   row_attrs: &row_attrs/1,
