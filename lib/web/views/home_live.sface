@@ -1,8 +1,8 @@
 <div class="w-full">
   {#if @show_about_instance?}
-    <div class="">
+    <div class="m-4">
       <div
-        class="bg-center mx-auto bg-no-repeat bg-cover h-[250px] w-full"
+        class="bg-center rounded-lg mx-auto bg-no-repeat bg-cover h-[300px] w-full"
         style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
       />
       <h1 class="m-8 font-medium leading-relaxed tracking-wider text-center text-md text-base-content/90">
