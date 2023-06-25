@@ -14,7 +14,7 @@
       x-data="{
         open: true
       }"
-      class="p-6 border-t border-base-content/10"
+      class="p-6 border-t border-base-content/20"
     >
       <div class="flex items-center justify-between">
         <div class="flex flex-col gap-1">
@@ -48,7 +48,7 @@
       x-data="{
         open: false
       }"
-      class="p-6 border-t border-base-content/10"
+      class="p-6 border-t border-base-content/20"
     >
       <div class="flex items-center justify-between">
         <div class="flex flex-col gap-1">
@@ -79,7 +79,7 @@
             <Bonfire.UI.Common.WidgetAppsLive context={:instance} showing_within={:settings} cols="4" />
           </div>
 
-          <div class="border px-4 border-base-content/10 rounded-lg">
+          <div class="border px-4 border-base-content/20 rounded-lg">
             <div class="font-bold bg-base-content/5 -mx-4 p-4">
               {l("General")}
             </div>
@@ -346,7 +346,7 @@
             </div>
           </div>
 
-          <div class="border px-4 mt-4 border-base-content/10 rounded-lg">
+          <div class="border px-4 mt-4 border-base-content/20 rounded-lg">
             <div class="font-bold bg-base-content/5 -mx-4 p-4">
               {l("Look & feel")}
             </div>
@@ -385,7 +385,7 @@
             </div>
           </div>
 
-          <div class="border px-4 mt-4 border-base-content/10 rounded-lg">
+          <div class="border px-4 mt-4 border-base-content/20 rounded-lg">
             <div class="font-bold bg-base-content/5 -mx-4 p-4">
               {l("Privacy")}
             </div>
@@ -432,7 +432,7 @@
             </div>
           </div>
 
-          <div class="border px-4 mt-4 border-base-content/10 rounded-lg">
+          <div class="border px-4 mt-4 border-base-content/20 rounded-lg">
             <div class="font-bold bg-base-content/5 -mx-4 p-4">
               {l("Potentially addictive or distracting")}
             </div>
@@ -466,7 +466,7 @@
             </div>
           </div>
 
-          <div class="border px-4 mt-4 border-base-content/10 rounded-lg">
+          <div class="border px-4 mt-4 border-base-content/20 rounded-lg">
             <div class="font-bold bg-base-content/5 -mx-4 p-4">
               {l("Vanity metrics")}
             </div>
@@ -520,7 +520,7 @@
       x-data="{
         open: false
       }"
-      class="p-6 border-t border-base-content/10"
+      class="p-6 border-t border-base-content/20"
     >
       <div class="flex items-center justify-between">
         <div class="flex flex-col gap-1">
