@@ -38,13 +38,14 @@ defmodule Bonfire.Application do
     {Phoenix.PubSub, [name: Bonfire.Common.PubSub, adapter: Phoenix.PubSub.PG2]},
     Bonfire.UI.Common.Presence,
     # Persistent Data Services
-    Pointers.Tables
+    Pointers.Tables,
     # Bonfire.Data.AccessControl.Accesses,
     ## these populate on first call, so no need to run on startup:
     # Bonfire.Common.ContextModule,
     # Bonfire.Common.QueryModule,
     # Bonfire.Federate.ActivityPub.FederationModules
-    # {PhoenixProfiler, name: Bonfire.Web.Profiler}
+    # {PhoenixProfiler, name: Bonfire.Web.Profiler},
+    {Finch, name: Bonfire.Finch}
   ]
 
   # Stuff that depends on the Endpoint and/or the above
