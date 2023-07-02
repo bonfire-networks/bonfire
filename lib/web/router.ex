@@ -6,7 +6,8 @@ defmodule Bonfire.Web.Router do
   require LiveAdmin.Router
 
   pipeline :load_current_auth do
-    plug(Bonfire.UI.Me.Plugs.LoadCurrentAccount)
+    # plug(Bonfire.UI.Me.Plugs.LoadCurrentAccount)
+    # ^ no need to call LoadCurrentAccount if also calling LoadCurrentUser
     plug(Bonfire.UI.Me.Plugs.LoadCurrentUser)
   end
 
