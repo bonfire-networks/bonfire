@@ -149,13 +149,19 @@ defmodule Bonfire.Web.Router do
       on_mount: [Bonfire.UI.Me.LivePlugs.LoadCurrentUser, Bonfire.UI.Me.LivePlugs.AdminRequired]
     )
 
-    LiveAdmin.Router.live_admin("/admin/data",
+    LiveAdmin.Router.live_admin("/admin/system/data",
       resources: Pointers.Tables.schema_modules(),
       ecto_repo: Bonfire.Common.Repo,
       title: "Bonfire Data Admin",
       immutable_fields: [:id, :inserted_at, :updated_at],
       label_with: :name
     )
+
+    # do
+    #   for schema <- Pointers.Tables.schema_modules() do
+    #     LiveAdmin.Router.admin_resource "/#{schema}", schema
+    #   end
+    # end 
 
     # {Bonfire.UI.Common.LivePlugs, Bonfire.UI.Me.LivePlugs.UserRequired}
 
@@ -173,7 +179,8 @@ defmodule Bonfire.Web.Router do
         # metrics: FlamegraphsWeb.Telemetry,
         additional_pages: [
           oban_queues: Bonfire.Web.ObanDashboard,
-          orion: Bonfire.Web.OrionLink
+          orion: Bonfire.Web.OrionLink,
+          data: Bonfire.Web.DataLink
           # flame_on: FlameOn.DashboardPage
           # _profiler: {PhoenixProfiler.Dashboard, []}
         ]
