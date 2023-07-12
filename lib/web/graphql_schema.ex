@@ -4,7 +4,7 @@ if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
      Bonfire.Common.Extend.module_enabled?(Absinthe.Schema.Notation) do
   defmodule Bonfire.API.GraphQL.Schema do
     @moduledoc """
-    Root GraphQL Schema.
+    Root GraphQL Schema. 
     Only active if the `Bonfire.API.GraphQL` extension is present.
     """
 
@@ -69,12 +69,12 @@ if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
     import_types(Bonfire.Geolocate.GraphQL)
 
     import_types(Bonfire.ValueFlows.API.Schema)
-    import_types(Bonfire.ValueFlows.API.Schema.Subscriptions)
+    # import_types(Bonfire.ValueFlows.API.Schema.Subscriptions)
 
     import_types(Bonfire.ValueFlows.API.Schema.Observe)
 
     query do
-      import_fields(:common_queries)
+      # import_fields(:common_queries)
 
       # Extension Modules
       import_fields(:me_queries)
@@ -120,9 +120,9 @@ if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
       import_fields(:valueflows_observe_mutations)
     end
 
-    subscription do
-      import_fields(:valueflows_subscriptions)
-    end
+    # subscription do
+    #   import_fields(:valueflows_subscriptions)
+    # end
 
     @doc """
     hydrate SDL schema with resolvers

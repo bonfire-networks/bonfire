@@ -4,7 +4,7 @@ Postgrex.Types.define(
   json: Jason
 )
 
-# required by Bonfire.Geolocate
+# required by Bonfire.Geolocate:
 Postgrex.Types.define(
   Bonfire.Geolocate.PostgresTypes,
   Ecto.Adapters.Postgres.extensions() ++
