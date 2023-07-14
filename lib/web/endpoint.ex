@@ -44,6 +44,8 @@ defmodule Bonfire.Web.Endpoint do
 
     """
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href='#{static_path("/images/bonfire-icon.svg")}'>
+    <link rel="icon" type="image/svg+xml" data-dynamic-href="{svg}">
 
     <link phx-track-static rel='stylesheet' href='#{static_path("/assets/bonfire_basic.css")}'/>
     <link phx-track-static rel='stylesheet' href='#{static_path("/fonts/#{font_family}.css")}'/>
