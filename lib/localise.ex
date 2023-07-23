@@ -19,7 +19,7 @@ defmodule Bonfire.Localise do
   l("Published")
   l("Submitted")
 
-  # for {item, _item} <- Bonfire.Common.Config.get([:ui, :profile, :navigation], [timeline: "timeline"])
+  # for {item, _item} <- Bonfire.Common.Config.get([:ui, :profile, :navigation], [nil: "timeline"])
   #                   |> IO.inspect(label: "Making profile tab names localisable") do
   #   # localise_string("#{item}")
   #   dgettext("bonfire", "#{item}", [])
