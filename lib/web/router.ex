@@ -34,7 +34,7 @@ defmodule Bonfire.Web.Router do
   use_if_enabled(Bonfire.Files.Routes)
 
   use_if_enabled(Bonfire.UI.Social.Routes)
-  # use_if_enabled(Bonfire.AI.Web.Routes)
+  # use_if_enabled(Bonfire.AI.Web.Routes) 
 
   use_if_enabled(Bonfire.Boundaries.Web.Routes)
 
