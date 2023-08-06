@@ -34,7 +34,10 @@ defmodule Bonfire.Web.Router do
   use_if_enabled(Bonfire.Files.Routes)
 
   use_if_enabled(Bonfire.UI.Social.Routes)
-  # use_if_enabled(Bonfire.AI.Web.Routes) 
+
+  use_if_enabled(Bonfire.Gatherings.Web.Routes)
+
+  # use_if_enabled(Bonfire.AI.Web.Routes)
 
   use_if_enabled(Bonfire.Boundaries.Web.Routes)
 
@@ -161,7 +164,7 @@ defmodule Bonfire.Web.Router do
     #   for schema <- Pointers.Tables.schema_modules() do
     #     LiveAdmin.Router.admin_resource "/#{schema}", schema
     #   end
-    # end 
+    # end
 
     # {Bonfire.UI.Common.LivePlugs, Bonfire.UI.Me.LivePlugs.UserRequired}
 
