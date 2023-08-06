@@ -134,6 +134,7 @@ defmodule Bonfire.Application do
   # default apps
   def applications(_env, _test_instance?, _any) do
     @apps_before ++
+      Bonfire.Social.Graph.maybe_applications() ++
       [@endpoint_module] ++
       @apps_after
   end
