@@ -49,6 +49,7 @@ defmodule Bonfire.Web.HomeLive do
        feed_ids: nil,
        feed_component_id: nil,
        page_info: nil,
+       show_about_instance?: nil,
        nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
        #  without_sidebar: true,
        sidebar_widgets: [
