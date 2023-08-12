@@ -1,29 +1,10 @@
 <div class="w-full">
-  {#if @show_about_instance?}
-    <div class="m-4">
-      <div
-        class="bg-center rounded-lg mx-auto bg-no-repeat bg-cover h-[300px] w-full"
-        style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
-      />
-      <h1 class="m-8 font-medium leading-relaxed tracking-wider text-center text-md text-base-content/90">
-        {Config.get([:ui, :theme, :instance_description], "")}
-      </h1>
-    </div>
-
-    <!-- <div class="mx-4 my-16">
-      <Bonfire.UI.Common.InstancePinnedLive
-        title={l("Featured discussions")}
-        object_types={Bonfire.Data.Social.Post}
-      />
-    </div> -->
-  {/if}
-
   {#if !@current_user and @feed_component_id}
     <div class="flex items-start gap-8">
       <div class="w-full">
-        <div class="p-3 rounded-t-xl">
+        <!-- <div class="p-3 rounded-t-xl">
           <div class="w-full pb-3 text-sm font-medium tracking-wide border-b border-base-content/20 text-base-content/70">{l("Recent activities")}</div>
-        </div>
+        </div> -->
         <Bonfire.UI.Social.FeedLive
           id={@feed_component_id}
           hide_tabs
