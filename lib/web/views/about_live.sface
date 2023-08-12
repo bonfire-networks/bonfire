@@ -1,8 +1,8 @@
 <div class="">
-    <div
-      class="bg-center mx-auto bg-no-repeat bg-cover h-[300px] w-full"
-      style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
-    />
+  <div
+    class="bg-center mx-auto bg-no-repeat bg-cover h-[300px] w-full"
+    style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
+  />
   <div class="">
     <div
       x-data="{
