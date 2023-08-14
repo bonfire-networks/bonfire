@@ -65,21 +65,16 @@ defmodule Bonfire.Web.HomeLive do
            ]
          ]
        ]
-     )
-     |> assign(
-       Bonfire.Social.Feeds.LiveHandler.feed_default_assigns({:default, params}, socket)
-       #  Bonfire.Social.Feeds.LiveHandler.feed_assigns_maybe_async({:default, params}, socket)
      )}
   end
 
   defp login_form(params), do: Accounts.changeset(:login, params)
 
-  # def do_handle_params(%{"tab" => tab} = _params, _url, socket) do
-  #   debug(tab)
-  #   {:noreply, assign(socket, selected_tab: tab)}
-  # end
+  def do_handle_params(%{"tab" => _tab} = params, url, socket) do
+    Bonfire.UI.Social.FeedsLive.do_handle_params(params, url, socket)
+  end
 
-  def do_handle_params(_params, _url, socket) do
+  def do_handle_params(params, _url, socket) do
     # debug(params, "param")
 
     app = String.capitalize(Bonfire.Application.name())
@@ -98,6 +93,12 @@ defmodule Bonfire.Web.HomeLive do
            do: l("%{app}", app: app),
            else: l("%{app} dashboard", app: app)
          )
+     )
+     |> assign(
+       Bonfire.Social.Feeds.LiveHandler.feed_default_assigns(
+         {e(socket, :assigns, :live_action, :default), params},
+         socket
+       )
      )}
   end
 
