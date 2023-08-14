@@ -16,6 +16,7 @@
           feed={@feed}
           page_info={@page_info}
           loading={@loading}
+          time_limit={7}
         />
       </div>
       <!-- <div class="hidden w-full tablet-lg:flex">
@@ -43,6 +44,7 @@
       loading={@loading}
       tab_path_prefix="/feed/"
       tab_link_component={LinkLive}
+      time_limit={7}
     />
   {/if}
 </div>
