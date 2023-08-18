@@ -93,7 +93,11 @@ defmodule Bonfire.Application do
   def start(_type, _args) do
     Bonfire.Logging.setup(@env, @repo_module)
 
-    :gen_event.swap_handler(:alarm_handler, {:alarm_handler, :swap}, {Bonfire.System.OS.Monitor, :ok})
+    :gen_event.swap_handler(
+      :alarm_handler,
+      {:alarm_handler, :swap},
+      {Bonfire.System.OS.Monitor, :ok}
+    )
     |> IO.inspect(label: "Bonfire.System.OS.Monitor")
 
     # Application.get_env(:bonfire, Bonfire.Web.Endpoint, [])
