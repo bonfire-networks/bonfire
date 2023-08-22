@@ -45,7 +45,7 @@ defmodule Bonfire.Application do
     # Bonfire.Common.QueryModule,
     # Bonfire.Federate.ActivityPub.FederationModules
     # {PhoenixProfiler, name: Bonfire.Web.Profiler},
-    {Finch, name: Bonfire.Finch}
+    {Finch, name: Bonfire.Finch, pools: Bonfire.RuntimeConfig.finch_pool_config()}
   ]
 
   # Stuff that depends on the Endpoint and/or the above

@@ -207,4 +207,27 @@ defmodule Bonfire.RuntimeConfig do
         ]
       ]
   end
+
+  def finch_pool_config() do
+    %{
+      :default => [size: 42, count: 2],
+      "https://icons.duckduckgo.com" => [
+        conn_opts: [transport_opts: [size: 8, timeout: 3_000]]
+      ],
+      "https://www.google.com/s2/favicons" => [
+        conn_opts: [transport_opts: [size: 8, timeout: 3_000]]
+      ]
+    }
+    |> maybe_add_sentry_pool()
+  end
+
+  def maybe_add_sentry_pool(pool_config) do
+    case Sentry.Config.dsn() do
+      dsn when is_binary(dsn) ->
+        Map.put(pool_config, dsn, size: 50)
+
+      _ ->
+        pool_config
+    end
+  end
 end
