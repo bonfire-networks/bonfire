@@ -99,7 +99,7 @@ defmodule Bonfire.Web.HomeLive do
          {e(socket, :assigns, :live_action, nil) ||
             Settings.get(
               [Bonfire.UI.Social.FeedLive, :default_feed],
-              nil,
+              :default,
               socket.assigns[:__context__]
             ), params},
          socket
