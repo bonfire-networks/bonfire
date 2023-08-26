@@ -96,7 +96,12 @@ defmodule Bonfire.Web.HomeLive do
      )
      |> assign(
        Bonfire.Social.Feeds.LiveHandler.feed_default_assigns(
-         {e(socket, :assigns, :live_action, :default), params},
+         {e(socket, :assigns, :live_action, nil) ||
+            Settings.get(
+              [Bonfire.UI.Social.FeedLive, :default_feed],
+              nil,
+              socket.assigns[:__context__]
+            ), params},
          socket
        )
      )}
