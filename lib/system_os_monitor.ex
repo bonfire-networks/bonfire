@@ -15,7 +15,7 @@ defmodule Bonfire.System.OS.Monitor do
 
   def handle_event({:clear_alarm, alarm_name}, state) do
     state
-    |> debug("Clearing the alarm  " <> Atom.to_string(alarm_name))
+    |> debug("Clearing the alarm  #{alarm_name}")
 
     {:ok, state}
   end
