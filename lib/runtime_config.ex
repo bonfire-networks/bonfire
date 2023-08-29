@@ -57,12 +57,9 @@ defmodule Bonfire.RuntimeConfig do
             {Bonfire.Me.Acts.Caretaker, on: :post},
 
             # record the creator,
-            {Bonfire.Me.Acts.Creator, on: :post},
-
-            # maybe set as sensitive,
-            {Bonfire.Social.Acts.Sensitivity, on: :post}
+            {Bonfire.Me.Acts.Creator, on: :post}
           ],
-          # These steps are run in parallel
+          # These steps are run in parallel and require the outputs of the previous ones
           [
             # possibly fetch contents of URLs (depends on PostContents),
             {Bonfire.Files.Acts.URLPreviews, on: :post},
@@ -71,9 +68,12 @@ defmodule Bonfire.RuntimeConfig do
             {Bonfire.Social.Acts.Threaded, on: :post},
 
             # with extracted tags/mentions fully hooked up (depends on PostContents),
-            {Bonfire.Tags.Acts.Tag, on: :post}
+            {Bonfire.Tags.Acts.Tag, on: :post},
+
+            # maybe set as sensitive,
+            {Bonfire.Social.Acts.Sensitivity, on: :post}
           ],
-          # These steps are run in parallel
+          # These steps are run in parallel and require the outputs of the previous ones
           [
             # possibly with uploaded/linked media (optionally depends on URLPreviews),
             {Bonfire.Files.Acts.AttachMedia, on: :post},
