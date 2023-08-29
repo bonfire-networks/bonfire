@@ -1,5 +1,5 @@
 <div class="w-full">
-  {#if !@current_user}
+  {#if !current_user(@__context__)}
     <div class="flex items-start gap-8">
       <div class="w-full">
         <!-- <div class="p-3 rounded-t-xl">
