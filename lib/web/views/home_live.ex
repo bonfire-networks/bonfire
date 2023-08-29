@@ -82,7 +82,7 @@ defmodule Bonfire.Web.HomeLive do
     # instance_name =
     #   Config.get([:ui, :theme, :instance_name]) || l("An instance of %{app}", app: app)
 
-    show_about_instance? = !current_user(socket) or current_url(socket) == "/about"
+    show_about_instance? = !current_user(socket.assigns) or current_url(socket) == "/about"
 
     {:noreply,
      socket
