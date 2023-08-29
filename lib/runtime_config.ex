@@ -57,7 +57,10 @@ defmodule Bonfire.RuntimeConfig do
             {Bonfire.Me.Acts.Caretaker, on: :post},
 
             # record the creator,
-            {Bonfire.Me.Acts.Creator, on: :post}
+            {Bonfire.Me.Acts.Creator, on: :post},
+
+            # maybe set as sensitive,
+            {Bonfire.Social.Acts.Sensitivity, on: :post}
           ],
           # These steps are run in parallel
           [
