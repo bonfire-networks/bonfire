@@ -25,7 +25,6 @@ defmodule Bonfire.Application do
   @apps_before [
     # Metrics
     Bonfire.Web.Telemetry,
-    {PlugAttack.Storage.Ets, name: Bonfire.UI.Common.PlugAttack.Storage, clean_period: 60_000},
     # Database
     @repo_module,
     EctoSparkles.AutoMigrator,
@@ -135,7 +134,10 @@ defmodule Bonfire.Application do
   end
 
   def applications(:dev, _test_instance?, _any) do
-    [{Bonfire.Telemetry.Storage, Bonfire.Web.Telemetry.metrics()}] ++ applications(nil, nil, nil)
+    [
+      {Bonfire.Telemetry.Storage, Bonfire.Web.Telemetry.metrics()}, # simple ETS based storage for non-prod
+    {PlugAttack.Storage.Ets, name: Bonfire.UI.Common.PlugAttack.Storage, clean_period: 60_000}
+    ] ++ applications(nil, nil, nil)
   end
 
   # default apps
