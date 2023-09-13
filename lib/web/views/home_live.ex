@@ -38,6 +38,7 @@ defmodule Bonfire.Web.HomeLive do
      |> assign(
        page: "home",
        selected_tab: nil,
+       no_header: true,
        page_title: l("Bonfire"),
        links: links,
        changelog: @changelog,
