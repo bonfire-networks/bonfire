@@ -133,16 +133,22 @@ defmodule Bonfire.Application do
       @apps_after
   end
 
-  def applications(:dev, _test_instance?, _any) do
+  def applications(:test, _, _any) do
     [
       # simple ETS based storage for non-prod
-      {Bonfire.Telemetry.Storage, Bonfire.Web.Telemetry.metrics()},
       {PlugAttack.Storage.Ets, name: Bonfire.UI.Common.PlugAttack.Storage, clean_period: 60_000}
     ] ++ applications(nil, nil, nil)
   end
 
+  def applications(:dev, _, _any) do
+    [
+      # simple ETS based storage for non-prod
+      {Bonfire.Telemetry.Storage, Bonfire.Web.Telemetry.metrics()},
+      ] ++ applications(nil, nil, nil)
+  end
+
   # default apps
-  def applications(_env, _test_instance?, _any) do
+  def applications(_env, _, _any) do
     @apps_before ++
       Bonfire.Social.Graph.maybe_applications() ++
       [@endpoint_module] ++
