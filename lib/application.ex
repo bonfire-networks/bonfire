@@ -141,6 +141,7 @@ defmodule Bonfire.Application do
 
   def applications(:dev, _, _any) do
     [
+      {PlugAttack.Storage.Ets, name: Bonfire.UI.Common.PlugAttack.Storage, clean_period: 60_000},
       # simple ETS based storage for non-prod
       {Bonfire.Telemetry.Storage, Bonfire.Web.Telemetry.metrics()}
     ] ++ applications(nil, nil, nil)
