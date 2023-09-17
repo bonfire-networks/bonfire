@@ -134,4 +134,20 @@ defmodule Bonfire.Web.HomeLive do
           __MODULE__
           # &do_handle_event/3
         )
+
+  def render(%{platform_id: :swiftui} = assigns) do
+    # This UI renders on the iOS/Mac app
+    ~SWIFTUI"""
+    <VStack>
+      <Text>
+        Hello Bonfire native!
+      </Text>
+    </VStack>
+    """
+  end
+
+  def render(assigns) do
+    assigns
+    |> render_sface()
+  end
 end
