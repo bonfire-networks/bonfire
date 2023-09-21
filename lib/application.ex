@@ -74,6 +74,9 @@ defmodule Bonfire.Application do
     }
   ]
 
+  @plug_protect {PlugAttack.Storage.Ets,
+                 name: Bonfire.UI.Common.PlugProtect.Storage, clean_period: 60_000}
+
   def project, do: @project
   def config, do: @config
   def name, do: Application.get_env(:bonfire, :app_name) || config()[:name]
@@ -129,19 +132,16 @@ defmodule Bonfire.Application do
   def applications(:test, true = _test_instance?, _any) do
     @apps_before ++
       [Bonfire.Common.TestInstanceRepo] ++
-      [@endpoint_module, Bonfire.Web.FakeRemoteEndpoint] ++
+      [@plug_protect, @endpoint_module, Bonfire.Web.FakeRemoteEndpoint] ++
       @apps_after
   end
 
-  def applications(:test, _, _any) do
-    [
-      {PlugAttack.Storage.Ets, name: Bonfire.UI.Common.PlugAttack.Storage, clean_period: 60_000}
-    ] ++ applications(nil, nil, nil)
-  end
+  # def applications(:test, _, _any) do
+  #   applications(nil, nil, nil)
+  # end
 
   def applications(:dev, _, _any) do
     [
-      {PlugAttack.Storage.Ets, name: Bonfire.UI.Common.PlugAttack.Storage, clean_period: 60_000},
       # simple ETS based storage for non-prod
       {Bonfire.Telemetry.Storage, Bonfire.Web.Telemetry.metrics()}
     ] ++ applications(nil, nil, nil)
@@ -151,7 +151,7 @@ defmodule Bonfire.Application do
   def applications(_env, _, _any) do
     @apps_before ++
       Bonfire.Social.Graph.maybe_applications() ++
-      [@endpoint_module] ++
+      [@plug_protect, @endpoint_module] ++
       @apps_after
   end
 
