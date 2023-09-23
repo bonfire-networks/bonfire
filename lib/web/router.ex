@@ -201,13 +201,13 @@ defmodule Bonfire.Web.Router do
     end
   end
 
-  if Application.get_env(:source_inspector, :enabled, false) do
-    Phoenix.Router.scope "/" do
-      pipe_through(:browser)
-      # Add a new route for the Source Inspector controller
-      post "/_source_inspector_goto_source", SourceInspector.Controller, :goto_source
-    end
-  end
+  # if Application.get_env(:source_inspector, :enabled, false) do
+  #   Phoenix.Router.scope "/" do
+  #     pipe_through(:browser)
+  #     # Add a new route for the Source Inspector controller
+  #     post "/_source_inspector_goto_source", SourceInspector.Controller, :goto_source
+  #   end
+  # end
 end
 
 # generate an initial version of the reverse router (note that it will be re-generated at app start and when extensions are enabled/disabled)
