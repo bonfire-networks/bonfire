@@ -40,8 +40,6 @@ defmodule Bonfire.Web.Endpoint do
     # imported into main CSS already
     # <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 
-    # <script phx-track-static crossorigin='anonymous' src='#{static_path("/images/icons/svg-inject.min.js")}'></script>
-
     """
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/svg+xml" href='#{static_path("/images/bonfire-icon.svg")}'>
@@ -49,6 +47,8 @@ defmodule Bonfire.Web.Endpoint do
 
     <link phx-track-static rel='stylesheet' href='#{static_path("/assets/bonfire_basic.css")}'/>
     <link phx-track-static rel='stylesheet' href='#{static_path("/fonts/#{font_family}.css")}'/>
+
+    <script phx-track-static crossorigin='anonymous' src='#{static_path("/images/icons/svg-inject.min.js")}'></script>
 
     <link rel="manifest" href="/pwa/manifest.json" />
     <script type="module">
