@@ -70,7 +70,7 @@
         <div class="mt-3 rounded-lg">
           <div class="py-4">
             <div class="mb-4 text-sm font-medium">{l("Active extensions")}</div>
-            <!-- <Bonfire.UI.Common.WidgetAppsLive context={:instance} showing_within={:settings} cols="4" /> -->
+            {!-- <Bonfire.UI.Common.WidgetAppsLive context={:instance} showing_within={:settings} cols="4" /> --}
           </div>
 
           <div class="border px-4 border-base-content/20 rounded-lg">
@@ -152,7 +152,7 @@
                 <div class="flex items-center justify-between gap-2">
                   <div class="flex flex-col gap-1">
                     <div class="text-sm font-medium">{l("What activities to include in home feeds by default")}</div>
-                    <!-- <div class="text-sm font-light text-base-content/70">The details used to identify your publication around the web</div> -->
+                    {!-- <div class="text-sm font-light text-base-content/70">The details used to identify your publication around the web</div> --}
                   </div>
                 </div>
                 <div class="flex flex-wrap gap-3 mt-4 flex-items">
@@ -357,7 +357,7 @@
 
               <div class="py-4">
                 <div class="flex items-center justify-between items-center gap-4">
-                  <!-- {#if Bonfire.Me.Settings.get(
+                  {!-- {#if Bonfire.Me.Settings.get(
                       [Bonfire.UI.Common.AvatarLive, :animal_avatars],
                       true,
                       :instance
@@ -365,7 +365,7 @@
                     <#Icon iconify="mdi:check-circle-outline" class="flex-shrink-0 w-4 h-4 text-success" />
                   {#else}
                     <#Icon iconify="mdi:close-circle-outline" class="flex-shrink-0 w-4 h-4 text-error" />
-                  {/if} -->
+                  {/if} --}
                   <div class="flex flex-col gap-0">
                     <div class="text-sm font-medium">{l("Default avatars")}</div>
                     <div class="text-sm font-light text-base-content/70">{l("What to show for users without a profile picture")}</div>

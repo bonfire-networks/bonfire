@@ -2,9 +2,9 @@
   {#if !current_user(@__context__)}
     <div class="flex items-start gap-8">
       <div class="w-full">
-        <!-- <div class="p-3 rounded-t-xl">
+        {!-- <div class="p-3 rounded-t-xl">
           <div class="w-full pb-3 text-sm font-medium tracking-wide border-b border-base-content/20 text-base-content/70">{l("Recent activities")}</div>
-        </div> -->
+        </div> --}
         <Bonfire.UI.Social.FeedLive
           :if={@feed_component_id}
           id={@feed_component_id}
@@ -22,18 +22,18 @@
           time_limit={30}
         />
       </div>
-      <!-- <div class="hidden w-full tablet-lg:flex">
+      {!-- <div class="hidden w-full tablet-lg:flex">
         <Bonfire.Tag.Web.WidgetTagsLive />
-      </div> -->
+      </div> --}
     </div>
-    <!-- <footer class="p-10 rounded footer footer-center text-base-content/70">
+    {!-- <footer class="p-10 rounded footer footer-center text-base-content/70">
       <div class="grid grid-flow-col gap-4">
         <a class="link link-hover text-base-content/70">{l("About us")}</a>
         <a class="link link-hover text-base-content/70">{l("Contact")}</a>
         <a class="link link-hover text-base-content/70">{l("Terms")}</a>
         <a class="link link-hover text-base-content/70">{l("Privacy")}</a>
       </div>
-    </footer> -->
+    </footer> --}
   {#elseif @feed_component_id}
     <Bonfire.UI.Social.FeedLive
       id={@feed_component_id}
