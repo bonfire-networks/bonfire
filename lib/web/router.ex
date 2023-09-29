@@ -211,4 +211,4 @@ defmodule Bonfire.Web.Router do
 end
 
 # generate an initial version of the reverse router (note that it will be re-generated at app start and when extensions are enabled/disabled)
-Bonfire.Web.Endpoint.generate_reverse_router!()
+Bonfire.Common.Extend.generate_reverse_router!()

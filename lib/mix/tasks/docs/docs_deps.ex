@@ -1,7 +1,7 @@
 defmodule Mix.Tasks.Docs.Deps do
   use Mix.Task
 
-  @shortdoc "Generates docs for your app and its all deps"
+  @shortdoc "Generates docs for your app and its *all* deps"
   @recursive true
   @root Bonfire.Common.Config.get(:root_path)
 

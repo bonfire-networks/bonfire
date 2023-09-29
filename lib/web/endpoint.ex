@@ -50,6 +50,8 @@ defmodule Bonfire.Web.Endpoint do
 
     <script phx-track-static crossorigin='anonymous' src='#{static_path("/images/icons/svg-inject.min.js")}'></script>
 
+    #{PhoenixGon.View.render_gon_script(conn) |> Phoenix.HTML.safe_to_string()}
+
     <link rel="manifest" href="/pwa/manifest.json" />
     <script type="module">
       import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
@@ -69,7 +71,6 @@ defmodule Bonfire.Web.Endpoint do
       end
 
     """
-    #{PhoenixGon.View.render_gon_script(conn) |> Phoenix.HTML.safe_to_string()}
     <script defer phx-track-static crossorigin='anonymous' src='#{js}'></script>
     <link phx-track-static rel='stylesheet' href='#{static_path("/images/icons/icons.css")}'/>
     """
@@ -78,9 +79,9 @@ defmodule Bonfire.Web.Endpoint do
   def reload!(), do: Phoenix.CodeReloader.reload!(__MODULE__)
 
   @doc "(re)generates the reverse router (useful so it can be re-generated when extensions are enabled/disabled)"
-  def generate_reverse_router!() do
+  def generate_reverse_router!(app \\ :bonfire) do
     Code.put_compiler_option(:ignore_module_conflict, true)
-    Code.eval_file(Path.join(:code.priv_dir(:bonfire), "extras/router_reverse.ex"))
+    Code.eval_file(Path.join(:code.priv_dir(app), "extras/router_reverse.ex"))
     Code.put_compiler_option(:ignore_module_conflict, false)
   end
 end
