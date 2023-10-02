@@ -14,7 +14,8 @@ defmodule Bonfire.Web.Endpoint do
 
     plug(Phoenix.Ecto.CheckRepoStatus, otp_app: :bonfire)
 
-    socket "/admin/system/wobserver", Wobserver.Web.PhoenixSocket
+    # FIXME
+    # socket "/admin/system/wobserver", Wobserver.Web.PhoenixSocket
 
     # plug(PhoenixProfiler)
   end
