@@ -12,6 +12,8 @@ defmodule Bonfire.Logging do
     # end
 
     setup_oban()
+
+    setup_wobserver()
   end
 
   def setup_opentelemetry(env, repo_module) do
@@ -54,6 +56,13 @@ defmodule Bonfire.Logging do
     )
 
     Oban.Telemetry.attach_default_logger()
+  end
+
+  defp setup_wobserver do
+    if Code.ensure_loaded?(Wobserver) do
+      # Wobserver.register(:page, {"Task Bunny", :taskbunny, &Status.page/0})
+      # Wobserver.register(:metric, [&Status.metrics/0])
+    end
   end
 
   def handle_event([:oban, :job, :exception], measure, meta, _) do

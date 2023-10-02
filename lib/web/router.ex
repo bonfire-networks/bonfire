@@ -138,7 +138,7 @@ defmodule Bonfire.Web.Router do
   end
 
   scope "/" do
-    pipe_through(:browser)
+    pipe_through(:browser_unsafe)
 
     # if module_enabled?(Surface.Catalogue.Router) do # FIXME - getting function surface_catalogue/1 is undefined or private
     #   Surface.Catalogue.Router.surface_catalogue "/ui/"
@@ -147,6 +147,10 @@ defmodule Bonfire.Web.Router do
     if Config.env() != :test do
       pipe_through(:admin_required)
     end
+
+    forward "/admin/system/wobserver", Wobserver.Web.Router
+
+    pipe_through(:browser)
 
     OrionWeb.Router.live_orion("/admin/system/orion",
       on_mount: [Bonfire.UI.Me.LivePlugs.LoadCurrentUser, Bonfire.UI.Me.LivePlugs.AdminRequired]
