@@ -12,9 +12,7 @@
           feed_id={@feed_id}
           feed_ids={@feed_ids}
           feed_name={@feed_name}
-          tabs_class="flex items-center gap-2 w-full tabs sticky top-[56px] py-1 z-[9999999] backdrop-blur-sm bg-base-100/70 h-[60px] !top-0 !py-0"
-          tab_class="flex flex-1 pt-4 text-base capitalize hover:bg-base-content hover:bg-opacity-10 place-content-center lined_tab"
-          item_class="text-base-content/60 text-sm pb-3 border-b-4 border-transparent font-medium"
+          top_page="home"
           page_title={@page_title}
           feed={@feed}
           page_info={@page_info}
@@ -40,10 +38,8 @@
       feed_id={@feed_id}
       feed_ids={@feed_ids}
       feed_name={@feed_name}
-      tabs_class="flex items-center gap-2 w-full tabs sticky top-[56px] py-1 z-[9999999] backdrop-blur-sm bg-base-100/70 h-[60px] !top-0 !py-0"
-      tab_class="flex flex-1 pt-4 text-base capitalize hover:bg-base-content hover:bg-opacity-10 place-content-center lined_tab"
-      item_class="text-base-content/60 text-sm pb-3 border-b-4 border-transparent font-medium"
       feed={@feed}
+      top_page="home"
       page_info={@page_info}
       loading={@loading}
       tab_path_prefix="/feed/"
