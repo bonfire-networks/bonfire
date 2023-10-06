@@ -140,7 +140,7 @@
                     <div class="text-sm font-medium">{l("Maximum length of text inputs (e.g. posts)")}</div>
                   </div>
 
-                  <span class="flex-none badge h-[1.75rem] font-medium badge-outline border-base-content/30 rounded">{Bonfire.Me.Settings.get(
+                  <span class="flex-none badge h-[1.75rem] font-medium badge-outline border-base-content/30 rounded">{Bonfire.Common.Settings.get(
                       [Bonfire.UI.Common.SmartInputLive, :max_length],
                       0,
                       @__context__[:instance_settings]
@@ -166,13 +166,13 @@
                   <div class={
                     "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
                     "!border-success":
-                      Bonfire.Me.Settings.get(
+                      Bonfire.Common.Settings.get(
                         [Bonfire.Social.Feeds, :my_feed_includes, :followed_categories],
                         true,
                         :instance
                       )
                   }>
-                    {#if Bonfire.Me.Settings.get(
+                    {#if Bonfire.Common.Settings.get(
                         [Bonfire.Social.Feeds, :my_feed_includes, :followed_categories],
                         true,
                         :instance
@@ -184,7 +184,7 @@
                     <span class={
                       "text-error",
                       "!text-success":
-                        Bonfire.Me.Settings.get(
+                        Bonfire.Common.Settings.get(
                           [Bonfire.Social.Feeds, :my_feed_includes, :followed_categories],
                           true,
                           :instance
@@ -194,13 +194,13 @@
                   <div class={
                     "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
                     "!border-success":
-                      Bonfire.Me.Settings.get(
+                      Bonfire.Common.Settings.get(
                         [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
                         true,
                         :instance
                       )
                   }>
-                    {#if Bonfire.Me.Settings.get(
+                    {#if Bonfire.Common.Settings.get(
                         [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
                         true,
                         :instance
@@ -212,7 +212,7 @@
                     <span class={
                       "text-error",
                       "!text-success":
-                        Bonfire.Me.Settings.get(
+                        Bonfire.Common.Settings.get(
                           [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
                           true,
                           :instance
@@ -222,13 +222,13 @@
                   <div class={
                     "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
                     "!border-success":
-                      Bonfire.Me.Settings.get(
+                      Bonfire.Common.Settings.get(
                         [Bonfire.Social.Feeds, :my_feed_includes, :reply],
                         true,
                         :instance
                       )
                   }>
-                    {#if Bonfire.Me.Settings.get(
+                    {#if Bonfire.Common.Settings.get(
                         [Bonfire.Social.Feeds, :my_feed_includes, :reply],
                         true,
                         :instance
@@ -240,7 +240,7 @@
                     <span class={
                       "text-error",
                       "!text-success":
-                        Bonfire.Me.Settings.get(
+                        Bonfire.Common.Settings.get(
                           [Bonfire.Social.Feeds, :my_feed_includes, :reply],
                           true,
                           :instance
@@ -250,13 +250,13 @@
                   <div class={
                     "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
                     "!border-success":
-                      Bonfire.Me.Settings.get(
+                      Bonfire.Common.Settings.get(
                         [Bonfire.Social.Feeds, :my_feed_includes, :follows],
                         true,
                         :instance
                       )
                   }>
-                    {#if Bonfire.Me.Settings.get(
+                    {#if Bonfire.Common.Settings.get(
                         [Bonfire.Social.Feeds, :my_feed_includes, :follows],
                         true,
                         :instance
@@ -268,7 +268,7 @@
                     <span class={
                       "text-error",
                       "!text-success":
-                        Bonfire.Me.Settings.get(
+                        Bonfire.Common.Settings.get(
                           [Bonfire.Social.Feeds, :my_feed_includes, :follows],
                           true,
                           :instance
@@ -278,13 +278,13 @@
                   <div class={
                     "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
                     "!border-success":
-                      Bonfire.Me.Settings.get(
+                      Bonfire.Common.Settings.get(
                         [Bonfire.Social.Feeds, :my_feed_includes, :outbox],
                         true,
                         :instance
                       )
                   }>
-                    {#if Bonfire.Me.Settings.get(
+                    {#if Bonfire.Common.Settings.get(
                         [Bonfire.Social.Feeds, :my_feed_includes, :outbox],
                         true,
                         :instance
@@ -296,7 +296,7 @@
                     <span class={
                       "text-error",
                       "!text-success":
-                        Bonfire.Me.Settings.get(
+                        Bonfire.Common.Settings.get(
                           [Bonfire.Social.Feeds, :my_feed_includes, :outbox],
                           true,
                           :instance
@@ -306,13 +306,13 @@
                   <div class={
                     "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
                     "!border-success":
-                      Bonfire.Me.Settings.get(
+                      Bonfire.Common.Settings.get(
                         [Bonfire.Social.Feeds, :my_feed_includes, :notifications],
                         true,
                         :instance
                       )
                   }>
-                    {#if Bonfire.Me.Settings.get(
+                    {#if Bonfire.Common.Settings.get(
                         [Bonfire.Social.Feeds, :my_feed_includes, :notifications],
                         true,
                         :instance
@@ -324,7 +324,7 @@
                     <span class={
                       "text-error",
                       "!text-success":
-                        Bonfire.Me.Settings.get(
+                        Bonfire.Common.Settings.get(
                           [Bonfire.Social.Feeds, :my_feed_includes, :notifications],
                           true,
                           :instance
@@ -357,7 +357,7 @@
 
               <div class="py-4">
                 <div class="flex items-center justify-between items-center gap-4">
-                  {!-- {#if Bonfire.Me.Settings.get(
+                  {!-- {#if Bonfire.Common.Settings.get(
                       [Bonfire.UI.Common.AvatarLive, :animal_avatars],
                       true,
                       :instance
@@ -389,7 +389,7 @@
                   <div class="flex gap-1 justify-between flex-1 items-center">
                     <div class="text-sm flex-1 font-medium">{l("Who can see the list of local users")}
                     </div>
-                    <span class="badge h-[1.75rem] font-medium border-base-content/30 badge-outline rounded">{Bonfire.Me.Settings.get([Bonfire.UI.Me.UsersDirectoryLive, :show_to], :users, :instance)}</span>
+                    <span class="badge h-[1.75rem] font-medium border-base-content/30 badge-outline rounded">{Bonfire.Common.Settings.get([Bonfire.UI.Me.UsersDirectoryLive, :show_to], :users, :instance)}</span>
                   </div>
                 </div>
               </div>
@@ -400,7 +400,7 @@
                     <div class="text-sm font-medium">{l("Show list of admins on public homepage")}</div>
                   </div>
 
-                  {#if Bonfire.Me.Settings.get([Bonfire.UI.Me.WidgetUsersLive, :show_guests], true, :instance)}
+                  {#if Bonfire.Common.Settings.get([Bonfire.UI.Me.WidgetUsersLive, :show_guests], true, :instance)}
                     <div class="text-success flex items-center gap-2 text-sm font-medium">
                       <#Icon iconify="mdi:check-circle-outline" class="flex-shrink-0 w-4 h-4 text-success" />
                       {l("Enabled")}
@@ -489,7 +489,7 @@
                     <div class="text-sm font-medium">{l("Show the number of total users on this instance")}</div>
                   </div>
 
-                  {#if Bonfire.Me.Settings.get([Bonfire.Me.Users, :public_count], true, :instance)}
+                  {#if Bonfire.Common.Settings.get([Bonfire.Me.Users, :public_count], true, :instance)}
                     <div class="text-success flex items-center gap-2 text-sm font-medium">
                       <#Icon iconify="mdi:check-circle-outline" class="flex-shrink-0 w-4 h-4 text-success" />
                       {l("Enabled")}

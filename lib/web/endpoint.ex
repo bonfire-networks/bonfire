@@ -29,7 +29,7 @@ defmodule Bonfire.Web.Endpoint do
 
   def include_assets(conn, :top) do
     font_family =
-      Bonfire.Me.Settings.get([:ui, :font_family], "Inter (Latin Languages)", conn)
+      Bonfire.Common.Settings.get([:ui, :font_family], "Inter (Latin Languages)", conn)
       |> Types.maybe_to_string()
       |> String.trim_trailing(" Languages)")
       |> String.replace([" ", "-", "(", ")"], "-")

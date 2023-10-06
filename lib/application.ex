@@ -32,7 +32,7 @@ defmodule Bonfire.Application do
     # Bonfire.Common.ExtensionBehaviour,
     # Bonfire.Common.Config.LoadExtensionsConfig,
     # load instance Settings from DB into Config
-    Bonfire.Me.Settings.LoadInstanceConfig,
+    Bonfire.Common.Settings.LoadInstanceConfig,
     # PubSub
     {Phoenix.PubSub, [name: Bonfire.Common.PubSub, adapter: Phoenix.PubSub.PG2]},
     Bonfire.UI.Common.Presence,
