@@ -16,7 +16,7 @@ defmodule Bonfire.Logging do
     setup_wobserver()
   end
 
-  def setup_opentelemetry(env, repo_module) do
+  def setup_opentelemetry(_env, repo_module) do
     if System.get_env("ECTO_IPV6") do
       # should we attempt to use ipv6 to connect to telemetry remotes?
       :httpc.set_option(:ipfamily, :inet6fb4)

@@ -43,7 +43,7 @@ defmodule Bonfire.Web.ObanDashboard do
     """
   end
 
-  defp fetch(params, node) do
+  defp fetch(_params, _node) do
     # %{search: search, sort_by: sort_by, sort_dir: sort_dir, limit: limit} = params
     # |> IO.inspect(label: "params")
 
@@ -84,10 +84,10 @@ defmodule Bonfire.Web.ObanDashboard do
     Oban.Repo.all(conf, base_query(opts))
   end
 
-  defp query_states(opts, states \\ ["available", "scheduled"]) do
-    base_query(opts)
-    |> where([j], j.state in ^states)
-  end
+  # defp query_states(opts, states \\ ["available", "scheduled"]) do
+  #   base_query(opts)
+  #   |> where([j], j.state in ^states)
+  # end
 
   defp base_query(opts) do
     fields_with_opts = normalize_fields(opts)
