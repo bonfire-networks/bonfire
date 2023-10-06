@@ -3,38 +3,38 @@
     <div class="flex items-start gap-8">
       <div class="w-full">
         <Dynamic.LiveComponent
-        :if={module_enabled?(Bonfire.UI.Social.FeedLive) && @feed_component_id}
-        module={Bonfire.UI.Social.FeedLive}
-        id={@feed_component_id}
-        hide_tabs
-        feed_id={@feed_id}
-        feed_ids={@feed_ids}
-        feed_name={@feed_name}
-        top_page="home"
-        page_title={@page_title}
-        feed={@feed}
-        page_info={@page_info}
-        loading={@loading}
-        time_limit={30}
-      />
+          :if={module_enabled?(Bonfire.UI.Social.FeedLive) && @feed_component_id}
+          module={Bonfire.UI.Social.FeedLive}
+          id={@feed_component_id}
+          hide_tabs
+          feed_id={@feed_id}
+          feed_ids={@feed_ids}
+          feed_name={@feed_name}
+          top_page="home"
+          page_title={@page_title}
+          feed={@feed}
+          page_info={@page_info}
+          loading={@loading}
+          time_limit={30}
+        />
       </div>
     </div>
   {#elseif @feed_component_id}
-      <Dynamic.LiveComponent
-        :if={module_enabled?(Bonfire.UI.Social.FeedLive)}
-        module={Bonfire.UI.Social.FeedLive}
-        id={@feed_component_id}
-        feed_id={@feed_id}
-        feed_ids={@feed_ids}
-        feed_name={@feed_name}
-        feed={@feed}
-        top_page="home"
-        page_info={@page_info}
-        loading={@loading}
-        tab_path_prefix="/feed/"
-        tab_link_component={LinkLive}
-        sort_by={Settings.get([Bonfire.UI.Social.FeedLive, :sort_by], nil, @__context__)}
-        time_limit={Settings.get([Bonfire.UI.Social.FeedLive, :time_limit], 7, @__context__)}
+    <Dynamic.LiveComponent
+      :if={module_enabled?(Bonfire.UI.Social.FeedLive)}
+      module={Bonfire.UI.Social.FeedLive}
+      id={@feed_component_id}
+      feed_id={@feed_id}
+      feed_ids={@feed_ids}
+      feed_name={@feed_name}
+      feed={@feed}
+      top_page="home"
+      page_info={@page_info}
+      loading={@loading}
+      tab_path_prefix="/feed/"
+      tab_link_component={LinkLive}
+      sort_by={Settings.get([Bonfire.UI.Social.FeedLive, :sort_by], nil, @__context__)}
+      time_limit={Settings.get([Bonfire.UI.Social.FeedLive, :time_limit], 7, @__context__)}
     />
   {/if}
 </div>
