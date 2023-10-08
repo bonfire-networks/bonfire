@@ -13,6 +13,13 @@ defmodule Bonfire.System.OS.Monitor do
     {:ok, state}
   end
 
+  def handle_event({:clear_alarm, {alarm_name, _alarm_description}}, state) do
+    state
+    |> debug("Clearing the alarm  #{alarm_name}")
+
+    {:ok, state}
+  end
+  
   def handle_event({:clear_alarm, alarm_name}, state) do
     state
     |> debug("Clearing the alarm  #{alarm_name}")
