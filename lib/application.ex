@@ -133,6 +133,7 @@ defmodule Bonfire.Application do
     @apps_before ++
       [Bonfire.Common.TestInstanceRepo] ++
       [@plug_protect, @endpoint_module, Bonfire.Web.FakeRemoteEndpoint] ++
+      maybe_pages_beacon() ++
       @apps_after
   end
 
@@ -152,7 +153,23 @@ defmodule Bonfire.Application do
     @apps_before ++
       Bonfire.Social.Graph.maybe_applications() ++
       [@plug_protect, @endpoint_module] ++
+      maybe_pages_beacon() ++
       @apps_after
+  end
+
+  defp maybe_pages_beacon do
+    if Bonfire.Common.Extend.module_enabled?(Beacon),
+      do: [
+        {Beacon,
+         sites: [
+           [
+             site: :instance_site,
+             endpoint: @endpoint_module,
+             data_source: Bonfire.Pages.Beacon.DataSource
+           ]
+         ]}
+      ],
+      else: []
   end
 
   # Tell Phoenix to update the endpoint configuration
