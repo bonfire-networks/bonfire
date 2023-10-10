@@ -79,7 +79,7 @@ defmodule Bonfire.Web.Endpoint do
     """
   end
 
-  def reload!(), do: Phoenix.CodeReloader.reload!(__MODULE__)
+  def reload!(opts \\ ["--no-all-warnings"]), do: Phoenix.CodeReloader.reload!(__MODULE__, opts)
 
   @doc "(re)generates the reverse router (useful so it can be re-generated when extensions are enabled/disabled)"
   def generate_reverse_router!(app \\ :bonfire) do
