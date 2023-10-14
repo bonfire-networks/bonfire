@@ -10,7 +10,7 @@ defmodule Bonfire.Web.TermsLive do
     {:ok,
      socket
      |> assign(
-       page: "conduct",
+       page: "privacy",
        nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
        page_title: l("Privacy policy"),
        without_sidebar: false,

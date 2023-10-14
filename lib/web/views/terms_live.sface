@@ -1,1 +1,1 @@
-<Bonfire.UI.Common.WidgetTextLive :if={@terms} text={@terms} />
+<Bonfire.UI.Common.WidgetTextLive text={e(@terms, l("The instance operator(s) have not yet added terms for the instance."))} />
