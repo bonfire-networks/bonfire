@@ -225,7 +225,7 @@ defmodule Bonfire.RuntimeConfig do
   end
 
   def maybe_add_sentry_pool(pool_config) do
-    case Sentry.Config.dsn() do
+    case Code.ensure_loaded?(Sentry.Config) and Sentry.Config.dsn() do
       dsn when is_binary(dsn) ->
         Map.put(pool_config, dsn, size: 50)
 

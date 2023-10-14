@@ -45,7 +45,7 @@ defmodule Bonfire.Spark.MixProject do
   defp deps do
     Mess.deps((if System.get_env("WITH_FORKS", "1")=="1", do: [path: "#{@config_path}deps.path", git: "#{@config_path}deps.git", hex: "#{@config_path}deps.hex"], else: [git: "#{@config_path}deps.git", hex: "#{@config_path}deps.hex"]), [
       # error reporting
-      {:sentry, "~> 8.0"}, #only: [:dev, :prod]},
+      {:sentry, "~> 9.0", optional: true}, 
 
       ## dev conveniences
       {:phoenix_live_reload, "~> 1.3"}
