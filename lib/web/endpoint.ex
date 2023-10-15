@@ -64,10 +64,10 @@ defmodule Bonfire.Web.Endpoint do
     """
   end
 
-  def include_assets(conn, :bottom) do
+  def include_assets(%{assigns: assigns} = _conn, :bottom) do
     js =
-      if Utils.e(conn, :assigns, :current_account, nil) ||
-           Utils.e(conn, :assigns, :current_user, nil) do
+      if Utils.current_user(assigns) do
+        # || Utils.current_account(assigns) 
         static_path("/assets/bonfire_live.js")
       else
         static_path("/assets/bonfire_basic.js")
