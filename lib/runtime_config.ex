@@ -102,11 +102,11 @@ defmodule Bonfire.RuntimeConfig do
 
             # Oban would rather we put these here than in the transaction above
             # Prepare JSON for federation and add to queue (oban).
-            {Bonfire.Social.Acts.Federate, on: :post},
+            {Bonfire.Social.Acts.Federate, on: :post}
+          ],
 
-            # Once the activity/object exists, we can apply side effects
-            {Bonfire.Tags.Acts.AutoBoost, on: :post}
-          ]
+          # Once the activity/object exists (including in AP db), we can apply these side effects
+          {Bonfire.Tags.Acts.AutoBoost, on: :post}
         ],
         delete: delete_object
       ]

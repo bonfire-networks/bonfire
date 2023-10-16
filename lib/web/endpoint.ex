@@ -83,6 +83,7 @@ defmodule Bonfire.Web.Endpoint do
 
   @doc "(re)generates the reverse router (useful so it can be re-generated when extensions are enabled/disabled)"
   def generate_reverse_router!(app \\ :bonfire) do
+    IO.puts(:code.priv_dir(app))
     Code.put_compiler_option(:ignore_module_conflict, true)
     Code.eval_file(Path.join(:code.priv_dir(app), "extras/router_reverse.ex"))
     Code.put_compiler_option(:ignore_module_conflict, false)
