@@ -179,4 +179,19 @@ defmodule Bonfire.Application do
     @endpoint_module.config_change(changed, removed)
     :ok
   end
+
+  def recompile do
+    Phoenix.CodeReloader.reload(@endpoint_module)
+  end
+
+  def recompile! do
+    Application.stop(:bonfire)
+    IEx.Helpers.recompile()
+    Application.ensure_all_started(:bonfire)
+  end
+
+  # @doc "The system is restarted inside the running Erlang node, which means that the emulator is not restarted. All applications are taken down smoothly, all code is unloaded, and all ports are closed before the system is booted again in the same way as initially started."
+  # def restart() do
+  #   :init.restart()
+  # end
 end
