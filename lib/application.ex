@@ -49,7 +49,6 @@ defmodule Bonfire.Application do
 
   # Stuff that depends on the Endpoint and/or the above
   @apps_after [
-    # Job Queue
     {Tz.UpdatePeriodically, [interval_in_days: 10]},
     %{
       id: :bonfire_cache,
@@ -72,6 +71,7 @@ defmodule Bonfire.Application do
            ]
          ]}
     },
+    # Job Queue
     {Oban, Application.compile_env!(:bonfire, Oban)}
   ]
 
