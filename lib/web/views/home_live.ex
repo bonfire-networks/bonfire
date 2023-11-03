@@ -140,14 +140,11 @@ defmodule Bonfire.Web.HomeLive do
     ~SWIFTUI"""
     <VStack>
 
-
       <%= case Config.get([:ui, :theme, :instance_icon], "/images/bonfire-icon.png") do %>
         <% "/images/bonfire-icon.png" -> %>
           <Image name="bonfire-icon" />
         <% custom_image -> %>
-          <ZStack>
           <AsyncImage url={"#{Bonfire.Web.Endpoint.url()}#{custom_image}" |> debug("imgg")} />
-          </ZStack>
       <% end %>
 
       <Text>
