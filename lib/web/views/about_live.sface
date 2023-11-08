@@ -57,7 +57,7 @@
             <div class="font-bold bg-base-content/5 -mx-4 p-4">
               {l("General")}
             </div>
-            <div class="divide-y divide-base-content/10">
+            <div class="divide-y divide-base-content/20">
               <div class="py-4">
                 <div class="flex items-center justify-between flex-1 items-center gap-4">
                   <div class="flex gap-2">
@@ -324,7 +324,7 @@
             <div class="font-bold bg-base-content/5 -mx-4 p-4">
               {l("Look & feel")}
             </div>
-            <div class="divide-y divide-base-content/10">
+            <div class="divide-y divide-base-content/20">
               <div class="py-4">
                 <div class="flex items-center justify-between flex-1 items-center gap-4">
                   <div class="flex gap-2">
@@ -363,7 +363,7 @@
             <div class="font-bold bg-base-content/5 -mx-4 p-4">
               {l("Privacy")}
             </div>
-            <div class="divide-y divide-base-content/10">
+            <div class="divide-y divide-base-content/20">
               <div class="py-4">
                 <div class="flex items-center justify-between gap-2">
                   <div class="flex gap-1 justify-between flex-1 items-center">
@@ -415,7 +415,7 @@
             <div class="font-bold bg-base-content/5 -mx-4 p-4">
               {l("Potentially addictive or distracting")}
             </div>
-            <div class="divide-y divide-base-content/10">
+            <div class="divide-y divide-base-content/20">
               <div class="py-4">
                 <div class="flex items-center justify-between flex-1 items-center gap-4">
                   <div class="flex gap-2">
@@ -442,7 +442,7 @@
             <div class="font-bold bg-base-content/5 -mx-4 p-4">
               {l("Vanity metrics")}
             </div>
-            <div class="divide-y divide-base-content/10">
+            <div class="divide-y divide-base-content/20">
               <div class="py-4">
                 <div class="flex items-center justify-between flex-1 items-center gap-4">
                   <div class="flex gap-2">
