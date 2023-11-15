@@ -5,6 +5,7 @@ defmodule Bonfire.Web.HomeLive do
   use Bonfire.UI.Common.Web, :surface_live_view
 
   alias Bonfire.Me.Accounts
+  alias Bonfire.UI.Social.FeedLive
 
   @changelog File.read!("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
 
@@ -62,7 +63,7 @@ defmodule Bonfire.Web.HomeLive do
          ],
          users: [
            secondary: [
-             {Bonfire.UI.Social.WidgetFeedLive, []},
+             #  {Bonfire.UI.Social.WidgetFeedLive, []},
              {Bonfire.Tag.Web.WidgetTagsLive, []}
            ]
          ]
@@ -106,7 +107,8 @@ defmodule Bonfire.Web.HomeLive do
             ), params},
          socket
        )
-     )}
+     )
+     |> assign(..., FeedLive.widgets(e(..., :assigns, nil)))}
   end
 
   def handle_params(params, uri, socket),

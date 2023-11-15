@@ -3,8 +3,8 @@
     <div class="flex items-start gap-8">
       <div class="w-full">
         <Dynamic.LiveComponent
-          :if={module_enabled?(Bonfire.UI.Social.FeedLive) && @feed_component_id}
-          module={Bonfire.UI.Social.FeedLive}
+          :if={module_enabled?(FeedLive) && @feed_component_id}
+          module={FeedLive}
           id={@feed_component_id}
           hide_tabs
           feed_id={@feed_id}
@@ -21,8 +21,8 @@
     </div>
   {#elseif @feed_component_id}
     <Dynamic.LiveComponent
-      :if={module_enabled?(Bonfire.UI.Social.FeedLive)}
-      module={Bonfire.UI.Social.FeedLive}
+      :if={module_enabled?(FeedLive)}
+      module={FeedLive}
       id={@feed_component_id}
       feed_id={@feed_id}
       feed_ids={@feed_ids}
