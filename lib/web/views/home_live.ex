@@ -62,6 +62,7 @@ defmodule Bonfire.Web.HomeLive do
          ],
          users: [
            secondary: [
+             {Bonfire.UI.Social.WidgetFeedLive, []},
              {Bonfire.Tag.Web.WidgetTagsLive, []}
            ]
          ]
