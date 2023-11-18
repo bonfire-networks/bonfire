@@ -7,7 +7,7 @@ defmodule Bonfire.Web.HomeLive do
   alias Bonfire.Me.Accounts
   alias Bonfire.UI.Social.FeedLive
 
-  @changelog File.read!("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
+  # @changelog File.read!("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
 
   on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.LoadCurrentUser]}
 
@@ -42,7 +42,7 @@ defmodule Bonfire.Web.HomeLive do
        no_header: true,
        page_title: l("Bonfire"),
        links: links,
-       changelog: @changelog,
+       #  changelog: @changelog,
        error: nil,
        form: login_form(params),
        loading: true,
