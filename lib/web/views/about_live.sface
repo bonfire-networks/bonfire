@@ -147,13 +147,13 @@
                     "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
                     "!border-success":
                       Bonfire.Common.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :followed_categories],
+                        [Bonfire.Social.Feeds, :include, :followed_categories],
                         true,
                         :instance
                       )
                   }>
                     {#if Bonfire.Common.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :followed_categories],
+                        [Bonfire.Social.Feeds, :include, :followed_categories],
                         true,
                         :instance
                       )}
@@ -165,7 +165,7 @@
                       "text-error",
                       "!text-success":
                         Bonfire.Common.Settings.get(
-                          [Bonfire.Social.Feeds, :my_feed_includes, :followed_categories],
+                          [Bonfire.Social.Feeds, :include, :followed_categories],
                           true,
                           :instance
                         )
@@ -175,13 +175,13 @@
                     "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
                     "!border-success":
                       Bonfire.Common.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
+                        [Bonfire.Social.Feeds, :include, :boosts],
                         true,
                         :instance
                       )
                   }>
                     {#if Bonfire.Common.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
+                        [Bonfire.Social.Feeds, :include, :boosts],
                         true,
                         :instance
                       )}
@@ -193,7 +193,7 @@
                       "text-error",
                       "!text-success":
                         Bonfire.Common.Settings.get(
-                          [Bonfire.Social.Feeds, :my_feed_includes, :boosts],
+                          [Bonfire.Social.Feeds, :include, :boosts],
                           true,
                           :instance
                         )
@@ -203,13 +203,13 @@
                     "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
                     "!border-success":
                       Bonfire.Common.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :reply],
+                        [Bonfire.Social.Feeds, :include, :reply],
                         true,
                         :instance
                       )
                   }>
                     {#if Bonfire.Common.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :reply],
+                        [Bonfire.Social.Feeds, :include, :reply],
                         true,
                         :instance
                       )}
@@ -221,7 +221,7 @@
                       "text-error",
                       "!text-success":
                         Bonfire.Common.Settings.get(
-                          [Bonfire.Social.Feeds, :my_feed_includes, :reply],
+                          [Bonfire.Social.Feeds, :include, :reply],
                           true,
                           :instance
                         )
@@ -231,13 +231,13 @@
                     "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
                     "!border-success":
                       Bonfire.Common.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :follows],
+                        [Bonfire.Social.Feeds, :include, :follows],
                         true,
                         :instance
                       )
                   }>
                     {#if Bonfire.Common.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :follows],
+                        [Bonfire.Social.Feeds, :include, :follows],
                         true,
                         :instance
                       )}
@@ -249,7 +249,7 @@
                       "text-error",
                       "!text-success":
                         Bonfire.Common.Settings.get(
-                          [Bonfire.Social.Feeds, :my_feed_includes, :follows],
+                          [Bonfire.Social.Feeds, :include, :follows],
                           true,
                           :instance
                         )
@@ -259,13 +259,13 @@
                     "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
                     "!border-success":
                       Bonfire.Common.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :outbox],
+                        [Bonfire.Social.Feeds, :include, :outbox],
                         true,
                         :instance
                       )
                   }>
                     {#if Bonfire.Common.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :outbox],
+                        [Bonfire.Social.Feeds, :include, :outbox],
                         true,
                         :instance
                       )}
@@ -277,7 +277,7 @@
                       "text-error",
                       "!text-success":
                         Bonfire.Common.Settings.get(
-                          [Bonfire.Social.Feeds, :my_feed_includes, :outbox],
+                          [Bonfire.Social.Feeds, :include, :outbox],
                           true,
                           :instance
                         )
@@ -287,13 +287,13 @@
                     "badge h-[1.75rem] gap-2 font-medium badge-outline border-error rounded",
                     "!border-success":
                       Bonfire.Common.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :notifications],
+                        [Bonfire.Social.Feeds, :include, :notifications],
                         true,
                         :instance
                       )
                   }>
                     {#if Bonfire.Common.Settings.get(
-                        [Bonfire.Social.Feeds, :my_feed_includes, :notifications],
+                        [Bonfire.Social.Feeds, :include, :notifications],
                         true,
                         :instance
                       )}
@@ -305,7 +305,7 @@
                       "text-error",
                       "!text-success":
                         Bonfire.Common.Settings.get(
-                          [Bonfire.Social.Feeds, :my_feed_includes, :notifications],
+                          [Bonfire.Social.Feeds, :include, :notifications],
                           true,
                           :instance
                         )
