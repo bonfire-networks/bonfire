@@ -10,7 +10,7 @@ defmodule Bonfire.Web.AboutLive do
     {:ok,
      socket
      |> assign(
-       page: "Instance defaults",
+       page: "about",
        nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
        page_header: false,
        page_title:

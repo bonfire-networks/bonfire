@@ -22,7 +22,13 @@
         </button>
       </div>
       <div x-show="open" x-cloak x-collapse>
+        <div class="md:hidden prose prose-md">{Config.get([:ui, :theme, :instance_description])}</div>
+
         <article class="prose max-w-max mt-3 prose-sm">{templated_or_remote_markdown(Config.get([:ui, :theme, :instance_welcome, :description], ""))}</article>
+
+        <div class="md:hidden mt-3">
+          <Bonfire.UI.Common.ImpressumLive />
+        </div>
       </div>
     </div>
   </div>
