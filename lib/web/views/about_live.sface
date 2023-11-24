@@ -128,8 +128,8 @@
 
                   <div class="font-bold text-sm">
                     {Settings.get(
-                      [:ui, :font_families],
-                      ["Inter"],
+                      [:ui, :font_family],
+                      "Inter",
                       @__context__[:instance_settings] || :instance
                     )}
                   </div>
