@@ -13,8 +13,7 @@ defmodule Bonfire.Web.AboutLive do
        page: "about",
        nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
        page_header: false,
-       page_title:
-         l("About ") <> Config.get([:ui, :theme, :instance_name], Bonfire.Application.name()),
+       page_title: l("About "),
        sidebar_widgets: [
          guests: [
            secondary: [
