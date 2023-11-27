@@ -31,13 +31,12 @@ defmodule Bonfire.RuntimeConfig do
       # Run our deletes
       Ecto.Work,
       Ecto.Commit,
-      # Enqueue for un-indexing by meilisearch
-      {Bonfire.Search.Acts.Queue, on: :object},
 
-      # Oban would rather we put these here than in the transaction
-      # above because it knows better than us, obviously.
-      # Prepare for federation and add to deletion queue (oban).
-      {Bonfire.Social.Acts.Federate, on: :object}
+      # Prepare for federation and add to queue (oban)
+      {Bonfire.Social.Acts.Federate, on: :object},
+
+      # Enqueue for un-indexing by meilisearch
+      {Bonfire.Search.Acts.Queue, on: :object}
     ]
 
     config :bonfire_social, Bonfire.Social.Follows, []
