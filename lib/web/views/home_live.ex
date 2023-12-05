@@ -138,25 +138,25 @@ defmodule Bonfire.Web.HomeLive do
           # &do_handle_event/3
         )
 
-  def render(%{platform_id: :swiftui} = assigns) do
-    # This UI renders on the iOS/Mac app
-    ~SWIFTUI"""
-    <VStack>
+  # def render(%{platform_id: :swiftui} = assigns) do
+  #   # This UI renders on the iOS/Mac app
+  #   ~SWIFTUI"""
+  #   <VStack>
 
-      <%= case Config.get([:ui, :theme, :instance_icon], "/images/bonfire-icon.png") do %>
-        <% "/images/bonfire-icon.png" -> %>
-          <Image name="bonfire-icon" />
-        <% custom_image -> %>
-          <AsyncImage url={"#{Bonfire.Web.Endpoint.url()}#{custom_image}" |> debug("imgg")} />
-      <% end %>
+  #     <%= case Config.get([:ui, :theme, :instance_icon], "/images/bonfire-icon.png") do %>
+  #       <% "/images/bonfire-icon.png" -> %>
+  #         <Image name="bonfire-icon" />
+  #       <% custom_image -> %>
+  #         <AsyncImage url={"#{Bonfire.Web.Endpoint.url()}#{custom_image}" |> debug("imgg")} />
+  #     <% end %>
 
-      <Text>
-        Hello Bonfire native!
-      </Text>
+  #     <Text>
+  #       Hello Bonfire native!
+  #     </Text>
 
-    </VStack>
-    """
-  end
+  #   </VStack>
+  #   """
+  # end
 
   def render(assigns) do
     assigns
