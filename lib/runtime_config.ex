@@ -209,5 +209,4 @@ defmodule Bonfire.RuntimeConfig do
         ]
       ]
   end
-
 end

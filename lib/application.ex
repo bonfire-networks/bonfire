@@ -22,58 +22,60 @@ defmodule Bonfire.Application do
 
   def default_cache_hours, do: Config.get(:default_cache_hours) || 3
 
-  def apps_before, do: [
-    # Metrics
-    Bonfire.Web.Telemetry,
-    # Database
-    @repo_module,
-    EctoSparkles.AutoMigrator,
-    # behaviour modules are already prepared as part of `Config.LoadExtensionsConfig`
-    # Bonfire.Common.ExtensionBehaviour,
-    # Config.LoadExtensionsConfig,
-    # load instance Settings from DB into Config
-    Bonfire.Common.Settings.LoadInstanceConfig,
-    # PubSub
-    {Phoenix.PubSub, [name: Bonfire.Common.PubSub, adapter: Phoenix.PubSub.PG2]},
-    Bonfire.UI.Common.Presence,
-    # Persistent Data Services
-    Pointers.Tables,
-    # Bonfire.Data.AccessControl.Accesses,
-    ## these populate on first call, so no need to run on startup:
-    # Bonfire.Common.ContextModule,
-    # Bonfire.Common.QueryModule,
-    # Bonfire.Federate.ActivityPub.FederationModules
-    # {PhoenixProfiler, name: Bonfire.Web.Profiler},
-    {Finch, name: Bonfire.Finch, pools: finch_pool_config()}
-  ]
+  def apps_before,
+    do: [
+      # Metrics
+      Bonfire.Web.Telemetry,
+      # Database
+      @repo_module,
+      EctoSparkles.AutoMigrator,
+      # behaviour modules are already prepared as part of `Config.LoadExtensionsConfig`
+      # Bonfire.Common.ExtensionBehaviour,
+      # Config.LoadExtensionsConfig,
+      # load instance Settings from DB into Config
+      Bonfire.Common.Settings.LoadInstanceConfig,
+      # PubSub
+      {Phoenix.PubSub, [name: Bonfire.Common.PubSub, adapter: Phoenix.PubSub.PG2]},
+      Bonfire.UI.Common.Presence,
+      # Persistent Data Services
+      Pointers.Tables,
+      # Bonfire.Data.AccessControl.Accesses,
+      ## these populate on first call, so no need to run on startup:
+      # Bonfire.Common.ContextModule,
+      # Bonfire.Common.QueryModule,
+      # Bonfire.Federate.ActivityPub.FederationModules
+      # {PhoenixProfiler, name: Bonfire.Web.Profiler},
+      {Finch, name: Bonfire.Finch, pools: finch_pool_config()}
+    ]
 
   # Stuff that depends on the Endpoint and/or the above
-  def apps_after, do: [
-    {Tz.UpdatePeriodically, [interval_in_days: 10]},
-    %{
-      id: :bonfire_cache,
-      start:
-        {Cachex, :start_link,
-         [
-           :bonfire_cache,
+  def apps_after,
+    do: [
+      {Tz.UpdatePeriodically, [interval_in_days: 10]},
+      %{
+        id: :bonfire_cache,
+        start:
+          {Cachex, :start_link,
            [
-             expiration: Cachex.Spec.expiration(default: :timer.hours(default_cache_hours())),
-             # increase for instances with more users (at least num. of users*2+1)
-             limit:
-               Cachex.Spec.limit(
-                 # max number of entries
-                 size: 2_500,
-                 # the policy to use for eviction
-                 policy: Cachex.Policy.LRW,
-                 # what % to reclaim when limit is reached
-                 reclaim: 0.1
-               )
-           ]
-         ]}
-    },
-    # Job Queue
-    {Oban, Application.fetch_env!(:bonfire, Oban)}
-  ]
+             :bonfire_cache,
+             [
+               expiration: Cachex.Spec.expiration(default: :timer.hours(default_cache_hours())),
+               # increase for instances with more users (at least num. of users*2+1)
+               limit:
+                 Cachex.Spec.limit(
+                   # max number of entries
+                   size: 2_500,
+                   # the policy to use for eviction
+                   policy: Cachex.Policy.LRW,
+                   # what % to reclaim when limit is reached
+                   reclaim: 0.1
+                 )
+             ]
+           ]}
+      },
+      # Job Queue
+      {Oban, Application.fetch_env!(:bonfire, Oban)}
+    ]
 
   @plug_protect {PlugAttack.Storage.Ets,
                  name: Bonfire.UI.Common.PlugProtect.Storage, clean_period: 60_000}
@@ -157,7 +159,6 @@ defmodule Bonfire.Application do
       maybe_pages_beacon() ++
       apps_after()
   end
-
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
