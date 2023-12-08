@@ -55,7 +55,7 @@ defmodule Bonfire.Logging do
       []
     )
 
-    Oban.Telemetry.attach_default_logger()
+    Oban.Telemetry.attach_default_logger(encode: false)
   end
 
   defp setup_wobserver do

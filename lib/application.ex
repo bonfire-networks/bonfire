@@ -5,9 +5,10 @@ defmodule Bonfire.Application do
 
   use Application
   require Cachex.Spec
+  alias Bonfire.Common.Config
 
   @sup_name Bonfire.Supervisor
-  @top_otp_app Bonfire.Common.Config.get!(:otp_app)
+  @top_otp_app Config.get!(:otp_app)
   @env Application.compile_env!(@top_otp_app, :env)
   @endpoint_module Application.compile_env!(@top_otp_app, :endpoint_module)
   @repo_module Application.compile_env!(@top_otp_app, :repo_module)
@@ -19,18 +20,17 @@ defmodule Bonfire.Application do
   @deps_loaded Bonfire.Common.Extensions.loaded_deps(:nested)
   @deps_loaded_flat Bonfire.Common.Extensions.loaded_deps(deps_loaded: @deps_loaded)
 
-  @default_cache_in_hours 3
-  @default_cache_ttl 1_000 * 60 * 60 * @default_cache_in_hours
+  def default_cache_hours, do: Config.get(:default_cache_hours) || 3
 
-  @apps_before [
+  def apps_before, do: [
     # Metrics
     Bonfire.Web.Telemetry,
     # Database
     @repo_module,
     EctoSparkles.AutoMigrator,
-    # behaviour modules are already prepared as part of `Bonfire.Common.Config.LoadExtensionsConfig`
+    # behaviour modules are already prepared as part of `Config.LoadExtensionsConfig`
     # Bonfire.Common.ExtensionBehaviour,
-    # Bonfire.Common.Config.LoadExtensionsConfig,
+    # Config.LoadExtensionsConfig,
     # load instance Settings from DB into Config
     Bonfire.Common.Settings.LoadInstanceConfig,
     # PubSub
@@ -44,11 +44,11 @@ defmodule Bonfire.Application do
     # Bonfire.Common.QueryModule,
     # Bonfire.Federate.ActivityPub.FederationModules
     # {PhoenixProfiler, name: Bonfire.Web.Profiler},
-    {Finch, name: Bonfire.Finch, pools: Bonfire.RuntimeConfig.finch_pool_config()}
+    {Finch, name: Bonfire.Finch, pools: finch_pool_config()}
   ]
 
   # Stuff that depends on the Endpoint and/or the above
-  @apps_after [
+  def apps_after, do: [
     {Tz.UpdatePeriodically, [interval_in_days: 10]},
     %{
       id: :bonfire_cache,
@@ -57,7 +57,7 @@ defmodule Bonfire.Application do
          [
            :bonfire_cache,
            [
-             expiration: Cachex.Spec.expiration(default: @default_cache_ttl),
+             expiration: Cachex.Spec.expiration(default: :timer.hours(default_cache_hours())),
              # increase for instances with more users (at least num. of users*2+1)
              limit:
                Cachex.Spec.limit(
@@ -72,7 +72,7 @@ defmodule Bonfire.Application do
          ]}
     },
     # Job Queue
-    {Oban, Application.compile_env!(:bonfire, Oban)}
+    {Oban, Application.fetch_env!(:bonfire, Oban)}
   ]
 
   @plug_protect {PlugAttack.Storage.Ets,
@@ -131,11 +131,11 @@ defmodule Bonfire.Application do
   end
 
   def applications(:test, true = _test_instance?, _any) do
-    @apps_before ++
+    apps_before() ++
       [Bonfire.Common.TestInstanceRepo] ++
       [@plug_protect, @endpoint_module, Bonfire.Web.FakeRemoteEndpoint] ++
       maybe_pages_beacon() ++
-      @apps_after
+      apps_after()
   end
 
   # def applications(:test, _, _any) do
@@ -151,27 +151,13 @@ defmodule Bonfire.Application do
 
   # default apps
   def applications(_env, _, _any) do
-    @apps_before ++
+    apps_before() ++
       Bonfire.Social.Graph.maybe_applications() ++
       [@plug_protect, @endpoint_module] ++
       maybe_pages_beacon() ++
-      @apps_after
+      apps_after()
   end
 
-  defp maybe_pages_beacon do
-    if Bonfire.Common.Extend.module_enabled?(Beacon),
-      do: [
-        {Beacon,
-         sites: [
-           [
-             site: :instance_site,
-             endpoint: @endpoint_module,
-             data_source: Bonfire.Pages.Beacon.DataSource
-           ]
-         ]}
-      ],
-      else: []
-  end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
@@ -194,4 +180,42 @@ defmodule Bonfire.Application do
   # def restart() do
   #   :init.restart()
   # end
+
+  defp maybe_pages_beacon do
+    if Bonfire.Common.Extend.module_enabled?(Beacon),
+      do: [
+        {Beacon,
+         sites: [
+           [
+             site: :instance_site,
+             endpoint: @endpoint_module,
+             data_source: Bonfire.Pages.Beacon.DataSource
+           ]
+         ]}
+      ],
+      else: []
+  end
+
+  def finch_pool_config() do
+    %{
+      :default => [size: 42, count: 2],
+      "https://icons.duckduckgo.com" => [
+        conn_opts: [transport_opts: [size: 8, timeout: 3_000]]
+      ],
+      "https://www.google.com/s2/favicons" => [
+        conn_opts: [transport_opts: [size: 8, timeout: 3_000]]
+      ]
+    }
+    |> maybe_add_sentry_pool()
+  end
+
+  def maybe_add_sentry_pool(pool_config) do
+    case Code.ensure_loaded?(Sentry.Config) and Sentry.Config.dsn() do
+      dsn when is_binary(dsn) ->
+        Map.put(pool_config, dsn, size: 50)
+
+      _ ->
+        pool_config
+    end
+  end
 end
