@@ -191,6 +191,7 @@ defmodule Bonfire.Web.Routes do
             # metrics: FlamegraphsWeb.Telemetry,
             additional_pages: [
               oban_queues: Bonfire.Web.ObanDashboard,
+              oban: Oban.LiveDashboard,
               orion: Bonfire.Web.OrionLink,
               data: Bonfire.Web.DataLink
               # flame_on: FlameOn.DashboardPage
