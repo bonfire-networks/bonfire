@@ -40,20 +40,26 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
       (mix_config[:gettext] || [])
       |> debug("gettext config")
 
+    mix_config = Bonfire.Umbrella.MixProject.config()
+
     exts_to_localise =
-      Bonfire.Mixer.deps_names_for(:localise)
+      Bonfire.Mixer.deps_names_for(:localise, mix_config)
       |> debug("bonfire extensions to localise")
 
     deps_to_localise =
-      Bonfire.Mixer.deps_names_for(:localise_self)
+      Bonfire.Mixer.deps_names_for(:localise_self, mix_config)
       |> debug("other deps to localise")
 
     Mix.Tasks.Bonfire.Deps.Compile.touch_manifests()
 
-    # first extract strings from all deps that use the Gettext module in bonfire_common
+    IO.puts(
+      "First extract strings from all deps that use the Gettext module in bonfire_common..."
+    )
+
     pot_files = extract(:bonfire_common, gettext_config, exts_to_localise)
 
-    # then those that have their own Gettext
+    IO.puts("Next extract strings from deps with their own Gettext...")
+
     pot_files =
       Enum.reduce(deps_to_localise, pot_files, fn dep, pot_files ->
         pot_files ++ extract(String.to_atom(dep), gettext_config, dep)
@@ -61,11 +67,15 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
 
     # pot_files |> debug("extracted pot_files")
 
+    IO.puts("Save extracted strings...")
+
     for {path, contents} <- pot_files do
       File.mkdir_p!(Path.dirname(path))
       File.write!(path, contents)
       info("Extracted strings to #{Path.relative_to_cwd(path)}")
     end
+
+    IO.puts("Merge saved strings...")
 
     if opts[:merge] do
       run_merge(pot_files, args)
