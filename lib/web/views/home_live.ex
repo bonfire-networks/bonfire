@@ -39,8 +39,7 @@ defmodule Bonfire.Web.HomeLive do
      |> assign(
        page: "home",
        selected_tab: nil,
-       no_header: true,
-       page_title: l("Bonfire"),
+       no_header: current_user_id(socket.assigns),
        links: links,
        #  changelog: @changelog,
        error: nil,
@@ -88,12 +87,19 @@ defmodule Bonfire.Web.HomeLive do
     show_about_instance? = !current_user_id(socket.assigns) or current_url(socket) == "/about"
 
     feed_name =
-      e(socket, :assigns, :live_action, nil) ||
-        Settings.get(
-          [Bonfire.UI.Social.FeedLive, :default_feed],
-          :default,
-          socket.assigns[:__context__]
-        )
+      if Bonfire.Common.Config.get(
+           [Bonfire.UI.Social.FeedsLive, :curated],
+           false
+         ) do
+        :curated
+      else
+        e(socket, :assigns, :live_action, nil) ||
+          Settings.get(
+            [Bonfire.UI.Social.FeedLive, :default_feed],
+            :default,
+            socket.assigns[:__context__]
+          )
+      end
 
     {:noreply,
      socket
