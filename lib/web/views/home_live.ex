@@ -87,6 +87,14 @@ defmodule Bonfire.Web.HomeLive do
 
     show_about_instance? = !current_user_id(socket.assigns) or current_url(socket) == "/about"
 
+    feed_name =
+      e(socket, :assigns, :live_action, nil) ||
+        Settings.get(
+          [Bonfire.UI.Social.FeedLive, :default_feed],
+          :default,
+          socket.assigns[:__context__]
+        )
+
     {:noreply,
      socket
      |> assign(
@@ -99,16 +107,14 @@ defmodule Bonfire.Web.HomeLive do
      )
      |> assign(
        Bonfire.Social.Feeds.LiveHandler.feed_default_assigns(
-         {e(socket, :assigns, :live_action, nil) ||
-            Settings.get(
-              [Bonfire.UI.Social.FeedLive, :default_feed],
-              :default,
-              socket.assigns[:__context__]
-            ), params},
+         {
+           feed_name,
+           params
+         },
          socket
        )
      )
-     |> assign(..., FeedLive.widgets(e(..., :assigns, nil)))}
+     |> assign(..., FeedLive.maybe_widgets(e(..., :assigns, nil), feed_name))}
   end
 
   def handle_params(params, uri, socket),
