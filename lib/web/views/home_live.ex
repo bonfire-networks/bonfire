@@ -107,7 +107,7 @@ defmodule Bonfire.Web.HomeLive do
        show_about_instance?: show_about_instance?,
        page_title:
          if(show_about_instance?,
-           do: l("%{app}", app: app),
+           do: app,
            else: l("%{app} dashboard", app: app)
          )
      )
@@ -150,25 +150,26 @@ defmodule Bonfire.Web.HomeLive do
           # &do_handle_event/3
         )
 
-  # def render(%{platform_id: :swiftui} = assigns) do
-  #   # This UI renders on the iOS/Mac app
-  #   ~SWIFTUI"""
-  #   <VStack>
+  def render(%{format: :swiftui} = assigns) do
+    debug("render UI for the iOS/Mac app")
 
-  #     <%= case Config.get([:ui, :theme, :instance_icon], "/images/bonfire-icon.png") do %>
-  #       <% "/images/bonfire-icon.png" -> %>
-  #         <Image name="bonfire-icon" />
-  #       <% custom_image -> %>
-  #         <AsyncImage url={"#{Bonfire.Web.Endpoint.url()}#{custom_image}" |> debug("imgg")} />
-  #     <% end %>
+    ~SWIFTUI"""
+    <VStack>
 
-  #     <Text>
-  #       Hello Bonfire native!
-  #     </Text>
+      <%= case Config.get([:ui, :theme, :instance_icon], "/images/bonfire-icon.png") do %>
+        <% "/images/bonfire-icon.png" -> %>
+          <Image name="bonfire-icon" />
+        <% custom_image -> %>
+          <AsyncImage url={"#{Bonfire.Web.Endpoint.url()}#{custom_image}" |> debug("imgg")} />
+      <% end %>
 
-  #   </VStack>
-  #   """
-  # end
+      <Text>
+        Hello Bonfire native beta 2!
+      </Text>
+
+    </VStack>
+    """
+  end
 
   def render(assigns) do
     assigns
