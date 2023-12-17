@@ -1,6 +1,12 @@
-<%!-- NOTE: this isn't used yet, see render/1 in home_live.ex instead --%>
 <VStack>
+  <%= case Config.get([:ui, :theme, :instance_icon], "/images/bonfire-icon.png") do %>
+    <% "/images/bonfire-icon.png" -> %>
+      <Image name="bonfire-icon" />
+    <% custom_image -> %>
+      <AsyncImage url={"#{Bonfire.Web.Endpoint.url()}#{custom_image}" |> debug("imgg")} />
+  <% end %>
+
   <Text>
-    Hello Bonfire native app!
+    Hello Bonfire native beta 2!
   </Text>
 </VStack>
