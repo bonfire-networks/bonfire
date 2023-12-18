@@ -3,7 +3,7 @@ defmodule Bonfire.Web.Endpoint do
   use Bonfire.UI.Common.EndpointTemplate
   alias Bonfire.Common.Utils
   alias Bonfire.Common.Types
-  # alias Bonfire.Common.Config
+  alias Bonfire.Common.Extend
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -53,7 +53,7 @@ defmodule Bonfire.Web.Endpoint do
 
     <script phx-track-static crossorigin='anonymous' src='#{static_path("/images/icons/svg-inject.min.js")}'></script>
 
-    #{PhoenixGon.View.render_gon_script(conn) |> Phoenix.HTML.safe_to_string()}
+    #{if Extend.module_enabled?(PhoenixGon.View), do: PhoenixGon.View.render_gon_script(conn) |> Phoenix.HTML.safe_to_string()}
 
     <link rel="manifest" href="/pwa/manifest.json" />
     <script type="module">
