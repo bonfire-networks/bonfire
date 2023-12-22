@@ -45,13 +45,7 @@ defmodule Bonfire.Application do
       # Bonfire.Common.QueryModule,
       # Bonfire.Federate.ActivityPub.FederationModules
       # {PhoenixProfiler, name: Bonfire.Web.Profiler},
-      {Finch, name: Bonfire.Finch, pools: finch_pool_config()}
-    ]
-
-  # Stuff that depends on the Endpoint and/or the above
-  def apps_after,
-    do: [
-      {Tz.UpdatePeriodically, [interval_in_days: 10]},
+      {Finch, name: Bonfire.Finch, pools: finch_pool_config()},
       %{
         id: :bonfire_cache,
         start:
@@ -72,7 +66,13 @@ defmodule Bonfire.Application do
                  )
              ]
            ]}
-      },
+      }
+    ]
+
+  # Stuff that depends on the Endpoint and/or the above
+  def apps_after,
+    do: [
+      {Tz.UpdatePeriodically, [interval_in_days: 10]},
       # Job Queue
       {Oban, Application.fetch_env!(:bonfire, Oban)}
     ]
