@@ -39,14 +39,14 @@ defmodule Bonfire.RuntimeConfig do
       {Bonfire.Search.Acts.Queue, on: :object}
     ]
 
-    config :bonfire_social, Bonfire.Social.Follows, []
+    config :bonfire_social_graph, Bonfire.Social.Graph.Follows, []
 
-    config :bonfire_social, Bonfire.Social.Posts,
+    config :bonfire_posts, Bonfire.Posts,
       epics: [
         publish: [
           # Prep: a little bit of querying and a lot of preparing changesets
           # Create a changeset for insertion
-          Bonfire.Social.Acts.Posts.Publish,
+          Bonfire.Posts.Acts.Posts.Publish,
           # These steps are run in parallel
           [
             # with a sanitised body and tags extracted,
@@ -60,13 +60,13 @@ defmodule Bonfire.RuntimeConfig do
           ],
           # These steps are run in parallel and require the outputs of the previous ones
           [
-            # possibly fetch contents of URLs (depends on PostContents),
+            # possibly fetch contents of URLs (depends on ),
             {Bonfire.Files.Acts.URLPreviews, on: :post},
 
             # possibly occurring in a thread,
             {Bonfire.Social.Acts.Threaded, on: :post},
 
-            # with extracted tags/mentions fully hooked up (depends on PostContents),
+            # with extracted tags/mentions fully hooked up (depends on ),
             {Bonfire.Tags.Acts.Tag, on: :post},
 
             # maybe set as sensitive,
@@ -77,7 +77,7 @@ defmodule Bonfire.RuntimeConfig do
             # possibly with uploaded/linked media (optionally depends on URLPreviews),
             {Bonfire.Files.Acts.AttachMedia, on: :post},
 
-            # with appropriate boundaries established (depends on PostContents and Threaded),
+            # with appropriate boundaries established (depends on  and Threaded),
             {Bonfire.Boundaries.Acts.SetBoundaries, on: :post},
 
             # summarised by an activity (possibly appearing in feeds),
