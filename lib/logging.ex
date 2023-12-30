@@ -22,7 +22,7 @@ defmodule Bonfire.Logging do
       :httpc.set_option(:ipfamily, :inet6fb4)
     end
 
-    if Application.get_env(:opentelemetry, :disabled, true) != true do
+    if Application.get_env(:opentelemetry, :modularity) != :disabled do
       IO.puts("NOTE: OTLP (open telemetry) data is being collected")
 
       if Application.get_env(:bonfire, Bonfire.Web.Endpoint, [])[:adapter] in [

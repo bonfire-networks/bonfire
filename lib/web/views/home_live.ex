@@ -86,12 +86,14 @@ defmodule Bonfire.Web.HomeLive do
 
     show_about_instance? = !current_user_id(socket.assigns) or current_url(socket) == "/about"
 
+    context = socket.assigns[:__context__]
+
     feed_name =
-      if module_enabled?(Bonfire.Social.Pins) and
+      if module_enabled?(Bonfire.Social.Pins, context) and
            Settings.get(
              [Bonfire.UI.Social.FeedsLive, :curated],
              false,
-             socket.assigns[:__context__]
+             context
            ) do
         :curated
       else
@@ -99,7 +101,7 @@ defmodule Bonfire.Web.HomeLive do
           Settings.get(
             [Bonfire.UI.Social.FeedLive, :default_feed],
             :default,
-            socket.assigns[:__context__]
+            context
           )
       end
 

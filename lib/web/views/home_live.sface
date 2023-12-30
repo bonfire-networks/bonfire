@@ -7,8 +7,8 @@
       </div> -->
 
       <div class="w-full">
-        <Dynamic.LiveComponent
-          :if={module_enabled?(FeedLive) && @feed_component_id}
+        <StatefulComponent
+          :if={module_enabled?(FeedLive, @__context__) && @feed_component_id}
           module={FeedLive}
           id={@feed_component_id}
           hide_tabs
@@ -25,8 +25,8 @@
       </div>
     </div>
   {#elseif @feed_component_id}
-    <Dynamic.LiveComponent
-      :if={module_enabled?(FeedLive)}
+    <StatefulComponent
+      :if={module_enabled?(FeedLive, @__context__)}
       module={FeedLive}
       id={@feed_component_id}
       feed_id={@feed_id}
