@@ -38,7 +38,7 @@ defmodule Bonfire.Application do
       {Phoenix.PubSub, [name: Bonfire.Common.PubSub, adapter: Phoenix.PubSub.PG2]},
       Bonfire.UI.Common.Presence,
       # Persistent Data Services
-      Pointers.Tables,
+      Needle.Tables,
       # Bonfire.Data.AccessControl.Accesses,
       ## these populate on first call, so no need to run on startup:
       # Bonfire.Common.ContextModule,

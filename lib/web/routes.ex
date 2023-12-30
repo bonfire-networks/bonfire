@@ -162,7 +162,7 @@ defmodule Bonfire.Web.Routes do
         )
 
         LiveAdmin.Router.live_admin("/admin/system/data",
-          resources: Pointers.Tables.schema_modules(),
+          resources: Needle.Tables.schema_modules(),
           ecto_repo: Bonfire.Common.Repo,
           title: "Bonfire Data Admin",
           immutable_fields: [:id, :inserted_at, :updated_at],
@@ -170,7 +170,7 @@ defmodule Bonfire.Web.Routes do
         )
 
         # do
-        #   for schema <- Pointers.Tables.schema_modules() do
+        #   for schema <- Needle.Tables.schema_modules() do
         #     LiveAdmin.Router.admin_resource "/#{schema}", schema
         #   end
         # end
