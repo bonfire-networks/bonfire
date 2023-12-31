@@ -36,6 +36,11 @@ defmodule Bonfire.Web.Routes do
       use_if_enabled(Bonfire.Files.Routes)
 
       use_if_enabled(Bonfire.UI.Social.Routes)
+      use_if_enabled(Bonfire.UI.Posts.Routes)
+      use_if_enabled(Bonfire.UI.Messages.Routes)
+      use_if_enabled(Bonfire.UI.Reactions.Routes)
+      # use_if_enabled(Bonfire.UI.Social.Graph.Routes)
+      # use_if_enabled(Bonfire.UI.Moderation.Routes)
 
       use_if_enabled(Bonfire.Gatherings.Web.Routes)
 

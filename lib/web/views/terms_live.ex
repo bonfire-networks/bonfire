@@ -11,7 +11,7 @@ defmodule Bonfire.Web.TermsLive do
      socket
      |> assign(
        page: "privacy",
-       nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
+       nav_items: Bonfire.Common.ExtensionModule.default_nav(),
        page_title: l("Privacy policy"),
        without_sidebar: false,
        terms: Config.get([:terms, :privacy])

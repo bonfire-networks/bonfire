@@ -13,7 +13,7 @@ defmodule Bonfire.Web.CodeOfConductLive do
        page: "conduct",
        page_title: l("Code of conduct"),
        without_sidebar: false,
-       nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
+       nav_items: Bonfire.Common.ExtensionModule.default_nav(),
        terms: Config.get([:terms, :conduct])
      )}
   end

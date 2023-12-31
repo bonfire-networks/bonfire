@@ -8,8 +8,8 @@
 
       <div class="w-full">
         <StatefulComponent
-          :if={module_enabled?(FeedLive, @__context__) && @feed_component_id}
-          module={FeedLive}
+          module={maybe_component(Bonfire.UI.Social.FeedLive, @__context__)}
+          :if={@feed_component_id}
           id={@feed_component_id}
           hide_tabs
           feed_id={@feed_id}
@@ -26,8 +26,7 @@
     </div>
   {#elseif @feed_component_id}
     <StatefulComponent
-      :if={module_enabled?(FeedLive, @__context__)}
-      module={FeedLive}
+      module={maybe_component(Bonfire.UI.Social.FeedLive, @__context__)}
       id={@feed_component_id}
       feed_id={@feed_id}
       feed_ids={@feed_ids}

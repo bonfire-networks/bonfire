@@ -11,7 +11,7 @@ defmodule Bonfire.Web.AboutLive do
      socket
      |> assign(
        page: "about",
-       nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
+       nav_items: Bonfire.Common.ExtensionModule.default_nav(),
        page_header: false,
        page_title: l("About "),
        sidebar_widgets: [

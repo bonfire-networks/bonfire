@@ -24,7 +24,7 @@ defmodule Bonfire.Web.ChangelogLive do
        page: "Changelog",
        page_title: l("Changelog"),
        links: links,
-       nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
+       nav_items: Bonfire.Common.ExtensionModule.default_nav(),
        changelog: @changelog,
        without_sidebar: false
      )}
