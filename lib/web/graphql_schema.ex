@@ -29,10 +29,10 @@ if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
         Dataloader.add_source(
           Dataloader.new(),
           Needle.Pointer,
-          Bonfire.Common.Needle.dataloader(ctx)
+          Bonfire.Common.Needles.dataloader(ctx)
         )
 
-      # |> Dataloader.add_source(Bonfire.Data.Social.Posts, Bonfire.Common.Needle.dataloader(ctx) )
+      # |> Dataloader.add_source(Bonfire.Data.Social.Posts, Bonfire.Common.Needles.dataloader(ctx) )
 
       Map.put(ctx, :loader, loader)
     end
