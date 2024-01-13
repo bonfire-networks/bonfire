@@ -23,51 +23,52 @@ defmodule Bonfire.Application do
   def default_cache_hours, do: Config.get(:default_cache_hours) || 3
 
   def apps_before,
-    do: [
-      # Metrics
-      Bonfire.Web.Telemetry,
-      # Database
-      @repo_module,
-      EctoSparkles.AutoMigrator,
-      # behaviour modules are already prepared as part of `Config.LoadExtensionsConfig`
-      # Bonfire.Common.ExtensionBehaviour,
-      # Config.LoadExtensionsConfig,
-      # load instance Settings from DB into Config
-      Bonfire.Common.Settings.LoadInstanceConfig,
-      # PubSub
-      {Phoenix.PubSub, [name: Bonfire.Common.PubSub, adapter: Phoenix.PubSub.PG2]},
-      Bonfire.UI.Common.Presence,
-      # Persistent Data Services
-      Needle.Tables,
-      # Bonfire.Data.AccessControl.Accesses,
-      ## these populate on first call, so no need to run on startup:
-      # Bonfire.Common.ContextModule,
-      # Bonfire.Common.QueryModule,
-      # Bonfire.Federate.ActivityPub.FederationModules
-      # {PhoenixProfiler, name: Bonfire.Web.Profiler},
-      {Finch, name: Bonfire.Finch, pools: finch_pool_config()},
-      %{
-        id: :bonfire_cache,
-        start:
-          {Cachex, :start_link,
-           [
-             :bonfire_cache,
+    do:
+      [
+        # Metrics
+        Bonfire.Web.Telemetry,
+        # Database
+        @repo_module,
+        EctoSparkles.AutoMigrator,
+        # behaviour modules are already prepared as part of `Config.LoadExtensionsConfig`
+        # Bonfire.Common.ExtensionBehaviour,
+        # Config.LoadExtensionsConfig,
+        # load instance Settings from DB into Config
+        Bonfire.Common.Settings.LoadInstanceConfig,
+        # PubSub
+        {Phoenix.PubSub, [name: Bonfire.Common.PubSub, adapter: Phoenix.PubSub.PG2]},
+        Bonfire.UI.Common.Presence,
+        # Persistent Data Services
+        Needle.Tables,
+        # Bonfire.Data.AccessControl.Accesses,
+        ## these populate on first call, so no need to run on startup:
+        # Bonfire.Common.ContextModule,
+        # Bonfire.Common.QueryModule,
+        # Bonfire.Federate.ActivityPub.FederationModules
+        # {PhoenixProfiler, name: Bonfire.Web.Profiler},
+        {Finch, name: Bonfire.Finch, pools: finch_pool_config()},
+        %{
+          id: :bonfire_cache,
+          start:
+            {Cachex, :start_link,
              [
-               expiration: Cachex.Spec.expiration(default: :timer.hours(default_cache_hours())),
-               # increase for instances with more users (at least num. of users*2+1)
-               limit:
-                 Cachex.Spec.limit(
-                   # max number of entries
-                   size: 2_500,
-                   # the policy to use for eviction
-                   policy: Cachex.Policy.LRW,
-                   # what % to reclaim when limit is reached
-                   reclaim: 0.1
-                 )
-             ]
-           ]}
-      }
-    ]
+               :bonfire_cache,
+               [
+                 expiration: Cachex.Spec.expiration(default: :timer.hours(default_cache_hours())),
+                 # increase for instances with more users (at least num. of users*2+1)
+                 limit:
+                   Cachex.Spec.limit(
+                     # max number of entries
+                     size: 2_500,
+                     # the policy to use for eviction
+                     policy: Cachex.Policy.LRW,
+                     # what % to reclaim when limit is reached
+                     reclaim: 0.1
+                   )
+               ]
+             ]}
+        }
+      ] ++ Bonfire.Social.Graph.maybe_applications()
 
   # Stuff that depends on the Endpoint and/or the above
   def apps_after,
@@ -132,7 +133,7 @@ defmodule Bonfire.Application do
       ]
   end
 
-  def applications(:test, true = _test_instance?, _any) do
+  def applications(_, true = _test_instance?, _any) do
     apps_before() ++
       [Bonfire.Common.TestInstanceRepo] ++
       [@plug_protect, @endpoint_module, Bonfire.Web.FakeRemoteEndpoint] ++
@@ -154,7 +155,6 @@ defmodule Bonfire.Application do
   # default apps
   def applications(_env, _, _any) do
     apps_before() ++
-      Bonfire.Social.Graph.maybe_applications() ++
       [@plug_protect, @endpoint_module] ++
       maybe_pages_beacon() ++
       apps_after()
