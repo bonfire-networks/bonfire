@@ -11,13 +11,13 @@ defmodule Mix.Tasks.Bonfire.Account.New do
   ## Usage
 
   ```
-  mix bonfire.account.new [email@address]
+  just mix bonfire.account.new [email@address]
   ```
 
   You will be prompted for a password and an email if it was not provided.
   """
 
-  alias Bonfire.Me.Fake
+  alias Bonfire.Me
 
   @spec run(OptionParser.argv()) :: :ok
   def run(args) do
@@ -25,18 +25,15 @@ defmodule Mix.Tasks.Bonfire.Account.New do
     Mix.Task.run("app.start")
     email = get("Enter an email address: ", :email, options, true)
     password = password("Enter a password:")
-    IO.inspect(password: password)
+    IO.puts("Chosen password: #{password}")
 
-    Fake.fake_account!(%{
-      credential: %{password: password},
-      email: %{email_address: email}
-    })
+    Me.make_account_only(email, password)
   end
 
   defp options([], opts), do: opts
   defp options([email], opts), do: Map.put(opts, :email, email)
 
-  defp get(prompt, key, opts, must?) do
+  def get(prompt, key, opts, must?) do
     case opts[key] do
       nil ->
         case IO.gets(prompt) do
@@ -64,13 +61,13 @@ defmodule Mix.Tasks.Bonfire.Account.New do
   end
 
   # Extracted from hex via https://dev.to/tizpuppi/password-input-in-elixir-31oo
-  defp password(prompt) do
+  def password(prompt) do
     pid = spawn_link(fn -> loop(prompt) end)
     ref = make_ref()
     password(prompt, pid, ref)
   end
 
-  defp password(prompt, pid, ref) do
+  def password(prompt, pid, ref) do
     value = String.trim(IO.gets(prompt))
 
     if String.length(value) < 10 do
