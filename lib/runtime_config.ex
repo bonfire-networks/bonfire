@@ -6,6 +6,7 @@ defmodule Bonfire.RuntimeConfig do
 
   @page_act_opts [on: :page, attrs: :page_attrs]
   @section_act_opts [on: :section, attrs: :section_attrs]
+  @label_act_opts [on: :label, object: :object, attrs: :attrs]
 
   @doc """
   NOTE: you can override this default config in your app's runtime.exs, by placing similarly-named config keys below the `Bonfire.Common.Config.LoadExtensionsConfig.load_configs` line
@@ -206,6 +207,47 @@ defmodule Bonfire.RuntimeConfig do
 
           # Once the activity/object exists, we can apply side effects
           # {Bonfire.Tags.Acts.AutoBoost, @section_act_opts}
+        ]
+      ]
+
+    config :bonfire_label, Bonfire.Label.Labelling,
+      epics: [
+        label_object: [
+          # Prep: a little bit of querying and a lot of preparing changesets
+          # Create a changeset for insertion
+          {Bonfire.Label.Acts.LabelObject, @label_act_opts},
+          # with a sanitised body and tags extracted,
+          {Bonfire.Social.Acts.PostContents, @label_act_opts},
+          # a caretaker,
+          # {Bonfire.Me.Acts.Caretaker, @page_act_opts},
+          # and a creator,
+          # {Bonfire.Me.Acts.Creator, @label_act_opts},
+          # and possibly fetch contents of URLs,
+          {Bonfire.Files.Acts.URLPreviews, @label_act_opts},
+          # possibly with metadata from previous step,
+          {Bonfire.Files.Acts.AttachMedia, @label_act_opts},
+          # with extracted tags fully hooked up,
+          # {Bonfire.Tag.Acts.Tag, @page_act_opts},
+          # and the appropriate boundaries established,
+          # {Bonfire.Boundaries.Acts.SetBoundaries, @label_act_opts},
+          # summarised by an activity?
+          # {Bonfire.Social.Acts.Activity, @label_act_opts},
+          # {Bonfire.Social.Acts.Feeds,       @label_act_opts}, # appearing in feeds?
+
+          # Now we have a short critical section
+          Ecto.Begin,
+          # Run our inserts
+          Ecto.Work,
+          Ecto.Commit,
+
+          # These things are free to happen casually in the background.
+          # Publish live feed updates via (in-memory) pubsub?
+          # {Bonfire.Social.Acts.LivePush, @page_act_opts},
+
+          # Oban would rather we put these here than in the transaction
+          # above because it knows better than us, obviously.
+          # Prepare for federation and do the queue insert (oban).
+          {Bonfire.Social.Acts.Federate, @label_act_opts}
         ]
       ]
   end
