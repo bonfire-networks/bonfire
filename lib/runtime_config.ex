@@ -67,7 +67,7 @@ defmodule Bonfire.RuntimeConfig do
             {Bonfire.Social.Acts.Threaded, on: :post},
 
             # with extracted tags/mentions fully hooked up (depends on ),
-            {Bonfire.Tags.Acts.Tag, on: :post},
+            {Bonfire.Tag.Acts.Tag, on: :post},
 
             # maybe set as sensitive,
             {Bonfire.Social.Acts.Sensitivity, on: :post}
@@ -134,7 +134,7 @@ defmodule Bonfire.RuntimeConfig do
           # possibly with uploaded files,
           {Bonfire.Files.Acts.AttachMedia, @page_act_opts},
           # with extracted tags fully hooked up,
-          {Bonfire.Tags.Acts.Tag, @page_act_opts},
+          {Bonfire.Tag.Acts.Tag, @page_act_opts},
           # and the appropriate boundaries established,
           {Bonfire.Boundaries.Acts.SetBoundaries, @page_act_opts},
           # summarised by an activity?
@@ -180,7 +180,7 @@ defmodule Bonfire.RuntimeConfig do
           # possibly with uploaded files,
           {Bonfire.Files.Acts.AttachMedia, @section_act_opts},
           # with extracted tags fully hooked up,
-          {Bonfire.Tags.Acts.Tag, @section_act_opts},
+          {Bonfire.Tag.Acts.Tag, @section_act_opts},
           # and the appropriate boundaries established,
           {Bonfire.Boundaries.Acts.SetBoundaries, @section_act_opts},
           # summarised by an activity?

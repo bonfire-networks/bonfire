@@ -53,9 +53,12 @@ defmodule Bonfire.Web.Routes do
       use_if_enabled(Bonfire.OpenID.Web.Routes)
 
       use_if_enabled(Bonfire.Search.Web.Routes)
+
       use_if_enabled(Bonfire.Tag.Web.Routes)
       use_if_enabled(Bonfire.UI.Topics.Routes)
       use_if_enabled(Bonfire.UI.Groups.Routes)
+      use_if_enabled(Bonfire.Label.Web.Routes)
+
       use_if_enabled(Bonfire.Geolocate.Web.Routes)
       use_if_enabled(Bonfire.UI.Coordination.Routes)
       use_if_enabled(Bonfire.UI.Kanban.Routes)
