@@ -7,12 +7,12 @@ defmodule Bonfire.Web.Endpoint do
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
-  if code_reloading? do
+  if Application.compile_env(:bonfire, :hot_code_reload) && code_reloading? do
     socket("/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket)
     plug(Phoenix.LiveReloader)
     plug(Phoenix.CodeReloader)
 
-    plug(Phoenix.Ecto.CheckRepoStatus, otp_app: :bonfire)
+    plug(Phoenix.Ecto.CheckRepoStatus, otp_app: :bonfire_umbrella)
 
     # FIXME
     # socket "/admin/system/wobserver", Wobserver.Web.PhoenixSocket
