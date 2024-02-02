@@ -1,69 +1,16 @@
-<div class="">
+<div class={"max-w-screen-md w-full mx-auto", "mt-10": is_nil(current_user_id(@socket.assigns))}>
   <div
-    class="bg-center mx-auto bg-no-repeat bg-cover h-[220px] w-full"
+    class="bg-center mx-auto bg-no-repeat bg-cover h-[320px] rounded-lg w-full"
     style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
   />
-  <div class="">
-    <div
-      x-data="{
-        open: true
-      }"
-      class="p-6"
-    >
-      <div class="flex items-center justify-between" x-on:click="open = !open">
-        <div class="flex flex-col gap-1">
-          <div class="text-lg font-bold text-base-content">{l("About")}</div>
-        </div>
-        <button x-show="!open" type="button" class="normal-case btn-circle btn btn-ghost btn-sm">
-          <#Icon solid="ChevronRight" class="w-6 h-6 text-base-content/70" />
-        </button>
-        <button x-show="open" type="button" class="normal-case btn-circle btn btn-ghost btn-sm">
-          <#Icon solid="ChevronDown" class="w-6 h-6 text-base-content/70" />
-        </button>
-      </div>
-      <div x-show="open" x-cloak x-collapse>
-        <div class="md:hidden prose prose-md">{Config.get([:ui, :theme, :instance_description])}</div>
 
-        <article class="prose max-w-max mt-3 prose-sm">{templated_or_remote_markdown(Config.get([:ui, :theme, :instance_welcome, :description], ""))}</article>
+  <div class="text-4xl font-semibold mb-4 mt-10">{l("About")}</div>
+  <div class="md:hidden prose prose-xl">{Config.get([:ui, :theme, :instance_description])}</div>
 
-        <div class="md:hidden mt-3">
-          <Bonfire.UI.Common.ImpressumLive />
-        </div>
-      </div>
-    </div>
+  <article class="prose max-w-max mt-3 prose-xl">{templated_or_remote_markdown(Config.get([:ui, :theme, :instance_welcome, :description], ""))}</article>
+
+  <div class="md:hidden mt-3">
+    <Bonfire.UI.Common.ImpressumLive />
   </div>
-
   <Bonfire.UI.Me.SettingsViewsLive.InstanceSummaryLive />
-
-  <div class="mt-2">
-    <div
-      x-data="{
-        open: false
-      }"
-      class="p-6 border-t border-base-content/20"
-    >
-      <div class="flex items-center justify-between" x-on:click="open = !open">
-        <div class="flex flex-col gap-1">
-          <div class="text-lg font-bold text-base-content">{l("Code of Conduct")}</div>
-        </div>
-        <button x-show="!open" type="button" class="normal-case btn-circle btn btn-ghost btn-sm">
-          <#Icon solid="ChevronRight" class="w-6 h-6 text-base-content/70" />
-        </button>
-        <button x-show="open" type="button" class="normal-case btn-circle btn btn-ghost btn-sm">
-          <#Icon solid="ChevronDown" class="w-6 h-6 text-base-content/70" />
-        </button>
-      </div>
-      <div x-show="open" x-cloak x-collapse>
-        <Bonfire.UI.Common.WidgetTextLive
-          class="max-w-full prose"
-          text={e(
-            Config.get([:terms, :conduct]),
-            l(
-              "The instance operator(s) have not yet added a code of conduct. Please use your best judgment, and consult the [code of conduct of the Bonfire project](https://bonfirenetworks.org/conduct/) as a reference."
-            )
-          )}
-        />
-      </div>
-    </div>
-  </div>
 </div>

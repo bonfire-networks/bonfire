@@ -11,8 +11,13 @@ defmodule Bonfire.Web.AboutLive do
      socket
      |> assign(
        page: "about",
+       selected_tab: :about,
        nav_items: Bonfire.Common.ExtensionModule.default_nav(),
        page_header: false,
+       is_guest?: is_nil(current_user_id(socket.assigns)),
+       without_sidebar: is_nil(current_user_id(socket.assigns)),
+       without_secondary_widgets: is_nil(current_user_id(socket.assigns)),
+       no_header: is_nil(current_user_id(socket.assigns)),
        page_title: l("About "),
        sidebar_widgets: [
          guests: [

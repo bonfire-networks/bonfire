@@ -1,6 +1,6 @@
-defmodule Bonfire.Web.HomeLive do
+defmodule Bonfire.Web.ExploreLive do
   @moduledoc """
-  The main instance home page, mainly for guests visiting the instance
+  The instance explore page, mainly for guests visiting the local feed
   """
   use Bonfire.UI.Common.Web, :surface_live_view
 
@@ -28,25 +28,16 @@ defmodule Bonfire.Web.HomeLive do
   end
 
   defp mounted(params, _session, socket) do
-    links =
-      Config.get([:ui, :theme, :instance_welcome, :links], %{
-        l("About Bonfire") => "https://bonfirenetworks.org/",
-        l("Contribute") => "https://bonfirenetworks.org/contribute/"
-      })
-
     {:ok,
      socket
      |> assign(
-       page: "home",
+       page: "explore",
        is_guest?: is_nil(current_user_id(socket.assigns)),
        without_sidebar: is_nil(current_user_id(socket.assigns)),
        without_secondary_widgets: is_nil(current_user_id(socket.assigns)),
        no_header: true,
-       selected_tab: :home,
-       links: links,
-       #  changelog: @changelog,
+       selected_tab: "explore",
        error: nil,
-       form: login_form(params),
        loading: true,
        feed: nil,
        feed_id: nil,
@@ -73,12 +64,6 @@ defmodule Bonfire.Web.HomeLive do
      )}
   end
 
-  defp login_form(params), do: Accounts.changeset(:login, params)
-
-  def do_handle_params(%{"tab" => _tab} = params, url, socket) do
-    Bonfire.UI.Social.FeedsLive.do_handle_params(params, url, socket)
-  end
-
   def do_handle_params(params, _url, socket) do
     # debug(params, "param")
 
@@ -86,8 +71,6 @@ defmodule Bonfire.Web.HomeLive do
 
     # instance_name =
     #   Config.get([:ui, :theme, :instance_name]) || l("An instance of %{app}", app: app)
-
-    show_about_instance? = !current_user_id(socket.assigns) or current_url(socket) == "/about"
 
     context = socket.assigns[:__context__]
 
@@ -111,22 +94,14 @@ defmodule Bonfire.Web.HomeLive do
     {:noreply,
      socket
      |> assign(
-       show_about_instance?: show_about_instance?,
-       page_title:
-         if(show_about_instance?,
-           do: app,
-           else: l("%{app} dashboard", app: app)
-         )
+       Bonfire.Social.Feeds.LiveHandler.feed_default_assigns(
+         {
+           feed_name,
+           params
+         },
+         socket
+       )
      )
-     #  |> assign(
-     #    Bonfire.Social.Feeds.LiveHandler.feed_default_assigns(
-     #      {
-     #        feed_name,
-     #        params
-     #      },
-     #      socket
-     #    )
-     #  )
      |> assign(..., FeedLive.maybe_widgets(e(..., :assigns, nil), feed_name))}
   end
 

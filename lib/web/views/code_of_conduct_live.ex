@@ -11,8 +11,12 @@ defmodule Bonfire.Web.CodeOfConductLive do
      socket
      |> assign(
        page: "conduct",
+       selected_tab: :conduct,
        page_title: l("Code of conduct"),
-       without_sidebar: false,
+       is_guest?: is_nil(current_user_id(socket.assigns)),
+       without_sidebar: is_nil(current_user_id(socket.assigns)),
+       without_secondary_widgets: is_nil(current_user_id(socket.assigns)),
+       no_header: is_nil(current_user_id(socket.assigns)),
        nav_items: Bonfire.Common.ExtensionModule.default_nav(),
        terms: Config.get([:terms, :conduct])
      )}
