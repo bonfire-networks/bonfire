@@ -1,4 +1,4 @@
-<div class={"max-w-screen-md w-full mx-auto", "mt-10": is_nil(current_user_id(@socket.assigns))}>
+<div class="max-w-screen-md w-full mx-auto">
   <div
     class="bg-center mx-auto bg-no-repeat bg-cover h-[320px] rounded-lg w-full"
     style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}

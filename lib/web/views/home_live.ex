@@ -118,15 +118,15 @@ defmodule Bonfire.Web.HomeLive do
            else: l("%{app} dashboard", app: app)
          )
      )
-     #  |> assign(
-     #    Bonfire.Social.Feeds.LiveHandler.feed_default_assigns(
-     #      {
-     #        feed_name,
-     #        params
-     #      },
-     #      socket
-     #    )
-     #  )
+     |> assign(
+       Bonfire.Social.Feeds.LiveHandler.feed_default_assigns(
+         {
+           feed_name,
+           params
+         },
+         socket
+       )
+     )
      |> assign(..., FeedLive.maybe_widgets(e(..., :assigns, nil), feed_name))}
   end
 
