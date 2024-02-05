@@ -5,6 +5,11 @@ defmodule Bonfire.Web.Endpoint do
   alias Bonfire.Common.Types
   alias Bonfire.Common.Extend
 
+  def halt_live_reload(%{request_path: "/phoenix/live_reload/socket/websocket"} = conn, _),
+    do: conn |> resp(404, "Not enabled") |> halt()
+
+  def halt_live_reload(conn, _), do: conn
+
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if Application.compile_env(:bonfire, :hot_code_reload) && code_reloading? do
@@ -18,6 +23,8 @@ defmodule Bonfire.Web.Endpoint do
     # socket "/admin/system/wobserver", Wobserver.Web.PhoenixSocket
 
     # plug(PhoenixProfiler)
+  else
+    plug(:halt_live_reload)
   end
 
   plug(Bonfire.Web.Router)

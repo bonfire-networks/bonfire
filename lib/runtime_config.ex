@@ -16,7 +16,7 @@ defmodule Bonfire.RuntimeConfig do
 
     delete_object = [
       # Create a changeset for deletion
-      {Bonfire.Social.Acts.Objects.Delete, on: :object},
+      {Bonfire.Social.Acts.Objects.Delete, on: :object, ap_on: :ap_object},
 
       # mark for deletion
       {Ecto.Delete,
@@ -34,7 +34,7 @@ defmodule Bonfire.RuntimeConfig do
       Ecto.Commit,
 
       # Prepare for federation and add to queue (oban)
-      {Bonfire.Social.Acts.Federate, on: :object},
+      {Bonfire.Social.Acts.Federate, on: :object, ap_on: :ap_object},
 
       # Enqueue for un-indexing by meilisearch
       {Bonfire.Search.Acts.Queue, on: :object}
