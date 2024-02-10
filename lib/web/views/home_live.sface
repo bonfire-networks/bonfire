@@ -1,8 +1,17 @@
 <div class="w-full h-full flex-1 flex flex-col">
   {#if !current_user_id(@__context__)}
-    <div class="flex flex-col items-start">
-      <div class="text-center max-w-screen-md leading-normal font-bold mx-auto text-3xl mt-8">{Config.get([:ui, :theme, :instance_description])}</div>
-      <div class="w-full mt-16 max-w-[680px] mx-auto border rounded border-base-content/20">
+  <section class="max-w-screen-xl mt-0 pt-2 grid lg:grid-cols-2 gap-2">
+  <div class="rounded-xl bg-cover bg-norepeat bg-center text-primary-content mt-0 p-8 bg-primary">
+    <h3 class="text-3xl md:text-4xl font-black md:leading-[1.25em]">{Config.get([:ui, :theme, :instance_description])}</h3>
+  </div>
+  <div 
+    style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
+    class="bg-center bg-no-repeat bg-cover bg-white h-full rounded-xl">
+  </div>
+</section>
+
+  <section class="max-w-screen-xl mt-0 pt-2 grid lg:grid-cols-5 gap-2">
+  <div class="w-full bg-base-200 col-span-3 rounded-xl">
         <div class="text-lg font-semibold h-[50px] flex items-center px-4 border-b border-base-content/20">{l("Recent activities")}</div>
         <StatefulComponent
           module={maybe_component(Bonfire.UI.Social.FeedLive, @__context__)}
@@ -20,7 +29,16 @@
           time_limit={30}
         />
       </div>
-    </div>
+      <div class="flex flex-col gap-2 w-full col-span-2">
+        <Bonfire.Tag.Web.WidgetTagsLive />
+        <Bonfire.UI.Me.WidgetAdminsLive />
+        <div>
+          <Bonfire.UI.Common.ImpressumLive />
+        </div>
+      </div>
+  </section>
+
+
   {#elseif @feed_component_id}
     <StatefulComponent
       module={maybe_component(Bonfire.UI.Social.FeedLive, @__context__)}

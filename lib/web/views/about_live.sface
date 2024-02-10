@@ -1,16 +1,12 @@
-<div class="max-w-screen-md w-full mx-auto">
-  <div
-    class="bg-center mx-auto bg-no-repeat bg-cover h-[320px] rounded-lg w-full"
-    style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
-  />
-
-  <div class="text-4xl font-semibold mb-4 mt-10">{l("About")}</div>
-  <div class="md:hidden prose prose-xl">{Config.get([:ui, :theme, :instance_description])}</div>
-
-  <article class="prose max-w-max mt-3 prose-xl">{templated_or_remote_markdown(Config.get([:ui, :theme, :instance_welcome, :description], ""))}</article>
-
-  <div class="md:hidden mt-3">
-    <Bonfire.UI.Common.ImpressumLive />
+<section class="max-w-screen-xl mt-0 pt-2 grid items-start lg:grid-cols-5 gap-2">
+  <div class="col-span-3 flex flex-col gap-2">
+    <div 
+      style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
+      class="bg-center h-[320px] bg-no-repeat bg-cover bg-white rounded-xl">
+    </div>
+    <article class="prose max-w-max mt-3 prose-xl">{templated_or_remote_markdown(Config.get([:ui, :theme, :instance_welcome, :description], ""))}</article>
   </div>
-  <Bonfire.UI.Me.SettingsViewsLive.InstanceSummaryLive />
-</div>
+  <div class="col-span-2">
+    <Bonfire.UI.Me.SettingsViewsLive.InstanceSummaryLive />
+  </div>
+</section>
