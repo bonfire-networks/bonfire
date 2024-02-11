@@ -1,8 +1,9 @@
 <section class="max-w-screen-xl mt-0 pt-2 grid items-start lg:grid-cols-5 gap-2">
   <div class="col-span-3 flex flex-col gap-2">
-    <div 
+    <div
       style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
-      class="bg-center h-[320px] bg-no-repeat bg-cover bg-white rounded-xl">
+      class="bg-center h-[320px] bg-no-repeat bg-cover bg-white rounded-xl"
+    >
     </div>
     <article class="prose max-w-max mt-3 prose-xl">{templated_or_remote_markdown(Config.get([:ui, :theme, :instance_welcome, :description], ""))}</article>
   </div>
