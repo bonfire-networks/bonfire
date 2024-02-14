@@ -1,12 +1,13 @@
 <div class="w-full h-full flex-1 flex flex-col">
   {#if !current_user_id(@__context__)}
     <section class="max-w-screen-xl mt-0 grid lg:grid-cols-2 gap-2">
-      <div class="rounded-xl bg-cover bg-norepeat bg-center text-primary-content mt-0 p-8 bg-primary">
+      <div class="rounded-xl bg-cover bg-norepeat bg-center text-primary-content mt-0 p-8 bg-primary flex items-center">
         <h3 class="text-3xl md:text-4xl font-black md:leading-[1.25em]">{Config.get([:ui, :theme, :instance_description])}</h3>
       </div>
       <div
+        :if={Config.get([:ui, :theme, :instance_image], nil)}
         style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
-        class="bg-center bg-no-repeat bg-cover bg-white h-full rounded-xl"
+        class="bg-center bg-no-repeat min-h-[320px] bg-cover bg-white h-full rounded-xl"
       >
       </div>
     </section>
