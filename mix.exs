@@ -48,11 +48,12 @@ defmodule Bonfire.Spark.MixProject do
     Mess.deps((if System.get_env("WITH_FORKS", "1")=="1", do: [path: "#{@mess_defs_path}deps.path", git: "#{@mess_defs_path}deps.git", hex: "#{@mess_defs_path}deps.hex"], else: [git: "#{@mess_defs_path}deps.git", hex: "#{@mess_defs_path}deps.hex"]), [
 
       # error reporting
-      {:sentry, "~> 9.0", optional: true}, 
+      {:sentry, "~> 9.0", optional: true},
+      {:orion, "~> 1.0"}
 
       ## dev conveniences
       {:phoenix_live_reload, "~> 1.3", optional: true}
-      
+
     ])
     |> Enum.reject(& elem(&1, 0)==:bonfire)
     # |> IO.inspect
