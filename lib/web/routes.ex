@@ -136,20 +136,21 @@ defmodule Bonfire.Web.Routes do
         pipe_through(:account_required)
       end
 
-      # pages you need to view as a user
-      scope "/" do
-        pipe_through(:browser)
-        pipe_through(:user_required)
+      if extension_enabled?(:bonfire_ui_me) do 
+        # pages you need to view as a user
+        scope "/" do
+          pipe_through(:browser)
+          pipe_through(:user_required)
 
-        live("/dashboard", Bonfire.Web.HomeLive, as: :dashboard)
-        # live "/dashboard", Bonfire.UI.Social.FeedsLive, as: :dashboard
-      end
+          live("/dashboard", Bonfire.Web.HomeLive, as: :dashboard)
+          # live "/dashboard", Bonfire.UI.Social.FeedsLive, as: :dashboard
+        end
 
-      # pages only admins can view
-      scope "/settings/admin" do
-        pipe_through(:browser)
-        pipe_through(:admin_required)
-      end
+        # pages only admins can view
+        scope "/settings/admin" do
+          pipe_through(:browser)
+          pipe_through(:admin_required)
+        end
 
       scope "/" do
         pipe_through(:browser_unsafe)
@@ -215,6 +216,7 @@ defmodule Bonfire.Web.Routes do
             ]
           )
         end
+      end
       end
 
       if Config.env() in [:dev, :test] do
