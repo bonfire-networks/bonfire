@@ -8,9 +8,11 @@ defmodule Bonfire.Web.Routes do
       require LiveAdmin.Router
 
       pipeline :load_current_auth do
-        # plug(Bonfire.UI.Me.Plugs.LoadCurrentAccount)
-        # ^ no need to call LoadCurrentAccount if also calling LoadCurrentUser
-        plug(Bonfire.UI.Me.Plugs.LoadCurrentUser)
+        if module_enabled?(Bonfire.UI.Me.Plugs.LoadCurrentUser) do 
+          # plug(Bonfire.UI.Me.Plugs.LoadCurrentAccount)
+          # ^ no need to call LoadCurrentAccount if also calling LoadCurrentUser
+          plug(Bonfire.UI.Me.Plugs.LoadCurrentUser)
+        end
       end
 
       # please note the order matters here, because of pipelines being defined in some module and re-used in others
