@@ -3,7 +3,9 @@ Code.eval_file("mess.exs", (if File.exists?("../../lib/mix/mess.exs"), do: "../.
 defmodule Bonfire.Spark.MixProject do
   use Mix.Project
 
+  @in_umbrella? File.exists?("../../lib/mix/mess.exs")
   @config_path "../../config/"
+  @mess_defs_path if @in_umbrella?, do: @config_path, else: "../../"
 
   def project do
     if System.get_env("AS_UMBRELLA") == "1" do
@@ -43,12 +45,14 @@ defmodule Bonfire.Spark.MixProject do
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
-    Mess.deps((if System.get_env("WITH_FORKS", "1")=="1", do: [path: "#{@config_path}deps.path", git: "#{@config_path}deps.git", hex: "#{@config_path}deps.hex"], else: [git: "#{@config_path}deps.git", hex: "#{@config_path}deps.hex"]), [
+    Mess.deps((if System.get_env("WITH_FORKS", "1")=="1", do: [path: "#{@mess_defs_path}deps.path", git: "#{@mess_defs_path}deps.git", hex: "#{@mess_defs_path}deps.hex"], else: [git: "#{@mess_defs_path}deps.git", hex: "#{@mess_defs_path}deps.hex"]), [
+
       # error reporting
       {:sentry, "~> 9.0", optional: true}, 
 
       ## dev conveniences
-      {:phoenix_live_reload, "~> 1.3", only: :dev}
+      {:phoenix_live_reload, "~> 1.3", optional: true}
+      
     ])
     |> Enum.reject(& elem(&1, 0)==:bonfire)
     # |> IO.inspect
