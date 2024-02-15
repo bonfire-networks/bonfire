@@ -32,8 +32,8 @@
         />
       </div>
       <div class="flex flex-col gap-2 w-full col-span-2">
-        <Bonfire.Tag.Web.WidgetTagsLive />
-        <Bonfire.UI.Me.WidgetAdminsLive />
+        <StatelessComponent module={maybe_component(Bonfire.Tag.Web.WidgetTagsLive, @__context__)} />
+        <StatelessComponent module={maybe_component(Bonfire.UI.Me.WidgetAdminsLive, @__context__)} />
         <div>
           <Bonfire.UI.Common.ImpressumLive />
         </div>
