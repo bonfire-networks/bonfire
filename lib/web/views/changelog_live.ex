@@ -4,7 +4,7 @@ defmodule Bonfire.Web.ChangelogLive do
   """
   use Bonfire.UI.Common.Web, :surface_live_view
 
-  @changelog File.read!("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
+  @changelog File.read("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
 
   on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.LoadCurrentUser]}
 
@@ -18,6 +18,11 @@ defmodule Bonfire.Web.ChangelogLive do
         l("Contribute") => "https://bonfirenetworks.org/contribute/"
       })
 
+    changelog = case @changelog do
+      {:ok, changelog} -> changelog
+      _ -> nil
+    end
+
     {:ok,
      socket
      |> assign(
@@ -25,7 +30,7 @@ defmodule Bonfire.Web.ChangelogLive do
        page_title: l("Changelog"),
        links: links,
        nav_items: Bonfire.Common.ExtensionModule.default_nav(),
-       changelog: @changelog,
+       changelog: changelog,
        without_sidebar: false
      )}
   end
