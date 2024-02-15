@@ -50,6 +50,7 @@ defmodule Bonfire.Spark.MixProject do
       # error reporting
       {:sentry, "~> 9.0", optional: true},
       {:orion, "~> 1.0"},
+      {:live_admin, "~> 0.9.0"},
 
       ## dev conveniences
       {:phoenix_live_reload, "~> 1.3", optional: true}
