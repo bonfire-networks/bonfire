@@ -3,8 +3,8 @@ defmodule Bonfire.Web.Routes do
     quote do
       use Bonfire.UI.Common.Web, :router
       # use Plug.ErrorHandler
-      require OrionWeb.Router
       alias Bonfire.Common.Config
+      require OrionWeb.Router
       require LiveAdmin.Router
 
       pipeline :load_current_auth do
@@ -163,20 +163,24 @@ defmodule Bonfire.Web.Routes do
 
           pipe_through(:browser)
 
-          OrionWeb.Router.live_orion("/admin/system/orion",
-            on_mount: [
-              Bonfire.UI.Me.LivePlugs.LoadCurrentUser,
-              Bonfire.UI.Me.LivePlugs.AdminRequired
-            ]
-          )
+          if module_enabled?(OrionWeb.Router) do 
+            OrionWeb.Router.live_orion("/admin/system/orion",
+              on_mount: [
+                Bonfire.UI.Me.LivePlugs.LoadCurrentUser,
+                Bonfire.UI.Me.LivePlugs.AdminRequired
+              ]
+            )
+          end
 
-          LiveAdmin.Router.live_admin("/admin/system/data",
-            resources: Needle.Tables.schema_modules(),
-            ecto_repo: Bonfire.Common.Repo,
-            title: "Bonfire Data Admin",
-            immutable_fields: [:id, :inserted_at, :updated_at],
-            label_with: :name
-          )
+          if module_enabled?(LiveAdmin.Router) do 
+            LiveAdmin.Router.live_admin("/admin/system/data",
+              resources: Needle.Tables.schema_modules(),
+              ecto_repo: Bonfire.Common.Repo,
+              title: "Bonfire Data Admin",
+              immutable_fields: [:id, :inserted_at, :updated_at],
+              label_with: :name
+            )
+          end
         end
 
         # do
