@@ -158,26 +158,26 @@ defmodule Bonfire.Web.Routes do
 
         if Config.env() != :test do
           pipe_through(:admin_required)
+
+          forward "/admin/system/wobserver", Wobserver.Web.Router
+
+          pipe_through(:browser)
+
+          OrionWeb.Router.live_orion("/admin/system/orion",
+            on_mount: [
+              Bonfire.UI.Me.LivePlugs.LoadCurrentUser,
+              Bonfire.UI.Me.LivePlugs.AdminRequired
+            ]
+          )
+
+          LiveAdmin.Router.live_admin("/admin/system/data",
+            resources: Needle.Tables.schema_modules(),
+            ecto_repo: Bonfire.Common.Repo,
+            title: "Bonfire Data Admin",
+            immutable_fields: [:id, :inserted_at, :updated_at],
+            label_with: :name
+          )
         end
-
-        forward "/admin/system/wobserver", Wobserver.Web.Router
-
-        pipe_through(:browser)
-
-        OrionWeb.Router.live_orion("/admin/system/orion",
-          on_mount: [
-            Bonfire.UI.Me.LivePlugs.LoadCurrentUser,
-            Bonfire.UI.Me.LivePlugs.AdminRequired
-          ]
-        )
-
-        LiveAdmin.Router.live_admin("/admin/system/data",
-          resources: Needle.Tables.schema_modules(),
-          ecto_repo: Bonfire.Common.Repo,
-          title: "Bonfire Data Admin",
-          immutable_fields: [:id, :inserted_at, :updated_at],
-          label_with: :name
-        )
 
         # do
         #   for schema <- Needle.Tables.schema_modules() do
