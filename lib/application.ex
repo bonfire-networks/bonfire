@@ -73,10 +73,18 @@ defmodule Bonfire.Application do
   # Stuff that depends on the Endpoint and/or the above
   def apps_after,
     do: [
-      {Tz.UpdatePeriodically, [interval_in_days: 10]},
-      # Job Queue
-      {Oban, Application.get_env(:bonfire, Oban, [])}
-    ]
+      {Tz.UpdatePeriodically, [interval_in_days: 10]}
+    ] ++ maybe_oban()
+
+  def maybe_oban do
+   case Application.get_env(:bonfire, Oban, []) do
+    [] -> [] 
+    config -> [
+        # Job Queue
+        {Oban, config}
+      ]
+    end
+  end
 
   @plug_protect {PlugAttack.Storage.Ets,
                  name: Bonfire.UI.Common.PlugProtect.Storage, clean_period: 60_000}
