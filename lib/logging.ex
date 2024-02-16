@@ -1,5 +1,6 @@
 defmodule Bonfire.Logging do
   require Logger
+  alias Bonfire.Common.Extend
 
   def setup(env, repo_module) do
     setup_opentelemetry(env, repo_module)
@@ -28,18 +29,17 @@ defmodule Bonfire.Logging do
       if Application.get_env(:bonfire, Bonfire.Web.Endpoint, [])[:adapter] in [
            Phoenix.Endpoint.Cowboy2Adapter,
            nil
-         ] do
-        :ok = :opentelemetry_cowboy.setup()
+         ] and Extend.extension_enabled?(:opentelemetry_cowboy) do
+        :opentelemetry_cowboy.setup()
       end
 
-      :ok = OpentelemetryPhoenix.setup()
-      :ok = OpentelemetryLiveView.setup()
+      if Extend.module_enabled?(OpentelemetryPhoenix), do: OpentelemetryPhoenix.setup()
+      if Extend.module_enabled?(OpentelemetryLiveView), do: OpentelemetryLiveView.setup()
 
       # Only trace Oban jobs to minimize noise
-      :ok = OpentelemetryOban.setup(trace: [:jobs])
+      if Extend.module_enabled?(OpentelemetryOban), do: OpentelemetryOban.setup(trace: [:jobs])
 
-      :ok =
-        repo_module.config()
+      if Extend.module_enabled?(OpentelemetryEcto), do: repo_module.config()
         |> Keyword.fetch!(:telemetry_prefix)
         |> OpentelemetryEcto.setup()
     else
@@ -59,10 +59,10 @@ defmodule Bonfire.Logging do
   end
 
   defp setup_wobserver do
-    if Code.ensure_loaded?(Wobserver) do
+    # if Extend.module_enabled?(Wobserver) do
       # Wobserver.register(:page, {"Task Bunny", :taskbunny, &Status.page/0})
       # Wobserver.register(:metric, [&Status.metrics/0])
-    end
+    # end
   end
 
   def handle_event([:oban, :job, :exception], measure, meta, _) do
