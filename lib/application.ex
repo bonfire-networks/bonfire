@@ -11,7 +11,7 @@ defmodule Bonfire.Application do
   @top_otp_app Config.get!(:otp_app)
   @env Application.compile_env!(@top_otp_app, :env)
   @endpoint_module Application.compile_env!(@top_otp_app, :endpoint_module)
-  @repo_module Application.compile_env!(@top_otp_app, :repo_module)
+  @repo_module Application.compile_env(@top_otp_app, :repo_module)
   @project if Code.ensure_loaded?(Bonfire.Umbrella.MixProject),
              do: Bonfire.Umbrella.MixProject.project()
   @config if Code.ensure_loaded?(Bonfire.Umbrella.MixProject),
@@ -123,6 +123,7 @@ defmodule Bonfire.Application do
       Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
         Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL.Schema)
     )
+    |> Enum.reject(&is_nil/1)
     # |> IO.inspect(label: "apps tree")
     |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
   end
