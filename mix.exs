@@ -49,6 +49,7 @@ defmodule Bonfire.Spark.MixProject do
 
       {:voodoo, git: "https://github.com/bonfire-networks/voodoo"},
       {:finch, "~> 0.16"},
+      {:tz, "~> 0.26.2"},
 
       # error reporting
       {:sentry, "~> 9.0", optional: true},
