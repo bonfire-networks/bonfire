@@ -4,11 +4,10 @@ defmodule Bonfire.Localise do
   """
 
   use Bonfire.Common.Localise
-  use Arrows
 
-  Bonfire.Common.Utils.maybe_apply(Bonfire.Social.Activities, :all_verb_names_extra)
+  Bonfire.Common.Utils.maybe_apply(Bonfire.Social.Activities, :all_verb_names_extra, [], fallback_return: [])
   |> IO.inspect(label: "Making all verb names localisable")
-  ~> localise_strings(Bonfire.Social.Activities)
+  |> localise_strings(Bonfire.Social.Activities)
 
   Bonfire.Common.Types.all_object_type_names()
   |> IO.inspect(label: "Making all object type names localisable")
