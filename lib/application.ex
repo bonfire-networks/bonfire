@@ -68,7 +68,7 @@ defmodule Bonfire.Application do
                ]
              ]}
         }
-      ] ++ Bonfire.Social.Graph.maybe_applications()
+      ] ++ Bonfire.Common.Utils.maybe_apply(Bonfire.Social.Graph, :maybe_applications, [], fallback_return: [])
 
   # Stuff that depends on the Endpoint and/or the above
   def apps_after,
