@@ -5,7 +5,7 @@ defmodule Bonfire.Localise do
 
   use Bonfire.Common.Localise
 
-  maybe_apply(Bonfire.Social.Activities, :all_verb_names_extra)
+  Bonfire.Common.Utils.maybe_apply(Bonfire.Social.Activities, :all_verb_names_extra)
   |> IO.inspect(label: "Making all verb names localisable")
   |> localise_strings(Bonfire.Social.Activities)
 
