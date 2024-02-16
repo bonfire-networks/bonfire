@@ -75,7 +75,7 @@ defmodule Bonfire.Application do
     do: [
       {Tz.UpdatePeriodically, [interval_in_days: 10]},
       # Job Queue
-      {Oban, Application.fetch_env(:bonfire, Oban)}
+      {Oban, Application.fetch_env(:bonfire, Oban, [])}
     ]
 
   @plug_protect {PlugAttack.Storage.Ets,
