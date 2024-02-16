@@ -5,7 +5,7 @@ defmodule Bonfire.Spark.MixProject do
 
   @in_umbrella? File.exists?("../../lib/mix/mess.exs")
   @config_path "../../config/"
-  @mess_defs_path if @in_umbrella?, do: @config_path, else: "../../"
+  @umbrella_mess_defs if @in_umbrella?, do: "#{@config_path}deps.flavour", else: "../../deps.flavour"
 
   def project do
     if System.get_env("AS_UMBRELLA") == "1" do
@@ -45,13 +45,13 @@ defmodule Bonfire.Spark.MixProject do
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
-    Mess.deps((if System.get_env("WITH_FORKS", "1")=="1", do: [path: "#{@mess_defs_path}deps.path", git: "#{@mess_defs_path}deps.git", hex: "#{@mess_defs_path}deps.hex"], else: [git: "#{@mess_defs_path}deps.git", hex: "#{@mess_defs_path}deps.hex"]), [
+    spark_sources = [path: "deps.path", git: "deps.git", hex: "deps.hex"]
+    Mess.deps((if System.get_env("WITH_FORKS", "1")=="1", do: spark_sources ++ [path: "#{@umbrella_mess_defs}.path", git: "#{@umbrella_mess_defs}.git", hex: "#{@umbrella_mess_defs}.hex"], else: spark_sources ++ [git: "#{@umbrella_mess_defs}.git", hex: "#{@umbrella_mess_defs}.hex"]), [
 
       {:voodoo, git: "https://github.com/bonfire-networks/voodoo"},
       {:finch, "~> 0.16"},
       {:tz, "~> 0.26.2"},
       {:bonfire_ui_me, git: "https://github.com/bonfire-networks/bonfire_ui_me", optional: true},
-
 
       # error reporting
       {:sentry, "~> 9.0", optional: true},
