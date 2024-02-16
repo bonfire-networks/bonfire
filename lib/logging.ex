@@ -41,10 +41,11 @@ defmodule Bonfire.Logging do
       # Only trace Oban jobs to minimize noise
       if Extend.module_enabled?(OpentelemetryOban), do: OpentelemetryOban.setup(trace: [:jobs])
 
-      if repo_module && Extend.module_enabled?(OpentelemetryEcto), do: repo_module.config()
-        |> Keyword.fetch!(:telemetry_prefix)
-        |> OpentelemetryEcto.setup()
-
+      if repo_module && Extend.module_enabled?(OpentelemetryEcto),
+        do:
+          repo_module.config()
+          |> Keyword.fetch!(:telemetry_prefix)
+          |> OpentelemetryEcto.setup()
     else
       IO.puts("NOTE: OTLP (open telemetry) data will NOT be collected")
     end
@@ -63,8 +64,8 @@ defmodule Bonfire.Logging do
 
   defp setup_wobserver do
     # if Extend.module_enabled?(Wobserver) do
-      # Wobserver.register(:page, {"Task Bunny", :taskbunny, &Status.page/0})
-      # Wobserver.register(:metric, [&Status.metrics/0])
+    # Wobserver.register(:page, {"Task Bunny", :taskbunny, &Status.page/0})
+    # Wobserver.register(:metric, [&Status.metrics/0])
     # end
   end
 

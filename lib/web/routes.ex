@@ -8,7 +8,7 @@ defmodule Bonfire.Web.Routes do
       require LiveAdmin.Router
 
       pipeline :load_current_auth do
-        if module_enabled?(Bonfire.UI.Me.Plugs.LoadCurrentUser) do 
+        if module_enabled?(Bonfire.UI.Me.Plugs.LoadCurrentUser) do
           # plug(Bonfire.UI.Me.Plugs.LoadCurrentAccount)
           # ^ no need to call LoadCurrentAccount if also calling LoadCurrentUser
           plug(Bonfire.UI.Me.Plugs.LoadCurrentUser)
@@ -136,7 +136,7 @@ defmodule Bonfire.Web.Routes do
         pipe_through(:account_required)
       end
 
-      if extension_enabled?(:bonfire_ui_me) do 
+      if extension_enabled?(:bonfire_ui_me) do
         # pages you need to view as a user
         scope "/" do
           pipe_through(:browser)
@@ -152,71 +152,71 @@ defmodule Bonfire.Web.Routes do
           pipe_through(:admin_required)
         end
 
-      scope "/" do
-        pipe_through(:browser_unsafe)
+        scope "/" do
+          pipe_through(:browser_unsafe)
 
-        # if module_enabled?(Surface.Catalogue.Router) do # FIXME - getting function surface_catalogue/1 is undefined or private
-        #   Surface.Catalogue.Router.surface_catalogue "/ui/"
-        # end
+          # if module_enabled?(Surface.Catalogue.Router) do # FIXME - getting function surface_catalogue/1 is undefined or private
+          #   Surface.Catalogue.Router.surface_catalogue "/ui/"
+          # end
 
-        if Config.env() != :test do
-          pipe_through(:admin_required)
+          if Config.env() != :test do
+            pipe_through(:admin_required)
 
-          forward "/admin/system/wobserver", Wobserver.Web.Router
+            forward "/admin/system/wobserver", Wobserver.Web.Router
 
-          pipe_through(:browser)
+            pipe_through(:browser)
 
-          if module_enabled?(OrionWeb.Router) do 
-            OrionWeb.Router.live_orion("/admin/system/orion",
-              on_mount: [
-                Bonfire.UI.Me.LivePlugs.LoadCurrentUser,
-                Bonfire.UI.Me.LivePlugs.AdminRequired
+            if module_enabled?(OrionWeb.Router) do
+              OrionWeb.Router.live_orion("/admin/system/orion",
+                on_mount: [
+                  Bonfire.UI.Me.LivePlugs.LoadCurrentUser,
+                  Bonfire.UI.Me.LivePlugs.AdminRequired
+                ]
+              )
+            end
+
+            if module_enabled?(LiveAdmin.Router) do
+              LiveAdmin.Router.live_admin("/admin/system/data",
+                resources: Needle.Tables.schema_modules(),
+                ecto_repo: Bonfire.Common.Repo,
+                title: "Bonfire Data Admin",
+                immutable_fields: [:id, :inserted_at, :updated_at],
+                label_with: :name
+              )
+            end
+          end
+
+          # do
+          #   for schema <- Needle.Tables.schema_modules() do
+          #     LiveAdmin.Router.admin_resource "/#{schema}", schema
+          #   end
+          # end
+
+          # {Bonfire.UI.Common.LivePlugs, Bonfire.UI.Me.LivePlugs.UserRequired}
+
+          if module_enabled?(Phoenix.LiveDashboard.Router) do
+            import Phoenix.LiveDashboard.Router
+
+            live_dashboard("/admin/system",
+              ecto_repos: [Bonfire.Common.Repo],
+              ecto_psql_extras_options: [
+                long_running_queries: [threshold: "400 milliseconds"]
+              ],
+              metrics: Bonfire.Web.Telemetry,
+              metrics_history:
+                if(Config.env() == :dev, do: {Bonfire.Telemetry.Storage, :metrics_history, []}),
+              # metrics: FlamegraphsWeb.Telemetry,
+              additional_pages: [
+                oban_queues: Bonfire.Web.ObanDashboard,
+                oban: Oban.LiveDashboard,
+                orion: Bonfire.Web.OrionLink,
+                data: Bonfire.Web.DataLink
+                # flame_on: FlameOn.DashboardPage
+                # _profiler: {PhoenixProfiler.Dashboard, []}
               ]
             )
           end
-
-          if module_enabled?(LiveAdmin.Router) do 
-            LiveAdmin.Router.live_admin("/admin/system/data",
-              resources: Needle.Tables.schema_modules(),
-              ecto_repo: Bonfire.Common.Repo,
-              title: "Bonfire Data Admin",
-              immutable_fields: [:id, :inserted_at, :updated_at],
-              label_with: :name
-            )
-          end
         end
-
-        # do
-        #   for schema <- Needle.Tables.schema_modules() do
-        #     LiveAdmin.Router.admin_resource "/#{schema}", schema
-        #   end
-        # end
-
-        # {Bonfire.UI.Common.LivePlugs, Bonfire.UI.Me.LivePlugs.UserRequired}
-
-        if module_enabled?(Phoenix.LiveDashboard.Router) do
-          import Phoenix.LiveDashboard.Router
-
-          live_dashboard("/admin/system",
-            ecto_repos: [Bonfire.Common.Repo],
-            ecto_psql_extras_options: [
-              long_running_queries: [threshold: "400 milliseconds"]
-            ],
-            metrics: Bonfire.Web.Telemetry,
-            metrics_history:
-              if(Config.env() == :dev, do: {Bonfire.Telemetry.Storage, :metrics_history, []}),
-            # metrics: FlamegraphsWeb.Telemetry,
-            additional_pages: [
-              oban_queues: Bonfire.Web.ObanDashboard,
-              oban: Oban.LiveDashboard,
-              orion: Bonfire.Web.OrionLink,
-              data: Bonfire.Web.DataLink
-              # flame_on: FlameOn.DashboardPage
-              # _profiler: {PhoenixProfiler.Dashboard, []}
-            ]
-          )
-        end
-      end
       end
 
       if Config.env() in [:dev, :test] do

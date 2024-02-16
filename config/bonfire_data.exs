@@ -19,7 +19,6 @@ verbs = [
   "Tag"
 ]
 
-
 #### Sentinel Data Services
 
 # Search these apps/extensions for Pointable ecto schema definitions to index

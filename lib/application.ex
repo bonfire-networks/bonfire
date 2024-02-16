@@ -68,21 +68,28 @@ defmodule Bonfire.Application do
                ]
              ]}
         }
-      ] ++ Bonfire.Common.Utils.maybe_apply(Bonfire.Social.Graph, :maybe_applications, [], fallback_return: [])
+      ] ++
+        Bonfire.Common.Utils.maybe_apply(Bonfire.Social.Graph, :maybe_applications, [],
+          fallback_return: []
+        )
 
   # Stuff that depends on the Endpoint and/or the above
   def apps_after,
-    do: [
-      {Tz.UpdatePeriodically, [interval_in_days: 10]}
-    ] ++ maybe_oban()
+    do:
+      [
+        {Tz.UpdatePeriodically, [interval_in_days: 10]}
+      ] ++ maybe_oban()
 
   def maybe_oban do
-   case Application.get_env(:bonfire, Oban, []) do
-    [] -> [] 
-    config -> [
-        # Job Queue
-        {Oban, config}
-      ]
+    case Application.get_env(:bonfire, Oban, []) do
+      [] ->
+        []
+
+      config ->
+        [
+          # Job Queue
+          {Oban, config}
+        ]
     end
   end
 

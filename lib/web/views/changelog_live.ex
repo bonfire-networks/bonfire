@@ -18,10 +18,11 @@ defmodule Bonfire.Web.ChangelogLive do
         l("Contribute") => "https://bonfirenetworks.org/contribute/"
       })
 
-    changelog = case @changelog do
-      {:ok, changelog} -> changelog
-      _ -> nil
-    end
+    changelog =
+      case @changelog do
+        {:ok, changelog} -> changelog
+        _ -> nil
+      end
 
     {:ok,
      socket

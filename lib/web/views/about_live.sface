@@ -8,6 +8,6 @@
     <article class="prose max-w-max mt-3 prose-xl">{templated_or_remote_markdown(Config.get([:ui, :theme, :instance_welcome, :description], ""))}</article>
   </div>
   <div class="col-span-2">
-    <StatelessComponent module={maybe_component(Bonfire.UI.Me.SettingsViewsLive.InstanceSummaryLive , @__context__)} />
+    <StatelessComponent module={maybe_component(Bonfire.UI.Me.SettingsViewsLive.InstanceSummaryLive, @__context__)} />
   </div>
 </section>
