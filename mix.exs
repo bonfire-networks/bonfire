@@ -51,6 +51,7 @@ defmodule Bonfire.Spark.MixProject do
       {:finch, "~> 0.16"},
       {:tz, "~> 0.26.2"},
 
+
       # error reporting
       {:sentry, "~> 9.0", optional: true},
       {:orion, "~> 1.0"},
@@ -59,7 +60,8 @@ defmodule Bonfire.Spark.MixProject do
       },
 
       ## dev conveniences
-      {:phoenix_live_reload, "~> 1.3", optional: true}
+      {:phoenix_live_reload, "~> 1.3", optional: true},
+      {:pbkdf2_elixir, "~> 2.0", optional: true}
 
     ])
     |> Enum.reject(& elem(&1, 0)==:bonfire)
