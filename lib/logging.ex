@@ -5,14 +5,16 @@ defmodule Bonfire.Logging do
   def setup(env, repo_module) do
     setup_opentelemetry(env, repo_module)
 
-    EctoSparkles.Log.setup(repo_module)
-    # Ecto.DevLogger.install(repo_module)
+    if repo_module do
+      EctoSparkles.Log.setup(repo_module)
+      # Ecto.DevLogger.install(repo_module)
 
-    # if Code.ensure_loaded?(Mix) and Config.env() == :dev do
-    #   OnePlusNDetector.setup(repo_module)
-    # end
+      # if Code.ensure_loaded?(Mix) and Config.env() == :dev do
+      #   OnePlusNDetector.setup(repo_module)
+      # end
 
-    setup_oban()
+      setup_oban()
+    end
 
     setup_wobserver()
   end
@@ -39,9 +41,10 @@ defmodule Bonfire.Logging do
       # Only trace Oban jobs to minimize noise
       if Extend.module_enabled?(OpentelemetryOban), do: OpentelemetryOban.setup(trace: [:jobs])
 
-      if Extend.module_enabled?(OpentelemetryEcto), do: repo_module.config()
+      if repo_module && Extend.module_enabled?(OpentelemetryEcto), do: repo_module.config()
         |> Keyword.fetch!(:telemetry_prefix)
         |> OpentelemetryEcto.setup()
+
     else
       IO.puts("NOTE: OTLP (open telemetry) data will NOT be collected")
     end
