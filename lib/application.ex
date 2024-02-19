@@ -193,6 +193,13 @@ defmodule Bonfire.Application do
     Application.ensure_all_started(:bonfire)
   end
 
+  def observer do
+    Mix.ensure_application!(:wx)
+    Mix.ensure_application!(:runtime_tools)
+    Mix.ensure_application!(:observer)
+    :observer.start()
+  end
+
   # @doc "The system is restarted inside the running Erlang node, which means that the emulator is not restarted. All applications are taken down smoothly, all code is unloaded, and all ports are closed before the system is booted again in the same way as initially started."
   # def restart() do
   #   :init.restart()
