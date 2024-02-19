@@ -27,3 +27,4 @@ bonfire_app-*.tar
 /data/uploads/
 
 extensions/bonfire/lib/mix/*.exs
+deps.path
