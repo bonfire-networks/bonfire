@@ -28,13 +28,15 @@ defmodule Bonfire.Web.ExploreLive do
   end
 
   defp mounted(params, _session, socket) do
+    is_guest? = is_nil(current_user_id(socket.assigns))
+
     {:ok,
      socket
      |> assign(
        page: "explore",
-       is_guest?: is_nil(current_user_id(socket.assigns)),
-       without_sidebar: is_nil(current_user_id(socket.assigns)),
-       without_secondary_widgets: is_nil(current_user_id(socket.assigns)),
+       is_guest?: is_guest?,
+       without_sidebar: is_guest?,
+       without_secondary_widgets: is_guest?,
        no_header: true,
        selected_tab: "explore",
        error: nil,

@@ -7,6 +7,8 @@ defmodule Bonfire.Web.AboutLive do
   on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.LoadCurrentUser]}
 
   def mount(_params, _session, socket) do
+    is_guest? = is_nil(current_user_id(socket.assigns))
+
     {:ok,
      socket
      |> assign(
@@ -14,10 +16,10 @@ defmodule Bonfire.Web.AboutLive do
        selected_tab: :about,
        nav_items: Bonfire.Common.ExtensionModule.default_nav(),
        page_header: false,
-       is_guest?: is_nil(current_user_id(socket.assigns)),
-       without_sidebar: is_nil(current_user_id(socket.assigns)),
-       without_secondary_widgets: is_nil(current_user_id(socket.assigns)),
-       no_header: is_nil(current_user_id(socket.assigns)),
+       is_guest?: is_guest?,
+       without_sidebar: is_guest?,
+       without_secondary_widgets: is_guest?,
+       no_header: is_guest?,
        page_title: l("About "),
        sidebar_widgets: [
          guests: [

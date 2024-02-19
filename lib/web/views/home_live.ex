@@ -28,6 +28,8 @@ defmodule Bonfire.Web.HomeLive do
   end
 
   defp mounted(params, _session, socket) do
+    is_guest? = is_nil(current_user_id(socket.assigns))
+
     links =
       Config.get([:ui, :theme, :instance_welcome, :links], %{
         l("About Bonfire") => "https://bonfirenetworks.org/",
@@ -38,9 +40,9 @@ defmodule Bonfire.Web.HomeLive do
      socket
      |> assign(
        page: "home",
-       is_guest?: is_nil(current_user_id(socket.assigns)),
-       without_sidebar: is_nil(current_user_id(socket.assigns)),
-       without_secondary_widgets: is_nil(current_user_id(socket.assigns)),
+       is_guest?: is_guest?,
+       without_sidebar: is_guest?,
+       without_secondary_widgets: is_guest?,
        no_header: true,
        selected_tab: :home,
        links: links,
