@@ -54,7 +54,7 @@ defmodule Bonfire.Spark.MixProject do
       {:bonfire_ui_me, git: "https://github.com/bonfire-networks/bonfire_ui_me", optional: true},
 
       # error reporting
-      {:sentry, "~> 9.0", optional: true},
+      {:sentry, "~> 10.0", optional: true},
       {:orion, "~> 1.0"},
       {:live_admin, #"~> 0.9.0"
       git: "https://github.com/bonfire-networks/live_admin"
