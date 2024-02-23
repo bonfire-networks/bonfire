@@ -2,6 +2,8 @@ import Config
 
 import_config "config_basics.exs"
 
+yes? = ~w(true yes 1)
+
 fake_secret =
   "5KKj74dda6cEocScv+Q2zTu40/oEgQvvhcNSpTytN0AzV3o9eX7Lf9nDlcDYD2RRrOvia/Q3D0W/7u+CNoQZr+fO/93OVKUT31YBVEFuK+rAbbpoiuwXL+nFrrLTQj/H"
 
