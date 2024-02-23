@@ -11,7 +11,7 @@ defmodule Bonfire.Application do
   @top_otp_app Config.get!(:otp_app)
   @env Application.compile_env!(@top_otp_app, :env)
   @endpoint_module Application.compile_env!(@top_otp_app, :endpoint_module)
-  @repo_module Application.compile_env(@top_otp_app, :repo_module)
+  @repo_module Application.compile_env(@top_otp_app, :repo_module, Bonfire.Common.Repo)
   @project if Code.ensure_loaded?(Bonfire.Umbrella.MixProject),
              do: Bonfire.Umbrella.MixProject.project()
   @config if Code.ensure_loaded?(Bonfire.Umbrella.MixProject),
