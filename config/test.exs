@@ -33,12 +33,12 @@ config :bonfire, Bonfire.Web.Endpoint,
 
 maybe_repo_ipv6 = if System.get_env("ECTO_IPV6") in yes?, do: [:inet6], else: []
 repo_connection_config = cond do
-   System.get_env("DATABASE_URL") = db_url ->
+   db_url = System.get_env("DATABASE_URL") ->
     [
       url: db_url,
       socket_options: maybe_repo_ipv6
     ]
-  System.get_env("POSTGRES_PASSWORD") = db_pw ->
+  db_pw = System.get_env("POSTGRES_PASSWORD") ->
     [
       username: System.get_env("POSTGRES_USER", "postgres"),
       password: db_pw,
