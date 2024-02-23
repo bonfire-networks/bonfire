@@ -3,6 +3,7 @@ import Config
 import_config "config_basics.exs"
 
 yes? = ~w(true yes 1)
+test_instance = System.get_env("TEST_INSTANCE")
 
 fake_secret =
   "5KKj74dda6cEocScv+Q2zTu40/oEgQvvhcNSpTytN0AzV3o9eX7Lf9nDlcDYD2RRrOvia/Q3D0W/7u+CNoQZr+fO/93OVKUT31YBVEFuK+rAbbpoiuwXL+nFrrLTQj/H"
@@ -31,7 +32,6 @@ config :bonfire, Bonfire.Web.Endpoint,
   ]
 
 maybe_repo_ipv6 = if System.get_env("ECTO_IPV6") in yes?, do: [:inet6], else: []
-
 repo_connection_config =
   if System.get_env("DATABASE_URL") do
     [
