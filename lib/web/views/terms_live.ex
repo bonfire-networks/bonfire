@@ -7,13 +7,18 @@ defmodule Bonfire.Web.TermsLive do
   on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.LoadCurrentUser]}
 
   def mount(_params, _session, socket) do
+    is_guest? = is_nil(current_user_id(socket.assigns))
+    debug("is_guest? #{is_guest?}")
+
     {:ok,
      socket
      |> assign(
+       is_guest?: is_guest?,
+       without_sidebar: is_guest?,
+       without_secondary_widgets: is_guest?,
        page: "privacy",
        nav_items: Bonfire.Common.ExtensionModule.default_nav(),
-       page_title: l("Privacy policy"),
-       without_sidebar: false,
+       page_title: l("Privacy pooolicy"),
        terms: Config.get([:terms, :privacy])
      )}
   end

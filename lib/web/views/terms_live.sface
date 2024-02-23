@@ -1,1 +1,3 @@
-<Bonfire.UI.Common.WidgetTextLive text={e(@terms, l("The instance operator(s) have not yet added terms for the instance."))} />
+<div class="max-w-screen-md mx-auto">
+  <Bonfire.UI.Common.WidgetTextLive text={e(@terms, l("The instance operator(s) have not yet added terms for the instance."))} />
+</div>
