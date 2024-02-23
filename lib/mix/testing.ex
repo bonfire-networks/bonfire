@@ -44,13 +44,11 @@ defmodule Bonfire.Testing do
       # insert fixtures in test instance's repo on startup
       if running_a_second_test_instance?,
         do: Bonfire.Common.TestInstanceRepo.apply(&Bonfire.Boundaries.Fixtures.insert/0)
-
     rescue
-      e in RuntimeError -> 
+      e in RuntimeError ->
         IO.warn("Could not set up database")
         IO.inspect(e)
     end
-
 
     # ExUnit.after_suite(fn results ->
     #     # do stuff
@@ -65,10 +63,10 @@ defmodule Bonfire.Testing do
 
       if chromedriver_path && File.exists?(chromedriver_path),
         do: {:ok, _} = Application.ensure_all_started(:wallaby),
-        else: IO.inspect("Note: Wallaby UI tests will not run because the chromedriver is missing")
-
+        else:
+          IO.inspect("Note: Wallaby UI tests will not run because the chromedriver is missing")
     rescue
-      e in RuntimeError -> 
+      e in RuntimeError ->
         IO.warn("Could not set up Wallaby UI tests ")
         IO.inspect(e)
     end

@@ -32,26 +32,31 @@ config :bonfire, Bonfire.Web.Endpoint,
   ]
 
 maybe_repo_ipv6 = if System.get_env("ECTO_IPV6") in yes?, do: [:inet6], else: []
-repo_connection_config = cond do
-   db_url = System.get_env("DATABASE_URL") ->
-    [
-      url: db_url,
-      socket_options: maybe_repo_ipv6
-    ]
-  db_pw = System.get_env("POSTGRES_PASSWORD") ->
-    [
-      username: System.get_env("POSTGRES_USER", "postgres"),
-      password: db_pw,
-      hostname: System.get_env("POSTGRES_HOST", "localhost"),
-      database: "bonfire_test_#{test_instance}_#{System.get_env("MIX_TEST_PARTITION")}",
-      socket_options: maybe_repo_ipv6
-    ]
-    true -> 
+
+repo_connection_config =
+  cond do
+    db_url = System.get_env("DATABASE_URL") ->
+      [
+        url: db_url,
+        socket_options: maybe_repo_ipv6
+      ]
+
+    db_pw = System.get_env("POSTGRES_PASSWORD") ->
+      [
+        username: System.get_env("POSTGRES_USER", "postgres"),
+        password: db_pw,
+        hostname: System.get_env("POSTGRES_HOST", "localhost"),
+        database: "bonfire_test_#{test_instance}_#{System.get_env("MIX_TEST_PARTITION")}",
+        socket_options: maybe_repo_ipv6
+      ]
+
+    true ->
       nil
   end
-  
+
 # Choose password hashing backend
-config :bonfire_data_identity, Bonfire.Data.Identity.Credential, hasher_module: Bonfire.Testing.InsecurePW
+config :bonfire_data_identity, Bonfire.Data.Identity.Credential,
+  hasher_module: Bonfire.Testing.InsecurePW
 
 #### Basic configuration
 
