@@ -31,14 +31,21 @@ defmodule Bonfire.Testing do
       do: Mneme.start(restart: true),
       else: Mneme.Options.configure([])
 
-    # Mix.Task.run("ecto.create")
-    # Mix.Task.run("ecto.migrate")
+    try do
+      # Mix.Task.run("ecto.create")
+      # Mix.Task.run("ecto.migrate")
 
-    # Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Common.Config.repo(), :manual)
+      # Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Common.Config.repo(), :manual)
 
-    # if System.get_env("PHX_SERVER") !="yes" do
-    Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Common.Config.repo(), :auto)
-    # end
+      # if System.get_env("PHX_SERVER") !="yes" do
+      Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Common.Config.repo(), :auto)
+      # end
+    rescue
+      e in RuntimeError -> 
+        IO.warn("Could not set up database")
+        IO.inspect(e)
+    end
+
 
     # ExUnit.after_suite(fn results ->
     #     # do stuff
