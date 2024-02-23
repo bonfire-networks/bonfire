@@ -28,6 +28,24 @@ config :bonfire, Bonfire.Web.Endpoint,
     formats: [html: Bonfire.UI.Common.ErrorView, json: Bonfire.UI.Common.ErrorView]
   ]
 
+maybe_repo_ipv6 = if System.get_env("ECTO_IPV6") in yes?, do: [:inet6], else: []
+
+repo_connection_config =
+  if System.get_env("DATABASE_URL") do
+    [
+      url: System.get_env("DATABASE_URL"),
+      socket_options: maybe_repo_ipv6
+    ]
+  else
+    [
+      username: System.get_env("POSTGRES_USER", "postgres"),
+      password: System.get_env("POSTGRES_PASSWORD", "postgres"),
+      hostname: System.get_env("POSTGRES_HOST", "localhost"),
+      database: "bonfire_test_#{test_instance}_#{System.get_env("MIX_TEST_PARTITION")}",
+      socket_options: maybe_repo_ipv6
+    ]
+  end
+  
 # Choose password hashing backend
 config :bonfire_data_identity, Bonfire.Data.Identity.Credential, hasher_module: Bonfire.Testing.InsecurePW
 
@@ -41,7 +59,13 @@ config :needle, :search_path, []
 config :bonfire, :endpoint_module, Bonfire.Web.Endpoint
 config :phoenix_test, :endpoint, Bonfire.Web.Endpoint
 
-# config :bonfire, :repo_module, Bonfire.Common.Repo
+config :bonfire, :repo_module, Bonfire.Common.Repo
+config :bonfire_umbrella, Bonfire.Common.Repo, repo_connection_config
+config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo, repo_connection_config
+config :bonfire, ecto_repos: [Bonfire.Common.Repo]
+config :bonfire_umbrella, ecto_repos: [Bonfire.Common.Repo]
+config :paginator, ecto_repos: [Bonfire.Common.Repo]
+config :activity_pub, ecto_repos: [Bonfire.Common.Repo]
 
 config :ecto_sparkles, :otp_app, :bonfire
 config :ecto_sparkles, :env, config_env()
