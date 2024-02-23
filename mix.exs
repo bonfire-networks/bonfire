@@ -52,6 +52,9 @@ defmodule Bonfire.Spark.MixProject do
       {:finch, "~> 0.16"},
       {:tz, "~> 0.26.2"},
       {:bonfire_ui_me, git: "https://github.com/bonfire-networks/bonfire_ui_me", optional: true},
+      
+      # tests
+      {:mneme, ">= 0.0.0", only: [:dev, :test]},
 
       # error reporting
       {:sentry, "~> 10.0", optional: true},
