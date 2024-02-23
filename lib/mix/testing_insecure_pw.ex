@@ -1,5 +1,5 @@
 defmodule Bonfire.Testing.InsecurePW do
-  use Comeonin
+  # use Comeonin
 
   @impl true
   def hash_pwd_salt(password, opts \\ []) do
@@ -10,4 +10,6 @@ defmodule Bonfire.Testing.InsecurePW do
   def verify_pass(password, stored_hash) do
     true
   end
+
+  def no_user_verify, do: nil
 end
