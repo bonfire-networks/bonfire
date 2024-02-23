@@ -38,7 +38,8 @@ repo_connection_config =
     db_url = System.get_env("DATABASE_URL") ->
       [
         url: db_url,
-        socket_options: maybe_repo_ipv6
+        socket_options: maybe_repo_ipv6,
+        pool: Ecto.Adapters.SQL.Sandbox
       ]
 
     db_pw = System.get_env("POSTGRES_PASSWORD") ->
@@ -47,12 +48,14 @@ repo_connection_config =
         password: db_pw,
         hostname: System.get_env("POSTGRES_HOST", "localhost"),
         database: "bonfire_test_#{test_instance}_#{System.get_env("MIX_TEST_PARTITION")}",
-        socket_options: maybe_repo_ipv6
+        socket_options: maybe_repo_ipv6,
+        pool: Ecto.Adapters.SQL.Sandbox
       ]
 
     true ->
       nil
   end
+  |> IO.inspect()
 
 # Choose password hashing backend
 config :bonfire_data_identity, Bonfire.Data.Identity.Credential,
@@ -70,6 +73,8 @@ config :phoenix_test, :endpoint, Bonfire.Web.Endpoint
 
 if repo_connection_config do
   config :bonfire, :repo_module, Bonfire.Common.Repo
+  config :bonfire, Bonfire.Common.Repo, repo_connection_config
+  config :bonfire, Bonfire.Common.TestInstanceRepo, repo_connection_config
   config :bonfire_umbrella, Bonfire.Common.Repo, repo_connection_config
   config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo, repo_connection_config
   config :bonfire, ecto_repos: [Bonfire.Common.Repo]
