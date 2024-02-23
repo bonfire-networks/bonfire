@@ -29,10 +29,7 @@ config :bonfire, Bonfire.Web.Endpoint,
   ]
 
 # Choose password hashing backend
-# Note that this corresponds with our dependencies in mix.exs
-hasher = if config_env() in [:dev, :test], do: Pbkdf2, else: Argon2
-
-config :bonfire_data_identity, Bonfire.Data.Identity.Credential, hasher_module: hasher
+config :bonfire_data_identity, Bonfire.Data.Identity.Credential, hasher_module: Bonfire.Testing.InsecurePW
 
 #### Basic configuration
 
