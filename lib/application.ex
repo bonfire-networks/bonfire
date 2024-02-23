@@ -131,7 +131,7 @@ defmodule Bonfire.Application do
         Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL.Schema)
     )
     |> Enum.reject(&is_nil/1)
-    # |> IO.inspect(label: "apps tree")
+    |> IO.inspect(label: "apps tree")
     |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
   end
 
