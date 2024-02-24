@@ -37,7 +37,7 @@ defmodule Bonfire.Testing do
       try do
         # Mix.Task.run("ecto.create")
         # Mix.Task.run("ecto.migrate")
-        EctoSparkles.AutoMigrator.init([])
+        EctoSparkles.Migrator.migrate(repo)
 
         # Ecto.Adapters.SQL.Sandbox.mode(repo, :manual)
 
@@ -47,7 +47,10 @@ defmodule Bonfire.Testing do
 
         # insert fixtures in test instance's repo on startup
         if running_a_second_test_instance?,
-          do: Bonfire.Common.TestInstanceRepo.apply(&Bonfire.Boundaries.Fixtures.insert/0)
+          do:
+            Bonfire.Common.TestInstanceRepo.apply(fn ->
+              EctoSparkles.Migrator.migrate(Bonfire.Common.TestInstanceRepo)
+            end)
       rescue
         e in RuntimeError ->
           IO.warn("Could not set up database")
