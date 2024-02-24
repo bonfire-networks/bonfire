@@ -36,7 +36,8 @@ defmodule Bonfire.Testing do
     if repo do
       try do
         # Mix.Task.run("ecto.create")
-        Mix.Task.run("ecto.migrate")
+        # Mix.Task.run("ecto.migrate")
+        EctoSparkles.AutoMigrator.init()
 
         # Ecto.Adapters.SQL.Sandbox.mode(repo, :manual)
 
