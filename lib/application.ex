@@ -29,7 +29,7 @@ defmodule Bonfire.Application do
         Bonfire.Web.Telemetry,
         # Database
         @repo_module,
-        EctoSparkles.AutoMigrator,
+        if(@repo_module, do: EctoSparkles.AutoMigrator),
         # behaviour modules are already prepared as part of `Config.LoadExtensionsConfig`
         # Bonfire.Common.ExtensionBehaviour,
         # Config.LoadExtensionsConfig,
