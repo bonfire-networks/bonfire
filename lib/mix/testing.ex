@@ -49,6 +49,7 @@ defmodule Bonfire.Testing do
         if running_a_second_test_instance?,
           do:
             Bonfire.Common.TestInstanceRepo.apply(fn ->
+              nil
               # EctoSparkles.Migrator.migrate(Bonfire.Common.TestInstanceRepo)
             end)
       rescue
