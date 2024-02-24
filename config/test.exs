@@ -55,7 +55,6 @@ repo_connection_config =
     true ->
       nil
   end
-  |> IO.inspect()
 
 # Choose password hashing backend
 config :bonfire_data_identity, Bonfire.Data.Identity.Credential,

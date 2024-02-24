@@ -31,23 +31,27 @@ defmodule Bonfire.Testing do
       do: Mneme.start(restart: true),
       else: Mneme.Options.configure([])
 
-    try do
-      # Mix.Task.run("ecto.create")
-      # Mix.Task.run("ecto.migrate")
+    repo = Bonfire.Common.Config.repo()
 
-      # Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Common.Config.repo(), :manual)
+    if repo do
+      try do
+        # Mix.Task.run("ecto.create")
+        Mix.Task.run("ecto.migrate")
 
-      # if System.get_env("PHX_SERVER") !="yes" do
-      Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Common.Config.repo(), :auto)
-      # end
+        # Ecto.Adapters.SQL.Sandbox.mode(repo, :manual)
 
-      # insert fixtures in test instance's repo on startup
-      if running_a_second_test_instance?,
-        do: Bonfire.Common.TestInstanceRepo.apply(&Bonfire.Boundaries.Fixtures.insert/0)
-    rescue
-      e in RuntimeError ->
-        IO.warn("Could not set up database")
-        IO.inspect(e)
+        # if System.get_env("PHX_SERVER") !="yes" do
+        Ecto.Adapters.SQL.Sandbox.mode(repo, :auto)
+        # end
+
+        # insert fixtures in test instance's repo on startup
+        if running_a_second_test_instance?,
+          do: Bonfire.Common.TestInstanceRepo.apply(&Bonfire.Boundaries.Fixtures.insert/0)
+      rescue
+        e in RuntimeError ->
+          IO.warn("Could not set up database")
+          IO.inspect(e)
+      end
     end
 
     # ExUnit.after_suite(fn results ->
