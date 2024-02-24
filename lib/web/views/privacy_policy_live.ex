@@ -1,4 +1,4 @@
-defmodule Bonfire.Web.TermsLive do
+defmodule Bonfire.Web.PrivacyPolicyLive do
   @moduledoc """
   The main instance home page, mainly for guests visiting the instance
   """
@@ -8,7 +8,7 @@ defmodule Bonfire.Web.TermsLive do
 
   def mount(_params, _session, socket) do
     is_guest? = is_nil(current_user_id(socket.assigns))
-    debug("is_guest? #{is_guest?}")
+    # debug("is_guest? #{is_guest?}")
 
     {:ok,
      socket
@@ -18,7 +18,7 @@ defmodule Bonfire.Web.TermsLive do
        without_secondary_widgets: is_guest?,
        page: "privacy",
        nav_items: Bonfire.Common.ExtensionModule.default_nav(),
-       page_title: l("Privacy pooolicy"),
+       page_title: l("Privacy policy"),
        terms: Config.get([:terms, :privacy])
      )}
   end
