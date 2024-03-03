@@ -29,17 +29,18 @@ defmodule Bonfire.Application do
         Bonfire.Web.Telemetry,
         # Database
         @repo_module,
-        if(@repo_module, do: EctoSparkles.AutoMigrator),
-        # behaviour modules are already prepared as part of `Config.LoadExtensionsConfig`
+        # behaviour modules are loaded prepared as part of `Config.LoadExtensionsConfig` so no need to duplicate
         # Bonfire.Common.ExtensionBehaviour,
         # Config.LoadExtensionsConfig,
         # load instance Settings from DB into Config
+        # needs to be after LoadInstanceConfig for seeds/fixtures
+        if(@repo_module, do: EctoSparkles.AutoMigrator),
+        Needle.Tables,
         Bonfire.Common.Settings.LoadInstanceConfig,
         # PubSub
         {Phoenix.PubSub, [name: Bonfire.Common.PubSub, adapter: Phoenix.PubSub.PG2]},
         Bonfire.UI.Common.Presence,
         # Persistent Data Services
-        Needle.Tables,
         # Bonfire.Data.AccessControl.Accesses,
         ## these populate on first call, so no need to run on startup:
         # Bonfire.Common.ContextModule,
