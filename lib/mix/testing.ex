@@ -17,7 +17,7 @@ defmodule Bonfire.Testing do
       assert_receive_timeout: 1000,
       exclude: Bonfire.Common.RuntimeConfig.skip_test_tags(),
       # only show log for failed tests (Can be overridden for individual tests via `@tag capture_log: false`)
-      capture_log: !running_a_second_test_instance?
+      capture_log: !running_a_second_test_instance? and System.get_env("CAPTURE_LOG") != "no"
     )
 
     # ExUnit.configuration()
