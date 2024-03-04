@@ -142,7 +142,8 @@ defmodule Bonfire.Web.Routes do
           pipe_through(:browser)
           pipe_through(:user_required)
 
-          live("/dashboard", Bonfire.Web.HomeLive, as: :dashboard)
+          live("/dashboard", Bonfire.Web.DashboardLive)
+          # live("/dashboard", Bonfire.Web.HomeLive, as: :dashboard)
           # live "/dashboard", Bonfire.UI.Social.FeedsLive, as: :dashboard
         end
 

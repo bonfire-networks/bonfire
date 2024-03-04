@@ -1,0 +1,5 @@
+<section class="max-w-screen-md mx-auto p-4 mt-0 grid items-start gap-4">
+  <div class="">
+    <StatelessComponent module={maybe_component(Bonfire.Tag.Web.WidgetTagsLive, @__context__)} />
+  </div>
+</section>
