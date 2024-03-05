@@ -98,18 +98,13 @@ defmodule Bonfire.Web.Routes do
       scope "/" do
         pipe_through(:browser)
 
-        # 
         live "/", Bonfire.Web.HomeLive, as: :home, private: %{cache: true}
-        # , private : %{cache: true}
         # live "/explore", Bonfire.Web.ExploreLive
         # , private : %{cache: true}
-        live "/about", Bonfire.Web.AboutLive
-        # , private: %{cache: true}
-        live "/privacy", Bonfire.Web.PrivacyPolicyLive
-        # , private: %{cache: true}
-        live "/conduct", Bonfire.Web.CodeOfConductLive
-        # , private: %{cache: true}
-        live "/changelog", Bonfire.Web.ChangelogLive
+        live "/about", Bonfire.Web.AboutLive, private: %{cache: true}
+        live "/privacy", Bonfire.Web.PrivacyPolicyLive, private: %{cache: true}
+        live "/conduct", Bonfire.Web.CodeOfConductLive, private: %{cache: true}
+        live "/changelog", Bonfire.Web.ChangelogLive, private: %{cache: true}
 
         # a default homepage which you can customise (at path "/")
         # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename this default path (eg. to "/home")
