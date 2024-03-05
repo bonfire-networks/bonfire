@@ -98,9 +98,8 @@ defmodule Bonfire.Web.Routes do
       scope "/" do
         pipe_through(:browser)
 
-        # TODO: make the homepage non-live
-        # , private: %{cache: true}
-        live "/", Bonfire.Web.HomeLive, as: :home
+        # 
+        live "/", Bonfire.Web.HomeLive, as: :home, private: %{cache: true}
         # , private : %{cache: true}
         # live "/explore", Bonfire.Web.ExploreLive
         # , private : %{cache: true}

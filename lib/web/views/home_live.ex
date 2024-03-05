@@ -70,6 +70,7 @@ defmodule Bonfire.Web.HomeLive do
   #   Bonfire.UI.Social.FeedsLive.handle_params(params, url, socket)
   # end
 
+  @decorate time()
   def handle_params(params, _url, socket) do
     # debug(params, "param")
 
@@ -88,11 +89,11 @@ defmodule Bonfire.Web.HomeLive do
            ) do
         :curated
       else
-        e(socket, :assigns, :live_action, nil) ||
-          Config.get(
-            [Bonfire.UI.Social.FeedLive, :default_feed],
-            :default
-          )
+        # e(socket, :assigns, :live_action, nil) ||
+        # Config.get(
+        #   [Bonfire.UI.Social.FeedLive, :default_feed]
+        # ) ||
+        :local
       end
 
     {
@@ -108,7 +109,6 @@ defmodule Bonfire.Web.HomeLive do
           socket
         )
       )
-      #  |> assign(..., FeedLive.maybe_widgets(e(..., :assigns, nil), feed_name))
     }
   end
 

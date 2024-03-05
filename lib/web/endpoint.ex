@@ -27,7 +27,10 @@ defmodule Bonfire.Web.Endpoint do
     plug(:halt_live_reload)
   end
 
-  plug(Bonfire.Web.Router)
+  @decorate time()
+  defp router(conn, _), do: Bonfire.Web.Router.call(conn, [])
+  plug :router
+  # plug(Bonfire.Web.Router)
 
   def include_assets(conn) do
     include_assets(conn, :top)

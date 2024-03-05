@@ -15,16 +15,14 @@
   <section class="max-w-screen-xl h-full flex-1 mt-0 grid lg:grid-cols-5 gap-4">
     <div class="w-full lg:border border-base-content/20 col-span-3 -mt-4 lg:!mt-0 rounded-xl">
       <div class="text-lg font-semibold h-[50px] flex items-center px-4 border-b border-base-content/20">{l("Recent activities")}</div>
-      <!-- TODO: cache the public feed -->
       <StatefulComponent
         module={maybe_component(Bonfire.UI.Social.FeedLive, @__context__)}
         :if={@feed_component_id}
         id={@feed_component_id}
         hide_tabs
         feed_id={@feed_id}
-        feed_ids={@feed_ids}
         feed_name={@feed_name}
-        cache_strategy={:guest_cache}
+        feed_ids={@feed_ids}
         top_page="Explore"
         page_title={@page_title}
         feed={@feed}
@@ -32,9 +30,10 @@
         loading={@loading}
         time_limit={30}
       />
+      <!-- cache_strategy={:guest_cache} -->
     </div>
     <div class="lg:flex hidden flex-col gap-4 w-full col-span-2">
-      <!-- <StatelessComponent module={maybe_component(Bonfire.UI.Common.WidgetInstanceInfoLive, @__context__)} /> -->
+      {!-- <StatelessComponent module={maybe_component(Bonfire.UI.Common.WidgetInstanceInfoLive, @__context__)} /> --}
       <StatelessComponent module={maybe_component(Bonfire.Tag.Web.WidgetTagsLive, @__context__)} />
       <StatelessComponent module={maybe_component(Bonfire.UI.Me.WidgetAdminsLive, @__context__)} />
       <div>
