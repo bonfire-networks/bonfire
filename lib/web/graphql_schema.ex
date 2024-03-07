@@ -3,7 +3,7 @@ if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
      Bonfire.Common.Extend.module_enabled?(Bonfire.ValueFlows.API.Schema) and
      Bonfire.Common.Extend.module_enabled?(Absinthe.Schema.Notation) do
   defmodule Bonfire.API.GraphQL.Schema do
-    @moduledoc """ 
+    @moduledoc """
     Root GraphQL Schema. 
     Only active if the `Bonfire.API.GraphQL` extension is present.
     """
