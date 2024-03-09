@@ -1,4 +1,27 @@
-<section class="max-w-screen-md mx-auto p-4 mt-0 grid items-start gap-4">
+<Bonfire.UI.Common.PreviewContentLive id="preview_content">
+  <:extra_contents>
+    <div id="the_extra_contents">
+      <!-- Pre-render feed here -->
+      <StatefulComponent
+        module={maybe_component(Bonfire.UI.Social.FeedLive, @__context__)}
+        :if={@feed_component_id}
+        id={@feed_component_id}
+        feed_id={@feed_id}
+        feed_name={@feed_name}
+        feed_ids={@feed_ids}
+        page_title={@page_title}
+        feed={@feed}
+        page_info={@page_info}
+        loading={@loading}
+      />
+    </div>
+  </:extra_contents>
+</Bonfire.UI.Common.PreviewContentLive>
+
+<section
+  id="inner_inner"
+  class="max-w-screen-md mx-auto p-4 mt-0 grid items-start gap-4 !visible"
+>
   <div class="">
     <StatelessComponent module={maybe_component(Bonfire.Tag.Web.WidgetTagsLive, @__context__)} />
   </div>

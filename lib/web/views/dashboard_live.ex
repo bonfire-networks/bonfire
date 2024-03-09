@@ -20,7 +20,7 @@ defmodule Bonfire.Web.DashboardLive do
        without_sidebar: is_guest?,
        without_secondary_widgets: is_guest?,
        no_header: is_guest?,
-       page_title: l("Dashboard "),
+       page_title: l("Dashboard"),
        sidebar_widgets: [
          users: [
            secondary: [
@@ -28,7 +28,51 @@ defmodule Bonfire.Web.DashboardLive do
              {Bonfire.UI.Me.WidgetAdminsLive, []}
            ]
          ]
-       ]
+       ],
+       loading: true,
+       feed: nil,
+       feed_id: nil,
+       feed_ids: nil,
+       feed_component_id: nil,
+       page_info: nil
      )}
+  end
+
+  @decorate time()
+  def handle_params(params, _url, socket) do
+    # debug(params, "param")
+
+    context = socket.assigns[:__context__]
+
+    feed_name =
+      if module_enabled?(Bonfire.Social.Pins, context) and
+           Settings.get(
+             [Bonfire.UI.Social.FeedsLive, :curated],
+             false,
+             context
+           ) do
+        :curated
+      else
+        e(socket, :assigns, :live_action, nil) ||
+          Settings.get(
+            [Bonfire.UI.Social.FeedLive, :default_feed],
+            :my,
+            context
+          )
+      end
+
+    {
+      :noreply,
+      socket
+      |> assign(
+        Bonfire.Social.Feeds.LiveHandler.feed_default_assigns(
+          {
+            feed_name,
+            params
+          },
+          socket
+        )
+      )
+    }
   end
 end

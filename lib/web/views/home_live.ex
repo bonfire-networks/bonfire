@@ -41,6 +41,11 @@ defmodule Bonfire.Web.HomeLive do
         l("Contribute") => "https://bonfirenetworks.org/contribute/"
       })
 
+    app = String.capitalize(Bonfire.Application.name())
+
+    # instance_name =
+    #   Config.get([:ui, :theme, :instance_name]) || l("An instance of %{app}", app: app)
+
     {:ok,
      socket
      |> assign(
@@ -50,6 +55,7 @@ defmodule Bonfire.Web.HomeLive do
        without_secondary_widgets: true,
        no_header: true,
        selected_tab: :home,
+       page_title: app,
        links: links,
        #  changelog: @changelog,
        error: nil,
@@ -74,15 +80,8 @@ defmodule Bonfire.Web.HomeLive do
   def handle_params(params, _url, socket) do
     # debug(params, "param")
 
-    app = String.capitalize(Bonfire.Application.name())
-
-    # instance_name =
-    #   Config.get([:ui, :theme, :instance_name]) || l("An instance of %{app}", app: app)
-
-    context = socket.assigns[:__context__]
-
     feed_name =
-      if module_enabled?(Bonfire.Social.Pins, context) and
+      if module_enabled?(Bonfire.Social.Pins) and
            Config.get(
              [Bonfire.UI.Social.FeedsLive, :curated],
              false
@@ -99,7 +98,6 @@ defmodule Bonfire.Web.HomeLive do
     {
       :noreply,
       socket
-      |> assign(page_title: app)
       |> assign(
         Bonfire.Social.Feeds.LiveHandler.feed_default_assigns(
           {
