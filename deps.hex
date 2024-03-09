@@ -71,6 +71,9 @@ floki = "~> 0.33"
 # bonfire_data_identity = "~> 0.1"
 # bonfire_data_social = "~> 0.1"
 
+# API 
+# apical = "~> 0.2.1"
+
 # Testing a UI component library
 # surface_catalogue = "~> 0.1.0"  
 

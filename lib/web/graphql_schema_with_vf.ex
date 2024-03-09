@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
-     Bonfire.Common.Extend.module_enabled?(Absinthe.Schema.Notation) do
+     Bonfire.Common.Extend.module_enabled?(Absinthe.Schema.Notation) and
+     Bonfire.Common.Extend.module_enabled?(Bonfire.ValueFlows.API.Schema) do
   defmodule Bonfire.API.GraphQL.Schema do
     @moduledoc """
     Root GraphQL Schema. 
@@ -64,13 +65,13 @@ if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
     import_types(Bonfire.Tag.GraphQL.TagSchema)
     import_types(Bonfire.Classify.GraphQL.ClassifySchema)
 
-    # import_types(Bonfire.Quantify.Units.GraphQL)
-    # import_types(Bonfire.Geolocate.GraphQL)
+    import_types(Bonfire.Quantify.Units.GraphQL)
+    import_types(Bonfire.Geolocate.GraphQL)
 
-    # import_types(Bonfire.ValueFlows.API.Schema)
+    import_types(Bonfire.ValueFlows.API.Schema)
     # import_types(Bonfire.ValueFlows.API.Schema.Subscriptions)
 
-    # import_types(Bonfire.ValueFlows.API.Schema.Observe)
+    import_types(Bonfire.ValueFlows.API.Schema.Observe)
 
     query do
       # import_fields(:common_queries)
@@ -88,15 +89,15 @@ if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
 
       # import_fields(:locales_queries)
 
-      # import_fields(:measurement_query)
+      import_fields(:measurement_query)
 
-      # import_fields(:geolocation_query)
+      import_fields(:geolocation_query)
 
       # ValueFlows
-      # import_fields(:value_flows_query)
+      import_fields(:value_flows_query)
       # import_fields(:value_flows_extra_queries)
 
-      # import_fields(:valueflows_observe_queries)
+      import_fields(:valueflows_observe_queries)
     end
 
     mutation do
@@ -109,14 +110,14 @@ if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
       import_fields(:tag_mutations)
       import_fields(:classify_mutations)
 
-      # import_fields(:geolocation_mutation)
-      # import_fields(:measurement_mutation)
+      import_fields(:geolocation_mutation)
+      import_fields(:measurement_mutation)
 
       # ValueFlows
 
-      # import_fields(:value_flows_mutation)
+      import_fields(:value_flows_mutation)
 
-      # import_fields(:valueflows_observe_mutations)
+      import_fields(:valueflows_observe_mutations)
     end
 
     # subscription do
@@ -153,8 +154,8 @@ if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
         # :collection,
         :user,
         # :organisation,
-        :category
-        # :spatial_thing
+        :category,
+        :spatial_thing
       ])
 
       resolve_type(&schema_to_api_type/2)
@@ -177,11 +178,11 @@ if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
         :user,
         # :organisation,
         :category,
-        :tag
-        # :spatial_thing,
-        # :intent,
-        # :process,
-        # :economic_event
+        :tag,
+        :spatial_thing,
+        :intent,
+        :process,
+        :economic_event
       ])
 
       resolve_type(&schema_to_api_type/2)
@@ -204,8 +205,8 @@ if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
         # %Bonfire.Data.SharedUser{} ->
         #   :organisation
 
-        # %Bonfire.Geolocate.Geolocation{} ->
-        #   :spatial_thing
+        %Bonfire.Geolocate.Geolocation{} ->
+          :spatial_thing
 
         %Bonfire.Classify.Category{} ->
           :category

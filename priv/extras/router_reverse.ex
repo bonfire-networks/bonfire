@@ -1,7 +1,7 @@
 if Bonfire.Common.Config.get(:env) !=:prod do
-defmodule Bonfire.Web.Router do
-  use Bonfire.Web.Routes
-end
+  defmodule Bonfire.Web.Router do
+    use Bonfire.Web.Routes
+  end
 end
 
 defmodule Bonfire.Web.Router.Reverse do

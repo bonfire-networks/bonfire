@@ -63,6 +63,10 @@ defmodule Bonfire.Spark.MixProject do
       git: "https://github.com/bonfire-networks/live_admin"
       },
 
+      # API
+      # {:exonerate, "~> 1.1.3", runtime: Mix.env() != :prod},
+      # {:yaml_elixir, "~> 2.9"},
+
       ## dev conveniences
       {:phoenix_live_reload, "~> 1.3", optional: true},
       {:pbkdf2_elixir, "~> 2.0", optional: true}

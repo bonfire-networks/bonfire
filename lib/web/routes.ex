@@ -1,4 +1,6 @@
 defmodule Bonfire.Web.Routes do
+  @api_spec Path.join(:code.priv_dir(:bonfire), "specs/akkoma-openapi.json")
+
   defmacro __using__(_) do
     quote do
       use Bonfire.UI.Common.Web, :router
@@ -129,6 +131,14 @@ defmodule Bonfire.Web.Routes do
         pipe_through(:browser)
         pipe_through(:account_required)
       end
+
+      # TODO: mastodon-compatible API
+      # scope "/api" do
+      #   require Apical
+
+      #   Apical.router_from_file(unquote(@api_spec),
+      #     controller: Bonfire.MastodonOpenAPIController)
+      # end
 
       if extension_enabled?(:bonfire_ui_me) do
         # pages you need to view as a user
