@@ -1,4 +1,4 @@
-<!-- <Bonfire.UI.Common.PreviewContentLive id="preview_content">
+{!-- <Bonfire.UI.Common.PreviewContentLive id="preview_content">
   <:extra_contents>
     <div id="the_extra_contents" data-role="persistent_feed">
       <StatefulComponent
@@ -15,7 +15,7 @@
       />
     </div>
   </:extra_contents>
-</Bonfire.UI.Common.PreviewContentLive> -->
+</Bonfire.UI.Common.PreviewContentLive> --}
 
 <section
   data-id="user_dashboard"

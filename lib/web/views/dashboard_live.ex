@@ -38,41 +38,41 @@ defmodule Bonfire.Web.DashboardLive do
      )}
   end
 
-  @decorate time()
-  def handle_params(params, _url, socket) do
-    # debug(params, "param")
+  # @decorate time()
+  # def handle_params(params, _url, socket) do
+  #   # debug(params, "param")
 
-    context = socket.assigns[:__context__]
+  #   context = socket.assigns[:__context__]
 
-    feed_name =
-      if module_enabled?(Bonfire.Social.Pins, context) and
-           Settings.get(
-             [Bonfire.UI.Social.FeedsLive, :curated],
-             false,
-             context
-           ) do
-        :curated
-      else
-        e(socket, :assigns, :live_action, nil) ||
-          Settings.get(
-            [Bonfire.UI.Social.FeedLive, :default_feed],
-            :my,
-            context
-          )
-      end
+  #   feed_name =
+  #     if module_enabled?(Bonfire.Social.Pins, context) and
+  #          Settings.get(
+  #            [Bonfire.UI.Social.FeedsLive, :curated],
+  #            false,
+  #            context
+  #          ) do
+  #       :curated
+  #     else
+  #       e(socket, :assigns, :live_action, nil) ||
+  #         Settings.get(
+  #           [Bonfire.UI.Social.FeedLive, :default_feed],
+  #           :my,
+  #           context
+  #         )
+  #     end
 
-    {
-      :noreply,
-      socket
-      |> assign(
-        Bonfire.Social.Feeds.LiveHandler.feed_default_assigns(
-          {
-            feed_name,
-            params
-          },
-          socket
-        )
-      )
-    }
-  end
+  #   {
+  #     :noreply,
+  #     socket
+  #     |> assign(
+  #       Bonfire.Social.Feeds.LiveHandler.feed_default_assigns(
+  #         {
+  #           feed_name,
+  #           params
+  #         },
+  #         socket
+  #       )
+  #     )
+  #   }
+  # end
 end
