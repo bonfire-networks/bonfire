@@ -19,9 +19,9 @@
 
 <section
   data-id="user_dashboard"
-  class="max-w-screen-md mx-auto p-4 mt-0 grid items-start gap-4 !visible"
+  class="max-w-screen-md mx-auto p-4 mt-0 grid grid-flow-col auto-cols-auto items-start gap-4 !visible"
 >
-  <div class="">
-    <StatelessComponent module={maybe_component(Bonfire.Tag.Web.WidgetTagsLive, @__context__)} />
-  </div>
+  <StatelessComponent module={maybe_component(Bonfire.Tag.Web.WidgetTagsLive, @__context__)} />
+
+  <StatelessComponent module={maybe_component(Bonfire.UI.Me.WidgetHighlightUsersLive, @__context__)} />
 </section>
