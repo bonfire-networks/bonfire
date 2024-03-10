@@ -4,6 +4,8 @@ defmodule Bonfire.Web.DashboardLive do
   """
   use Bonfire.UI.Common.Web, :surface_live_view
 
+  declare_nav_link(l("Dashboard"), page: "dashboard", icon: "carbon:home")
+
   on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.UserRequired]}
 
   def mount(_params, _session, socket) do
