@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
-     Bonfire.Common.Extend.module_enabled?(Absinthe.Schema.Notation) and
      Bonfire.Common.Extend.module_enabled?(Bonfire.ValueFlows.API.Schema) do
   defmodule Bonfire.API.GraphQL.Schema do
     @moduledoc """

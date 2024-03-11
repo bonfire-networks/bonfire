@@ -46,7 +46,8 @@ defmodule Bonfire.Spark.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     spark_sources = [path: "deps.path", git: "deps.git", hex: "deps.hex"]
-    Mess.deps((if System.get_env("WITH_FORKS", "1")=="1", do: spark_sources ++ [path: "#{@umbrella_mess_defs}.path", git: "#{@umbrella_mess_defs}.git", hex: "#{@umbrella_mess_defs}.hex"], else: spark_sources ++ [git: "#{@umbrella_mess_defs}.git", hex: "#{@umbrella_mess_defs}.hex"]), [
+    Mess.deps((if System.get_env("WITH_FORKS", "1")=="1", do: spark_sources ++ [path: "#{@umbrella_mess_defs}.path", git: "#{@umbrella_mess_defs}.git", hex: "#{@umbrella_mess_defs}.hex"], else: spark_sources ++ [git: "#{@umbrella_mess_defs}.git", hex: "#{@umbrella_mess_defs}.hex"]), 
+    if(System.get_env("WITH_API_GRAPHQL")== "yes", do: [{:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql", branch: "main"}], else: []) ++ [
 
       {:voodoo, git: "https://github.com/bonfire-networks/voodoo"},
       {:finch, "~> 0.16"},
