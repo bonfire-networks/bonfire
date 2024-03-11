@@ -19,9 +19,14 @@
 
 <section
   data-id="user_dashboard"
-  class="max-w-screen-md mx-auto p-4 mt-0 grid grid-flow-col auto-cols-auto items-start gap-4 !visible"
+  class="flex flex-wrap items-stretch max-w-screen-md mx-auto p-4 mt-0 items-start gap-4 !visible"
 >
-  <StatelessComponent module={maybe_component(Bonfire.Tag.Web.WidgetTagsLive, @__context__)} />
+  <StatelessComponent module={maybe_component(Bonfire.UI.Social.WidgetDiscussionsLive, @__context__)} />
+
+  <StatelessComponent
+    module={maybe_component(Bonfire.Tag.Web.WidgetTagsLive, @__context__)}
+    wrapper_class="flex-auto mx-auto rounded-xl bg-base-content/5"
+  />
 
   <StatelessComponent module={maybe_component(Bonfire.UI.Me.WidgetHighlightUsersLive, @__context__)} />
 </section>
