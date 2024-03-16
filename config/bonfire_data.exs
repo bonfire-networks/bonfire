@@ -19,94 +19,7 @@ verbs = [
   "Tag"
 ]
 
-#### Sentinel Data Services
-
-# Search these apps/extensions for Pointable ecto schema definitions to index
-pointable_schema_extensions = [
-  :bonfire,
-  :bonfire_data_access_control,
-  :bonfire_data_activity_pub,
-  :bonfire_data_identity,
-  :bonfire_data_social,
-  :bonfire_data_edges,
-  :bonfire_tag,
-  :bonfire_classify,
-  :bonfire_data_shared_users,
-  :bonfire_files,
-  :bonfire_quantify,
-  :bonfire_geolocate,
-  :bonfire_valueflows,
-  :bonfire_valueflows_observe,
-  :bonfire_pages
-]
-
-config :needle, :search_path, pointable_schema_extensions
-
-# Search these apps/extensions for context or queries modules to index (i.e. they contain modules with a query_module/0 or context_modules/0 function)
-context_and_queries_extensions =
-  pointable_schema_extensions ++
-    [
-      :bonfire_common,
-      :bonfire_me,
-      :bonfire_social
-    ]
-
-extensions_with_config =
-  context_and_queries_extensions ++
-    [
-      :bonfire_boundaries,
-      :bonfire_federate_activitypub,
-      :bonfire_search,
-      :bonfire_mailer,
-      :bonfire_fail,
-      :bonfire_pages_beacon
-    ]
-
-extensions_with_ui =
-  context_and_queries_extensions ++
-    [
-      :bonfire_boundaries,
-      :bonfire_federate_activitypub,
-      :bonfire_search,
-      :bonfire_ui_common,
-      :bonfire_ui_me,
-      :bonfire_ui_social,
-      :bonfire_ui_valueflows,
-      :bonfire_ui_coordination,
-      :bonfire_ui_breadpub,
-      :bonfire_ui_kanban,
-      :bonfire_breadpub,
-      :bonfire_upcycle,
-      :bonfire_recyclapp,
-      :bonfire_ui_reflow,
-      :rauversion_extension
-    ]
-
-config :bonfire, :verb_names, verbs
-
-# NOTE: these shouldn't be needed anymore since we scan all apps with Bonfire.Common.ExtensionBehaviour
-config :bonfire, :extensions_grouped, %{
-  Bonfire.Common.ContextModule => context_and_queries_extensions,
-  Bonfire.Common.SchemaModule => context_and_queries_extensions,
-  Bonfire.Common.QueryModule => context_and_queries_extensions,
-  Bonfire.Common.ConfigModule => extensions_with_config,
-  Bonfire.Common.ExtensionModule => extensions_with_ui,
-  Bonfire.UI.Common.WidgetModule => extensions_with_ui,
-  Bonfire.UI.Common.NavModule => extensions_with_ui
-}
-
-# TODO: refactor to use ExtensionBehaviour
-config :bonfire,
-  federation_search_path: [
-    :bonfire_common,
-    :bonfire_me,
-    :bonfire_social,
-    :bonfire_valueflows,
-    :bonfire_classify,
-    :bonfire_geolocate,
-    :bonfire_quantify,
-    :bonfire_boundaries
-  ]
+config :needle, :search_path_fun, {Bonfire.Common.ExtensionBehaviour, :apps_to_scan}
 
 # Search these apps/extensions for Verbs to index (i.e. they contain modules with a declare_verbs/0 function)
 config :bonfire_data_access_control,
@@ -117,6 +30,20 @@ config :bonfire_data_access_control,
     # :bonfire_social,
     # :bonfire,
   ]
+
+config :bonfire, :verb_names, verbs
+
+known_deps =
+  Bonfire.Mixer.deps_tree_flat()
+  |> IO.inspect(label: "deps in config", limit: :infinity)
+
+maybe_extension_module = fn extension, module, fallback ->
+  if extension in known_deps, do: module, else: fallback
+end
+
+maybe_extension_schema = fn extension, module ->
+  maybe_extension_module.(extension, module, Needle.Pointer)
+end
 
 #### Alias modules for readability
 alias Needle.Pointer
@@ -363,10 +290,10 @@ common_assocs = %{
   # + the actual tags
   tags:
     quote do
-      has_many(:tagged, unquote(Tagged), unquote(mixin))
+      has_many(:tagged, unquote(maybe_extension_schema.(:bonfire_tag, Tagged)), unquote(mixin))
 
       many_to_many(:tags, unquote(Pointer),
-        join_through: unquote(Tagged),
+        join_through: unquote(maybe_extension_schema.(:bonfire_tag, Tagged)),
         unique: true,
         join_keys: [id: :id, tag_id: :id],
         on_replace: :delete
@@ -374,10 +301,13 @@ common_assocs = %{
     end,
   object_tags:
     quote do
-      has_many(:tagged, unquote(Tagged), foreign_key: :id, references: :object_id)
+      has_many(:tagged, unquote(maybe_extension_schema.(:bonfire_tag, Tagged)),
+        foreign_key: :id,
+        references: :object_id
+      )
 
       many_to_many(:tags, unquote(Pointer),
-        join_through: unquote(Tagged),
+        join_through: unquote(maybe_extension_schema.(:bonfire_tag, Tagged)),
         unique: true,
         join_keys: [id: :object_id, tag_id: :id],
         on_replace: :delete
@@ -697,7 +627,12 @@ config :bonfire_data_identity, User,
        )
 
        has_one(:self, unquote(Self), foreign_key: :id)
-       has_one(:shared_user, unquote(Bonfire.Data.SharedUser), foreign_key: :id)
+
+       has_one(
+         :shared_user,
+         unquote(maybe_extension_schema.(:bonfire_data_shared_user, Bonfire.Data.SharedUser)),
+         foreign_key: :id
+       )
 
        has_one(:instance_admin, unquote(InstanceAdmin),
          foreign_key: :user_id,
@@ -1180,7 +1115,7 @@ config :bonfire_classify, Category,
 
        # add references of tagged objects to any Category
        many_to_many(:tags, unquote(Pointer),
-         join_through: unquote(Tagged),
+         join_through: unquote(maybe_extension_schema.(:bonfire_tag, Tagged)),
          unique: true,
          join_keys: [tag_id: :id, id: :id],
          on_replace: :delete
