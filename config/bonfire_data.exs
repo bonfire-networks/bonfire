@@ -35,7 +35,8 @@ config :bonfire, :verb_names, verbs
 
 known_deps =
   Bonfire.Mixer.deps_tree_flat()
-  |> IO.inspect(label: "deps in config", limit: :infinity)
+
+# |> IO.inspect(label: "deps in config", limit: :infinity)
 
 maybe_extension_module = fn extension, module, fallback ->
   if extension in known_deps, do: module, else: fallback
