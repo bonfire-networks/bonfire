@@ -1,4 +1,5 @@
 import Config
+import Bonfire.Mixer
 
 #### Base configuration
 
