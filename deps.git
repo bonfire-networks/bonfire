@@ -1,5 +1,6 @@
 bonfire_common = "https://github.com/bonfire-networks/bonfire_common#main"
 bonfire_ui_common = "https://github.com/bonfire-networks/bonfire_ui_common#main"
+activity_pub = "https://github.com/bonfire-networks/activity_pub#develop"
 
 ## UTILS
 # arrows = "https://github.com/bonfire-networks/arrows"
@@ -30,7 +31,6 @@ paper_trail = "https://github.com/bonfire-networks/paper_trail#with-pointers"
 # source_inspector = "https://github.com/tmbb/source_inspector"
 
 # sentry = "https://github.com/getsentry/sentry-elixir"
-
 
 forecastr = "https://github.com/bonfire-networks/forecastr"
 # image = "https://github.com/elixir-image/image"
