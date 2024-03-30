@@ -28,7 +28,7 @@ orion = "~> 1.0" # tracing with web UI (at /admin/system/orion)
 # admin tools
 phoenix_live_dashboard = "~> 0.8.0"
 live_admin = "~> 0.9.0"
-wobserver_ng = "~> 1.14"
+# wobserver_ng = "~> 1.14"
 
 # DB
 ecto_sql = "~> 3.8"

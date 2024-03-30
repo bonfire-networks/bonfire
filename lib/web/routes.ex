@@ -167,7 +167,9 @@ defmodule Bonfire.Web.Routes do
           if Config.env() != :test do
             pipe_through(:admin_required)
 
-            forward "/admin/system/wobserver", Wobserver.Web.Router
+            if module_enabled?(Wobserver.Web.Router) do
+              forward "/admin/system/wobserver", Wobserver.Web.Router
+            end
 
             pipe_through(:browser)
 
