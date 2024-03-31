@@ -1,5 +1,6 @@
 bonfire_common = "https://github.com/bonfire-networks/bonfire_common#main"
 bonfire_ui_common = "https://github.com/bonfire-networks/bonfire_ui_common#main"
+bonfire_ui_me = "https://github.com/bonfire-networks/bonfire_ui_me#main" 
 activity_pub = "https://github.com/bonfire-networks/activity_pub#develop"
 
 ## UTILS
