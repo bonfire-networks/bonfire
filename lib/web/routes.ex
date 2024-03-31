@@ -21,7 +21,8 @@ defmodule Bonfire.Web.Routes do
 
       use_if_enabled(Bonfire.UI.Common.Routes)
 
-      use Bonfire.UI.Me.Routes # required for auth
+      #  required for auth
+      use Bonfire.UI.Me.Routes
 
       # include routes for active Bonfire extensions (no need to comment out, they'll be skipped if not available or if disabled)
       # TODO: automatically include all active extensions, or introduce a RouterModule behaviour?

@@ -21,7 +21,7 @@ defmodule Bonfire.Spark.MixProject do
     ++
     [
       app: :bonfire,
-      version: "0.1.0-beta.3",
+      version: "0.1.0-beta.4",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
       deps: deps()

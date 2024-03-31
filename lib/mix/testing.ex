@@ -1,5 +1,5 @@
 defmodule Bonfire.Testing do
-  def configure_start_test do
+  def configure_start_test(opts \\ [migrate: false]) do
     running_a_second_test_instance? = System.get_env("TEST_INSTANCE") == "yes"
 
     # Start ExUnitSummary application, with recommended config 
@@ -35,9 +35,11 @@ defmodule Bonfire.Testing do
 
     if repo do
       try do
-        # Mix.Task.run("ecto.create")
-        # Mix.Task.run("ecto.migrate")
-        # EctoSparkles.Migrator.migrate(repo)
+        if opts[:migrate] do
+          Mix.Task.run("ecto.create")
+          Mix.Task.run("ecto.migrate")
+          EctoSparkles.Migrator.migrate(repo)
+        end
 
         # Ecto.Adapters.SQL.Sandbox.mode(repo, :manual)
 
