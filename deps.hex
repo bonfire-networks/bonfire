@@ -62,7 +62,7 @@ mogrify = "~> 0.9.1"
 cachex = "~> 3.2"
 
 # Testing
-floki = "~> 0.33"
+floki = "~> 0.36"
 # untangle = "~> 0.1"
 faker = "~> 0.18.0"
 
