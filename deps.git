@@ -73,3 +73,4 @@ paper_trail = "https://github.com/bonfire-networks/paper_trail#with-pointers"
 forecastr = "https://github.com/bonfire-networks/forecastr"
 # image = "https://github.com/elixir-image/image"
 
+ex_aws = "https://github.com/bonfire-networks/ex_aws#main"

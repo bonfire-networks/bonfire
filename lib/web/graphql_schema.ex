@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
-     Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) do
+     !Bonfire.Common.Extend.module_enabled?(Bonfire.ValueFlows.API.Schema) do
   defmodule Bonfire.API.GraphQL.Schema do
     @moduledoc """
     Root GraphQL Schema. 
