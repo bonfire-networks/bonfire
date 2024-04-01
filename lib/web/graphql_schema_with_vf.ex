@@ -50,6 +50,8 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
       middleware ++ [CollapseErrors]
     end
 
+    import_types(Absinthe.Type.Custom)
+
     import_types(Bonfire.API.GraphQL.JSON)
     import_types(Bonfire.API.GraphQL.Cursor)
 

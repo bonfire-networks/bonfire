@@ -45,8 +45,19 @@ defmodule Bonfire.Spark.MixProject do
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
-    spark_sources = [path: "deps.path", git: "deps.git", hex: "deps.hex"]
-    Mess.deps((if System.get_env("WITH_FORKS", "1")=="1", do: spark_sources ++ [path: "#{@umbrella_mess_defs}.path", git: "#{@umbrella_mess_defs}.git", hex: "#{@umbrella_mess_defs}.hex"], else: spark_sources ++ [git: "#{@umbrella_mess_defs}.git", hex: "#{@umbrella_mess_defs}.hex"]), 
+    with_git? = System.get_env("WITH_GIT_DEPS", "1")=="1"
+    maybe_git = if with_git?, do: [git: "deps.git"], else: []
+    spark_sources = [path: "deps.path"] ++ maybe_git ++ [hex: "deps.hex"]
+    maybe_git = if with_git?, do: [git: "#{@umbrella_mess_defs}.git"], else: []
+    Mess.deps((if System.get_env("WITH_FORKS", "1")=="1" do
+       spark_sources ++ 
+       [path: "#{@umbrella_mess_defs}.path"] ++ 
+       maybe_git ++ 
+       [hex: "#{@umbrella_mess_defs}.hex"]
+       else
+         spark_sources ++ 
+         maybe_git ++ [hex: "#{@umbrella_mess_defs}.hex"]
+       end), 
     if(System.get_env("WITH_API_GRAPHQL")== "yes", do: [{:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql", branch: "main"}], else: []) ++ [
 
       {:voodoo, git: "https://github.com/bonfire-networks/voodoo"},
