@@ -74,3 +74,5 @@ forecastr = "https://github.com/bonfire-networks/forecastr"
 # image = "https://github.com/elixir-image/image"
 
 ex_aws = "https://github.com/bonfire-networks/ex_aws#main"
+
+iconify_ex = "https://github.com/bonfire-networks/iconify_ex#main"
