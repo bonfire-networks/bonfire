@@ -49,6 +49,8 @@ defmodule Bonfire.Web.Routes do
 
       use_if_enabled(Bonfire.Gatherings.Web.Routes)
 
+      use_if_enabled(Bonfire.Poll.Web.Routes)
+
       # use_if_enabled(Bonfire.AI.Web.Routes)
 
       use_if_enabled(Bonfire.Boundaries.Web.Routes)

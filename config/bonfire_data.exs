@@ -329,7 +329,26 @@ common_assocs = %{
   ### Stuff I'm not sure how to categorise yet
 
   # Used currently only for requesting to follow a user, but more general
-  request: quote(do: has_one(:request, unquote(Request), unquote(mixin)))
+  request: quote(do: has_one(:request, unquote(Request), unquote(mixin))),
+  ranked:
+    quote(
+      do:
+        has_many(:ranked, unquote(Bonfire.Data.Assort.Ranked),
+          foreign_key: :item_id,
+          references: :id
+        )
+    ),
+  #  TODO: point to Pointer for more generic choices?
+  choices:
+    quote(
+      do:
+        many_to_many(:choices, unquote(Bonfire.Poll.Choice),
+          join_through: unquote(Bonfire.Data.Assort.Ranked),
+          unique: true,
+          join_keys: [scope_id: :id, item_id: :id],
+          on_replace: :delete
+        )
+    )
 }
 
 # retrieves a list of quoted forms suitable for use with unquote_splicing
@@ -411,7 +430,9 @@ pointer_mixins =
     :activities,
     :care_closure,
     :direct_replies,
-    :feed_publishes
+    :feed_publishes,
+    :ranked,
+    :choices
   ])
 
 config :needle, Pointer,
@@ -1029,15 +1050,10 @@ config :bonfire_pages, Page,
        )
 
        # multimixins
-       unquote_splicing(common.([:controlled, :tags, :media, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :media, :feed_publishes, :ranked]))
 
        # special
        #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
-
-       has_many(:ranked, unquote(Bonfire.Data.Assort.Ranked),
-         foreign_key: :scope_id,
-         references: :id
-       )
 
        # add references of page sections
        many_to_many(:sections, unquote(Pointer),
@@ -1065,15 +1081,10 @@ config :bonfire_pages, Section,
        )
 
        # multimixins
-       unquote_splicing(common.([:controlled, :tags, :media, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :media, :feed_publishes, :ranked]))
 
        # special
        #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
-
-       has_many(:ranked, unquote(Bonfire.Data.Assort.Ranked),
-         foreign_key: :item_id,
-         references: :id
-       )
 
        # add references of page sections
        many_to_many(:pages, unquote(Pointer),
@@ -1232,4 +1243,66 @@ config :bonfire_valueflows_observe, ValueFlows.Observe.Observation,
        unquote_splicing(common.([:controlled, :tags, :feed_publishes]))
        # has
        unquote_splicing(common.([:direct_replies]))
+     end)
+
+config :bonfire_poll, Bonfire.Poll.Question,
+  code:
+    (quote do
+       # mixins
+       unquote_splicing(
+         common.([
+           :activities,
+           :activity,
+           :caretaker,
+           :created,
+           :post_content,
+           :like_count,
+           :boost_count
+         ])
+       )
+
+       # multimixins
+       unquote_splicing(common.([:controlled, :tags, :media, :feed_publishes, :ranked, :choices]))
+
+       # special
+       #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
+
+       # has_many :votes, through: [:choices, :votes]
+     end)
+
+config :bonfire_poll, Bonfire.Poll.Choice,
+  code:
+    (quote do
+       # mixins
+       unquote_splicing(
+         common.([
+           :activities,
+           :activity,
+           :caretaker,
+           :created,
+           :post_content,
+           :like_count,
+           :boost_count
+         ])
+       )
+
+       # multimixins
+       unquote_splicing(common.([:controlled, :tags, :media, :feed_publishes, :ranked]))
+
+       # special
+       #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
+
+       # add references of page sections
+       many_to_many(:questions, unquote(Pointer),
+         join_through: unquote(Bonfire.Data.Assort.Ranked),
+         unique: true,
+         join_keys: [item_id: :id, scope_id: :id],
+         on_replace: :delete
+       )
+     end)
+
+config :bonfire_poll, Bonfire.Poll.Vote,
+  code:
+    (quote do
+       (unquote_splicing(edges))
      end)
