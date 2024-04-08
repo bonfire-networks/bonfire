@@ -196,8 +196,24 @@ common_assocs = %{
     end,
 
   # FIXME: use the object or edge/activity here?
-  seen: quote(do: has_one(:seen, unquote(Edge), unquote(mixin_updatable))),
-  object_seen: quote(do: has_one(:seen, unquote(Edge), foreign_key: :object_id, references: :id)),
+  seen:
+    quote(
+      do:
+        has_one(:seen, unquote(Edge),
+          foreign_key: :id,
+          references: :id,
+          where: [table_id: "1A1READYSAW0RREADTH1STH1NG"]
+        )
+    ),
+  object_seen:
+    quote(
+      do:
+        has_one(:seen, unquote(Edge),
+          foreign_key: :object_id,
+          references: :id,
+          where: [table_id: "1A1READYSAW0RREADTH1STH1NG"]
+        )
+    ),
   labelled:
     quote(
       do:
@@ -216,6 +232,16 @@ common_assocs = %{
           where: [table_id: "71ABE1SADDED0NT0S0METH1NGS"]
         )
     ),
+  object_voted:
+    quote(
+      do:
+        has_many(:object_voted, unquote(Edge),
+          foreign_key: :object_id,
+          references: :id,
+          where: [table_id: "7S0C10CRAT1CDEM0S0FC0NSENT"]
+        )
+    ),
+  vote: quote(do: has_one(:vote, unquote(Bonfire.Poll.Vote), unquote(mixin))),
 
   # Adds extra info that can appear in the user interface for an object. e.g. a summary or JSON-encoded data.
   extra_info: quote(do: has_one(:extra_info, unquote(ExtraInfo), unquote(mixin_updatable))),
@@ -338,6 +364,7 @@ common_assocs = %{
           references: :id
         )
     ),
+
   #  TODO: point to Pointer for more generic choices?
   choices:
     quote(
@@ -378,7 +405,9 @@ edge =
     :object_labelled,
     :object_seen,
     :object_controlled,
-    :object_tags
+    :object_tags,
+    :object_voted,
+    :vote
   ])
 
 # FIXME? do we want to boundarise an edge by the object (:object_controlled - eg. the post) or the edge (:controlled - eg. the like)
@@ -1267,7 +1296,7 @@ config :bonfire_poll, Bonfire.Poll.Question,
        # special
        #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
 
-       # has_many :votes, through: [:choices, :votes]
+       #  has_many :voted, through: [:choices, :voted]
      end)
 
 config :bonfire_poll, Bonfire.Poll.Choice,
@@ -1282,7 +1311,8 @@ config :bonfire_poll, Bonfire.Poll.Choice,
            :created,
            :post_content,
            :like_count,
-           :boost_count
+           :boost_count,
+           :object_voted
          ])
        )
 
