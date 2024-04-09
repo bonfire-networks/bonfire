@@ -26,7 +26,7 @@ defmodule Bonfire.Application do
     do:
       [
         # Metrics
-        Bonfire.Web.Telemetry,
+        Bonfire.Telemetry.Metrics,
         # Database
         @repo_module,
         # behaviour modules are loaded prepared as part of `Config.LoadExtensionsConfig` so no need to duplicate
@@ -113,14 +113,14 @@ defmodule Bonfire.Application do
   def deps(_), do: config()[:deps]
 
   def start(_type, _args) do
-    Bonfire.Logging.setup(@env, @repo_module)
+    Bonfire.Telemetry.setup(@env, @repo_module)
 
     :gen_event.swap_handler(
       :alarm_handler,
       {:alarm_handler, :swap},
-      {Bonfire.System.OS.Monitor, :ok}
+      {Bonfire.Telemetry.SystemMonitor, :ok}
     )
-    |> IO.inspect(label: "Bonfire.System.OS.Monitor")
+    |> IO.inspect(label: "Bonfire.Telemetry.SystemMonitor")
 
     Application.get_env(:bonfire, Bonfire.Web.Endpoint, [])
     |> IO.inspect()
@@ -165,7 +165,7 @@ defmodule Bonfire.Application do
   def applications(:dev, _, _any) do
     [
       # simple ETS based storage for non-prod
-      {Bonfire.Telemetry.Storage, Bonfire.Web.Telemetry.metrics()}
+      {Bonfire.Telemetry.Storage, Bonfire.Telemetry.Metrics.metrics()}
     ] ++ applications(nil, nil, nil)
   end
 

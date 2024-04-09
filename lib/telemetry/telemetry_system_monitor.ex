@@ -1,9 +1,11 @@
-defmodule Bonfire.System.OS.Monitor do
+defmodule Bonfire.Telemetry.SystemMonitor do
   import Untangle
   alias Bonfire.Common.Config
 
+  # NOTE: see `config :os_mon` for what triggers this
+
   def init({_args, {:alarm_handler, alarms}}) do
-    debug("Custom alarm handler init!")
+    debug("Custom alarm handler init...")
     for {alarm_name, alarm_description} <- alarms, do: handle_alarm(alarm_name, alarm_description)
     {:ok, []}
   end
@@ -35,9 +37,21 @@ defmodule Bonfire.System.OS.Monitor do
       "#{alarm_name} : #{alarm_description}",
       :disksup.get_disk_data()
       |> Enum.map(fn {mountpoint, kbytes, percent} ->
-        "#{mountpoint} is at #{format_percent(percent)} of #{format_bytes(kbytes * 1024)}"
+        "#{mountpoint} is at #{format_percent(percent)} of #{Sizeable.filesize(kbytes * 1024)}"
       end)
       |> Enum.join("\n")
+    )
+  end
+
+  def handle_alarm(:process_memory_high_watermark = alarm_name, alarm_description) do
+    {total, allocated, {worst_pid, worst_usage}} = :memsup.get_memory_data()
+    # system_memory = :memsup.get_system_memory_data()
+    # system_total = system_memory[:total_memory] || system_memory[:system_total_memory] || total
+
+    handle_alarm(
+      "#{alarm_name} : #{alarm_description}",
+      "OTP memory: #{Sizeable.filesize(allocated)} allocated of #{Sizeable.filesize(total)} (highest usage by #{inspect(worst_pid)}: #{Sizeable.filesize(worst_usage)} )"
+      # <>"\nSystem memory is #{format_percent(system_total/system_memory[:free_memory])} free (#{Sizeable.filesize(system_memory[:free_memory])} of #{Sizeable.filesize(system_total)})"
     )
   end
 
@@ -45,8 +59,7 @@ defmodule Bonfire.System.OS.Monitor do
     do: handle_alarm(alarm_name, inspect(alarm_description))
 
   def handle_alarm(alarm_name, alarm_description) do
-    warn(alarm_name, "System monitor alarm")
-    info(alarm_description, "Alarm details")
+    warn(alarm_description, "System monitor alarm: #{alarm_name}")
 
     case Config.get(:env) == :prod and Config.get([Bonfire.Mailer, :reply_to]) do
       false ->
@@ -75,29 +88,4 @@ defmodule Bonfire.System.OS.Monitor do
   def format_percent(percent) when is_float(percent), do: "#{Float.round(percent, 1)}%"
   def format_percent(nil), do: "0%"
   def format_percent(percent), do: "#{percent}%"
-
-  @doc """
-  Formats bytes.
-  """
-  def format_bytes(bytes) when is_integer(bytes) do
-    cond do
-      bytes >= memory_unit(:TB) -> format_bytes(bytes, :TB)
-      bytes >= memory_unit(:GB) -> format_bytes(bytes, :GB)
-      bytes >= memory_unit(:MB) -> format_bytes(bytes, :MB)
-      bytes >= memory_unit(:KB) -> format_bytes(bytes, :KB)
-      true -> format_bytes(bytes, :B)
-    end
-  end
-
-  defp format_bytes(bytes, :B) when is_integer(bytes), do: "#{bytes} B"
-
-  defp format_bytes(bytes, unit) when is_integer(bytes) do
-    value = bytes / memory_unit(unit)
-    "#{:erlang.float_to_binary(value, decimals: 1)} #{unit}"
-  end
-
-  defp memory_unit(:TB), do: 1024 * 1024 * 1024 * 1024
-  defp memory_unit(:GB), do: 1024 * 1024 * 1024
-  defp memory_unit(:MB), do: 1024 * 1024
-  defp memory_unit(:KB), do: 1024
 end

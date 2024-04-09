@@ -1,4 +1,4 @@
-defmodule Bonfire.Web.Telemetry do
+defmodule Bonfire.Telemetry.Metrics do
   use Supervisor
   import Telemetry.Metrics
 
@@ -96,7 +96,10 @@ defmodule Bonfire.Web.Telemetry do
       summary("vm.memory.total", unit: {:byte, :megabyte}),
       summary("vm.total_run_queue_lengths.total"),
       summary("vm.total_run_queue_lengths.cpu"),
-      summary("vm.total_run_queue_lengths.io")
+      summary("vm.total_run_queue_lengths.io"),
+
+      # Oban
+      summary("oban.workers.memory.total", tags: [:worker])
     ]
   end
 
@@ -105,6 +108,7 @@ defmodule Bonfire.Web.Telemetry do
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
       # {Bonfire.UI.Common.Web, :count_users, []}
+      {Bonfire.Telemetry.Metrics, :oban_worker_memory, []}
     ]
   end
 
@@ -120,4 +124,33 @@ defmodule Bonfire.Web.Telemetry do
 
   defp get_connection_status(true), do: "Connected"
   defp get_connection_status(_), do: "Disconnected"
+
+  def oban_worker_memory() do
+    pid = Oban.Registry.whereis(Oban, {:producer, "default"})
+    # |> IO.inspect(label: "Oban PID")
+
+    if is_pid(pid) and Process.alive?(pid) do
+      %{running: running} = :sys.get_state(pid)
+
+      Enum.map(running, fn {_ref, {pid, executor}} ->
+        {executor.job.worker,
+         Bonfire.Common.MemoryMonitor.get_memory_usage(executor.job.worker, pid)}
+      end)
+      # drop nils from workers we failed to check
+      |> Enum.reject(&is_nil/1)
+      |> Enum.group_by(
+        fn {worker, _memory} -> worker end,
+        fn {_worker, memory} -> memory end
+      )
+      |> Enum.map(fn {worker, memory_list} ->
+        # sum up the amount of memory used by all instances of the worker.
+        # result will be zero if there are no active instances
+        :telemetry.execute(
+          [:oban, :workers, :memory],
+          %{total: Enum.sum(memory_list)},
+          %{worker: worker}
+        )
+      end)
+    end
+  end
 end

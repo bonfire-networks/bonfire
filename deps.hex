@@ -60,6 +60,7 @@ sourceror = "~> 1.0.0"
 owl = "~> 0.8.0" # command line UI
 mogrify = "~> 0.9.1"
 cachex = "~> 3.2"
+sizeable = "~> 1.0"
 
 # Testing
 floki = "~> 0.36"

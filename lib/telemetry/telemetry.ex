@@ -1,4 +1,4 @@
-defmodule Bonfire.Logging do
+defmodule Bonfire.Telemetry do
   require Logger
   alias Bonfire.Common.Extend
 
@@ -55,7 +55,7 @@ defmodule Bonfire.Logging do
     :telemetry.attach(
       "bonfire-oban-errors",
       [:oban, :job, :exception],
-      &Bonfire.Logging.handle_event/4,
+      &Bonfire.Telemetry.handle_event/4,
       []
     )
 

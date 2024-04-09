@@ -212,7 +212,7 @@ defmodule Bonfire.Web.Routes do
               ecto_psql_extras_options: [
                 long_running_queries: [threshold: "400 milliseconds"]
               ],
-              metrics: Bonfire.Web.Telemetry,
+              metrics: Bonfire.Telemetry.Metrics,
               metrics_history:
                 if(Config.env() == :dev, do: {Bonfire.Telemetry.Storage, :metrics_history, []}),
               # metrics: FlamegraphsWeb.Telemetry,
