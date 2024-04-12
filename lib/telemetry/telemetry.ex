@@ -70,6 +70,7 @@ defmodule Bonfire.Telemetry do
   end
 
   def handle_event([:oban, :job, :exception], measure, meta, _) do
+    # TODO: check if still necessary now that Sentry SDK has Oban integration
     extra =
       meta.job
       |> Map.take([:id, :args, :meta, :queue, :worker])
