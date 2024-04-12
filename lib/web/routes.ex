@@ -10,10 +10,10 @@ defmodule Bonfire.Web.Routes do
       require LiveAdmin.Router
 
       pipeline :load_current_auth do
-        if module_enabled?(Bonfire.UI.Me.Plugs.LoadCurrentUser) do
+        if module = maybe_module(Bonfire.UI.Me.Plugs.LoadCurrentUser) do
           # plug(Bonfire.UI.Me.Plugs.LoadCurrentAccount)
           # ^ no need to call LoadCurrentAccount if also calling LoadCurrentUser
-          plug(Bonfire.UI.Me.Plugs.LoadCurrentUser)
+          plug(module)
         end
       end
 
@@ -116,10 +116,10 @@ defmodule Bonfire.Web.Routes do
         # live "/", Bonfire.Website.HomeGuestLive, as: :landing
         # live "/home", Bonfire.Web.HomeLive, as: :home
 
-        if !module_enabled?(Bonfire.UI.Groups),
+        if !module_exists?(Bonfire.UI.Groups),
           do: live("/&:username", Bonfire.UI.Me.CharacterLive, as: :group)
 
-        if !module_enabled?(Bonfire.UI.Topics),
+        if !module_exists?(Bonfire.UI.Topics),
           do: live("/+:username", Bonfire.UI.Me.CharacterLive, as: Bonfire.Classify.Category)
       end
 
