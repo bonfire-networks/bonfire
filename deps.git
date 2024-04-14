@@ -6,7 +6,7 @@ activity_pub = "https://github.com/bonfire-networks/activity_pub#develop"
 bonfire_mailer = "https://github.com/bonfire-networks/bonfire_mailer#main"
 bonfire_epics = "https://github.com/bonfire-networks/bonfire_epics#main"
 bonfire_ecto = "https://github.com/bonfire-networks/bonfire_ecto#main"
-bonfire_search = "https://github.com/bonfire-networks/bonfire_search#main"
+bonfire_search = "https://github.com/bonfire-networks/bonfire_search"
 bonfire_data_assort = "https://github.com/bonfire-networks/bonfire_data_assort"
 bonfire_files = "https://github.com/bonfire-networks/bonfire_files#main"
 bonfire_boundaries = "https://github.com/bonfire-networks/bonfire_boundaries#main"
@@ -75,4 +75,3 @@ forecastr = "https://github.com/bonfire-networks/forecastr"
 
 ex_aws = "https://github.com/bonfire-networks/ex_aws#main"
 
-iconify_ex = "https://github.com/bonfire-networks/iconify_ex#main"
