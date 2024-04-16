@@ -67,7 +67,7 @@ defmodule Bonfire.Spark.MixProject do
 
       {:voodoo, git: "https://github.com/bonfire-networks/voodoo"},
       {:finch, "~> 0.16"},
-      {:tz, "~> 0.26.2"},
+      # {:tz, "~> 0.26.2"},
       {:bonfire_ui_me, git: "https://github.com/bonfire-networks/bonfire_ui_me", optional: true},
       
       # tests

@@ -76,10 +76,12 @@ defmodule Bonfire.Application do
 
   # Stuff that depends on the Endpoint and/or the above
   def apps_after,
-    do:
-      [
-        {Tz.UpdatePeriodically, [interval_in_days: 10]}
-      ] ++ maybe_oban()
+    # ++
+    do: maybe_oban()
+
+  # [
+  #   {Tz.UpdatePeriodically, [interval_in_days: 10]}
+  # ] 
 
   def maybe_oban do
     case Application.get_env(:bonfire, Oban, []) do
