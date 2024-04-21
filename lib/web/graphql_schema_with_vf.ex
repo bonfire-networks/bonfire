@@ -8,6 +8,7 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
     """
 
     use Absinthe.Schema
+    use Absinthe.Relay.Schema, :modern
     @schema_provider Absinthe.Schema.PersistentTerm
 
     # @pipeline_modifier Bonfire.API.GraphQL.SchemaPipelines
