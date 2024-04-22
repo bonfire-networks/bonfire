@@ -186,7 +186,8 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
         :user,
         # :organisation,
         :category,
-        :tag
+        :tag,
+        :poll
         # :spatial_thing,
         # :intent,
         # :process,
@@ -218,6 +219,9 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
 
         %Bonfire.Classify.Category{} ->
           :category
+
+        %Bonfire.Poll.Question{} ->
+          :poll
 
         # %Bonfire.Tag{} -> :tag
         # %ValueFlows.Planning.Intent{} -> :intent

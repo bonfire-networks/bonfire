@@ -93,3 +93,4 @@ forecastr = "https://github.com/bonfire-networks/forecastr"
 
 ex_aws = "https://github.com/bonfire-networks/ex_aws"
 
+openid_connect = "https://github.com/DockYard/openid_connect"
