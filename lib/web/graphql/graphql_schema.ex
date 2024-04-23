@@ -53,6 +53,8 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
 
     import_types(Absinthe.Type.Custom)
 
+    import_sdl(path: "lib/web/graphql/util.gql")
+
     import_types(Bonfire.API.GraphQL.JSON)
     import_types(Bonfire.API.GraphQL.Cursor)
 
@@ -69,8 +71,8 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
     import_types(Bonfire.Tag.GraphQL.TagSchema)
     import_types(Bonfire.Classify.GraphQL.ClassifySchema)
 
-    # import_types(Bonfire.Quantify.Units.GraphQL)
-    # import_types(Bonfire.Geolocate.GraphQL)
+    import_types(Bonfire.Quantify.Units.GraphQL)
+    import_types(Bonfire.Geolocate.GraphQL)
 
     # import_types(Bonfire.ValueFlows.API.Schema)
     # import_types(Bonfire.ValueFlows.API.Schema.Subscriptions)
@@ -95,9 +97,8 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
 
       # import_fields(:locales_queries)
 
-      # import_fields(:measurement_query)
-
-      # import_fields(:geolocation_query)
+      import_fields(:measurement_query)
+      import_fields(:geolocation_query)
 
       # ValueFlows
       # import_fields(:value_flows_query)
@@ -118,8 +119,8 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
       import_fields(:tag_mutations)
       import_fields(:classify_mutations)
 
-      # import_fields(:geolocation_mutation)
-      # import_fields(:measurement_mutation)
+      import_fields(:geolocation_mutation)
+      import_fields(:measurement_mutation)
 
       # ValueFlows
 
@@ -138,9 +139,9 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
     def hydrate(%Absinthe.Blueprint{}, _) do
       SchemaUtils.hydrations_merge([
         Bonfire.Geolocate.GraphQL.Hydration,
-        Bonfire.Quantify.Hydration,
-        ValueFlows.Hydration,
-        ValueFlows.Observe.Hydration
+        Bonfire.Quantify.GraphQL.Hydration
+        # ValueFlows.Hydration,
+        # ValueFlows.Observe.Hydration
       ])
     end
 
@@ -162,8 +163,8 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
         # :collection,
         :user,
         # :organisation,
-        :category
-        # :spatial_thing
+        :category,
+        :spatial_thing
       ])
 
       resolve_type(&schema_to_api_type/2)
@@ -187,68 +188,73 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
         # :organisation,
         :category,
         :tag,
-        :poll
-        # :spatial_thing,
-        # :intent,
-        # :process,
-        # :economic_event
+        :poll,
+        :spatial_thing
       ])
 
       resolve_type(&schema_to_api_type/2)
     end
 
-    def schema_to_api_type(object, recursing) do
-      case object do
-        %Bonfire.Data.Identity.User{} ->
+    def schema_to_api_type(object, _ \\ nil) do
+      maybe_schema_to_api_type(object) ||
+        schema_to_api_type_fallback(object)
+    end
+
+    def maybe_schema_to_api_type(%struct{}), do: maybe_schema_to_api_type(struct)
+
+    def maybe_schema_to_api_type(struct) do
+      case struct do
+        Bonfire.Data.Identity.User ->
           :user
 
-        %Bonfire.Data.Social.Post{} ->
+        Bonfire.Data.Social.Post ->
           :post
 
-        %Bonfire.Data.Social.Activity{} ->
+        Bonfire.Data.Social.Activity ->
           :activity
 
-        %Bonfire.Data.Social.Follow{} ->
+        Bonfire.Data.Social.Follow ->
           :follow
 
-        # %Bonfire.Data.SharedUser{} ->
-        #   :organisation
+        Bonfire.Data.SharedUser ->
+          :organisation
 
-        # %Bonfire.Geolocate.Geolocation{} ->
-        #   :spatial_thing
+        Bonfire.Geolocate.Geolocation ->
+          :spatial_thing
 
-        %Bonfire.Classify.Category{} ->
+        Bonfire.Classify.Category ->
           :category
 
-        %Bonfire.Poll.Question{} ->
+        Bonfire.Poll.Question ->
           :poll
 
-        # %Bonfire.Tag{} -> :tag
-        # %ValueFlows.Planning.Intent{} -> :intent
-        # %ValueFlows.Process{} -> :process
-        # %ValueFlows.EconomicEvent{} -> :economic_event
+        Bonfire.Tag ->
+          :tag
 
-        object ->
-          case Bonfire.Common.Types.typeof(object) do
-            type when is_atom(type) and not is_nil(type) ->
-              debug(type, "any_context: object type recognised :-)")
+        _ ->
+          nil
+      end
+    end
 
-              if recursing != true do
-                schema_to_api_type(struct(type), true)
-              else
-                error(type, "any_context: no API type is defined for schema")
-                debug(object, "any_context object")
-                nil
-              end
+    def schema_to_api_type_fallback(object, type_match_fun \\ &maybe_schema_to_api_type/1) do
+      case Bonfire.Common.Types.typeof(object) do
+        type when is_atom(type) and not is_nil(type) ->
+          debug(type, "any_context: object type recognised :-)")
 
-            _ ->
-              warn(
-                object,
-                "any_context: resolved to an unknown type"
-              )
-
+          type_match_fun.(type) ||
+            (
+              warn(type, "any_context: no API type is defined for schema")
+              debug(object, "any_context object")
               nil
-          end
+            )
+
+        _ ->
+          warn(
+            object,
+            "any_context: resolved to an unknown type, you need to add it to the graphql schema module"
+          )
+
+          nil
       end
     end
   end

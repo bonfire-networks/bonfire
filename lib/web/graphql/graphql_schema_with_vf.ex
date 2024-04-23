@@ -23,28 +23,9 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
     Define dataloaders
     see https://hexdocs.pm/absinthe/1.4.6/ecto.html#dataloader
     """
-    def context(ctx) do
-      # IO.inspect(ctx: ctx)
-      loader =
-        Dataloader.add_source(
-          Dataloader.new(),
-          Needle.Pointer,
-          Bonfire.Common.Needles.dataloader(ctx)
-        )
+    def context(ctx), do: Bonfire.API.GraphQL.Schema.context(ctx)
 
-      # |> Dataloader.add_source(Bonfire.Data.Social.Posts, Bonfire.Common.Needles.dataloader(ctx) )
-
-      Map.put(ctx, :loader, loader)
-    end
-
-    def plugins do
-      [
-        Absinthe.Middleware.Async,
-        Absinthe.Middleware.Batch,
-        Absinthe.Middleware.Dataloader
-      ] ++
-        Absinthe.Plugin.defaults()
-    end
+    def plugins, do: Bonfire.API.GraphQL.Schema.plugins()
 
     def middleware(middleware, _field, _object) do
       # [{Bonfire.API.GraphQL.Middleware.Debug, :start}] ++
@@ -132,7 +113,7 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
     def hydrate(%Absinthe.Blueprint{}, _) do
       SchemaUtils.hydrations_merge([
         Bonfire.Geolocate.GraphQL.Hydration,
-        Bonfire.Quantify.Hydration,
+        Bonfire.Quantify.GraphQL.Hydration,
         ValueFlows.Hydration,
         ValueFlows.Observe.Hydration
       ])
@@ -190,55 +171,29 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
       resolve_type(&schema_to_api_type/2)
     end
 
-    def schema_to_api_type(object, recursing) do
-      case object do
-        %Bonfire.Data.Identity.User{} ->
-          :user
+    def schema_to_api_type(object, _ \\ nil) do
+      maybe_schema_to_api_type(object) ||
+        Bonfire.API.GraphQL.Schema.schema_to_api_type_fallback(
+          object,
+          &maybe_schema_to_api_type/1
+        )
+    end
 
-        %Bonfire.Data.Social.Post{} ->
-          :post
+    def maybe_schema_to_api_type(%struct{}), do: maybe_schema_to_api_type(struct)
 
-        %Bonfire.Data.Social.Activity{} ->
-          :activity
+    def maybe_schema_to_api_type(struct) do
+      case struct do
+        ValueFlows.Planning.Intent ->
+          :intent
 
-        %Bonfire.Data.Social.Follow{} ->
-          :follow
+        ValueFlows.Process ->
+          :process
 
-        # %Bonfire.Data.SharedUser{} ->
-        #   :organisation
+        ValueFlows.EconomicEvent ->
+          :economic_event
 
-        %Bonfire.Geolocate.Geolocation{} ->
-          :spatial_thing
-
-        %Bonfire.Classify.Category{} ->
-          :category
-
-        # %Bonfire.Tag{} -> :tag
-        # %ValueFlows.Planning.Intent{} -> :intent
-        # %ValueFlows.Process{} -> :process
-        # %ValueFlows.EconomicEvent{} -> :economic_event
-
-        object ->
-          case Bonfire.Common.Types.typeof(object) do
-            type when is_atom(type) and not is_nil(type) ->
-              debug(type, "any_context: object type recognised :-)")
-
-              if recursing != true do
-                schema_to_api_type(struct(type), true)
-              else
-                error(type, "any_context: no API type is defined for schema")
-                debug(object, "any_context object")
-                nil
-              end
-
-            _ ->
-              warn(
-                object,
-                "any_context: resolved to an unknown type"
-              )
-
-              nil
-          end
+        _ ->
+          Bonfire.API.GraphQL.Schema.maybe_schema_to_api_type(struct)
       end
     end
   end
