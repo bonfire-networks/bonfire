@@ -137,6 +137,8 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
         # :collection,
         :user,
         # :organisation,
+        # :group,
+        # :topic,
         :category,
         :spatial_thing
       ])
@@ -158,9 +160,12 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
         # :follow,
         :activity,
         :post,
+        :poll,
         :user,
         # :organisation,
         :category,
+        # :group,
+        # :topic,
         :tag,
         :spatial_thing,
         :intent,

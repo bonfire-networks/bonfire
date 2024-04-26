@@ -1,8 +1,6 @@
 defmodule Bonfire.Web.Routes do
-  @api_spec Path.join(:code.priv_dir(:bonfire), "specs/akkoma-openapi.json")
-
-  defmacro __using__(_) do
-    quote do
+  defmacro __using__(opts) do
+    quote bind_quoted: [opts: opts] do
       use Bonfire.UI.Common.Web, :router
       # use Plug.ErrorHandler
       alias Bonfire.Common.Config
@@ -19,7 +17,8 @@ defmodule Bonfire.Web.Routes do
 
       # please note the order matters here, because of pipelines being defined in some module and re-used in others
 
-      use_if_enabled(Bonfire.UI.Common.Routes)
+      # required for some default pipelines
+      use Bonfire.UI.Common.Routes
 
       #  required for auth
       use Bonfire.UI.Me.Routes
@@ -85,6 +84,14 @@ defmodule Bonfire.Web.Routes do
       # include GraphQL API
       use_if_enabled(Bonfire.API.GraphQL.Router)
 
+      # mastodon-compatible API
+      # IO.inspect(opts, label: "router_opts")
+      # if opts[:generate_open_api] !=false and module_enabled?(Bonfire.API.GraphQL.MastoCompatible.Router) do
+      #   import Bonfire.API.GraphQL.MastoCompatible.Router
+      #   IO.puts("Generate Masto-compatible API...")
+      #   include_masto_api()
+      # end
+
       # include federation routes
       use_if_enabled(ActivityPub.Web.Router)
 
@@ -134,14 +141,6 @@ defmodule Bonfire.Web.Routes do
         pipe_through(:browser)
         pipe_through(:account_required)
       end
-
-      # TODO: mastodon-compatible API
-      # scope "/api" do
-      #   require Apical
-
-      #   Apical.router_from_file(unquote(@api_spec),
-      #     controller: Bonfire.MastodonOpenAPIController)
-      # end
 
       if extension_enabled?(:bonfire_ui_me) do
         # pages you need to view as a user
@@ -253,7 +252,15 @@ end
 IO.puts("Compile routes...")
 
 defmodule Bonfire.Web.Router do
+  # , generate_open_api: false
   use Bonfire.Web.Routes
+
+  # mastodon-compatible API
+  if module_enabled?(Bonfire.API.GraphQL.MastoCompatible.Router) do
+    import Bonfire.API.GraphQL.MastoCompatible.Router
+    IO.puts("Generate Masto-compatible API...")
+    include_masto_api()
+  end
 end
 
 # generate an initial version of the reverse router (note that it will be re-generated at app start and when extensions are enabled/disabled)

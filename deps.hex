@@ -74,8 +74,6 @@ faker = "~> 0.18.0"
 # bonfire_data_social = "~> 0.1"
 geo_postgis = "~> 3.1"
 
-# API 
-# apical = "~> 0.2.1"
 
 # Testing a UI component library
 # surface_catalogue = "~> 0.1.0"  
