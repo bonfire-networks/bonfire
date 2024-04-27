@@ -44,7 +44,9 @@ bonfire_classify = "https://github.com/bonfire-networks/bonfire_classify"
 bonfire_invite_links= "https://github.com/bonfire-networks/bonfire_invite_links"
 
 ## UTILS
-apical= "https://github.com/bonfire-networks/apical"
+apical = "https://github.com/bonfire-networks/apical"
+boruta = "https://github.com/bonfire-networks/boruta"
+# boruta = "https://gitlab.com/patatoid/boruta_auth"
 
 # arrows = "https://github.com/bonfire-networks/arrows"
 

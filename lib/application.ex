@@ -101,7 +101,7 @@ defmodule Bonfire.Application do
 
   def project, do: @project
   def config, do: @config
-  def name, do: Application.get_env(:bonfire, :app_name) || config()[:name]
+  def name, do: Application.get_env(:bonfire, :app_name) || config()[:name] || "Bonfire"
   def version, do: config()[:version]
   def named_version, do: "#{name()} #{version()}"
   def repository, do: project()[:sources_url] || project()[:source_url]

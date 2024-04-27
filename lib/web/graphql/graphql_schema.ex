@@ -241,22 +241,22 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
     end
 
     def schema_to_api_type_fallback(object, type_match_fun \\ &maybe_schema_to_api_type/1) do
-      case Bonfire.Common.Types.typeof(object) do
+      case Bonfire.Common.Types.object_type(object) do
         type when is_atom(type) and not is_nil(type) ->
           debug(type, "any_context: object type recognised :-)")
 
           type_match_fun.(type) ||
             (
-              warn(type, "any_context: no API type is defined for schema")
-              debug(object, "any_context object")
+              IO.warn(
+                "any_context: no API type is defined for schema, you need to add it to the graphql schema module: #{inspect(type)}"
+              )
+
+              IO.puts("the object: #{inspect(object)}")
               nil
             )
 
         _ ->
-          warn(
-            object,
-            "any_context: resolved to an unknown type, you need to add it to the graphql schema module"
-          )
+          IO.warn("any_context: object resolved to an unknown type: #{inspect(object)}")
 
           nil
       end
