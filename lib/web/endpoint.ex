@@ -27,6 +27,9 @@ defmodule Bonfire.Web.Endpoint do
     plug(:halt_live_reload)
   end
 
+  # NOTE: putting it here (after Plug.Static which is EndpointTemplate) means it does not apply to static assets
+  plug Bonfire.Web.Router.CORS
+
   @decorate time()
   defp router(conn, _), do: Bonfire.Web.Router.call(conn, [])
   plug :router

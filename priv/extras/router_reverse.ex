@@ -1,7 +1,7 @@
 # if Bonfire.Common.Config.get(:env) !=:prod do
 #   IO.puts("Re-compile routes to toggle paths of enabled/disabled extensions...")
 #   defmodule Bonfire.Web.Router do
-#     use Bonfire.Web.Routes #, generate_open_api: true
+#     use Bonfire.Web.Router.Routes #, generate_open_api: true
 #   end
 # end
 

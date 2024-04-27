@@ -17,6 +17,8 @@ defmodule Bonfire.Telemetry do
     end
 
     setup_wobserver()
+
+    Corsica.Telemetry.attach_default_handler(log_levels: [rejected: :warning, invalid: :warning])
   end
 
   def setup_opentelemetry(_env, repo_module) do

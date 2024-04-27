@@ -24,6 +24,7 @@ cowboy = "~> 2.12" # should match the version used in plug_cowboy
 # gettext = "<= 0.21.0" # note: usually we should let bonfire_ui_common control this
 bandit = "~> 1.0" # alternative to Cowboy web server
 orion = "~> 1.0" # tracing with web UI (at /admin/system/orion)
+corsica = "~> 2.1"
 
 # admin tools
 phoenix_live_dashboard = "~> 0.8.0"

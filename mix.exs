@@ -59,6 +59,7 @@ defmodule Bonfire.Spark.MixProject do
          maybe_git ++ [hex: "#{@umbrella_mess_defs}.hex"]
        end), 
     if(System.get_env("WITH_API_GRAPHQL")== "yes", do: [
+                      {:absinthe, "~> 1.7"},
                       {:bonfire_api_graphql,
                        git: "https://github.com/bonfire-networks/bonfire_api_graphql"},
                         {:absinthe_client,

@@ -1,4 +1,48 @@
-defmodule Bonfire.Web.Routes do
+defmodule Bonfire.Web.Router.CORS do
+  use Corsica.Router,
+    max_age: 600,
+    allow_methods: :all,
+    allow_headers: :all,
+    origins: {__MODULE__, :local_origin?, [:global]}
+
+  import Untangle
+
+  # resource "/*"
+
+  resource("/api/*",
+    origins: "*",
+    allow_credentials: true
+  )
+
+  resource("/oauth/*",
+    origins: "*",
+    allow_credentials: true
+  )
+
+  resource("/openid/*",
+    origins: "*",
+    allow_credentials: true
+  )
+
+  resource("/.well-known/*",
+    origins: "*"
+  )
+
+  def local_origin?(conn, origin, _scope) do
+    case Bonfire.Common.URIs.base_uri(conn) |> debug() do
+      %{host: local_host} ->
+        case URI.parse(origin) |> debug(origin) do
+          %{host: origin_host} -> origin_host == local_host
+          _ -> false
+        end
+
+      _ ->
+        false
+    end
+  end
+end
+
+defmodule Bonfire.Web.Router.Routes do
   defmacro __using__(opts) do
     quote bind_quoted: [opts: opts] do
       use Bonfire.UI.Common.Web, :router
@@ -6,6 +50,7 @@ defmodule Bonfire.Web.Routes do
       alias Bonfire.Common.Config
       require OrionWeb.Router
       require LiveAdmin.Router
+      import Bonfire.OpenID.Plugs.Authorize
 
       pipeline :load_current_auth do
         if module = maybe_module(Bonfire.UI.Me.Plugs.LoadCurrentUser) do
@@ -253,7 +298,7 @@ IO.puts("Compile routes...")
 
 defmodule Bonfire.Web.Router do
   # , generate_open_api: false
-  use Bonfire.Web.Routes
+  use Bonfire.Web.Router.Routes
 
   # mastodon-compatible API
   if module_enabled?(Bonfire.API.GraphQL.MastoCompatible.Router) do
