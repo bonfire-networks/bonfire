@@ -89,8 +89,8 @@ text_corpus_udhr = "~> 0.1.0"
 
 # telemetry
 telemetry = "~> 1.2.0"
-telemetry_metrics = "~> 0.6.1"
-telemetry_poller = "~> 1.0.0"
+telemetry_metrics = "~> 1.0"
+telemetry_poller = "~> 1.1"
 opentelemetry_exporter = "~> 1.0"
 opentelemetry = "~> 1.0"
 opentelemetry_api = "~> 1.0"
