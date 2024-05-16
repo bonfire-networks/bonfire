@@ -124,8 +124,8 @@ defmodule Bonfire.Application do
     )
     |> IO.inspect(label: "Bonfire.Telemetry.SystemMonitor")
 
-    Application.get_env(:bonfire, Bonfire.Web.Endpoint, [])
-    |> IO.inspect()
+    # Application.get_env(:bonfire, Bonfire.Web.Endpoint, [])
+    # |> IO.inspect()
 
     applications(
       @env,
