@@ -58,6 +58,12 @@ defmodule Bonfire.Spark.MixProject do
          spark_sources ++ 
          maybe_git ++ [hex: "#{@umbrella_mess_defs}.hex"]
        end), 
+    if(System.get_env("AS_DESKTOP_WEBAPP") in ["1", "true"], do: [
+          {:elixirkit, git: "https://github.com/livebook-dev/livebook", sparse: "elixirkit"}
+          ], else: []) ++
+    if(System.get_env("AS_DESKTOP_APP") in ["1", "true"], do: [
+          {:desktop, github: "elixir-desktop/desktop"}
+          ], else: []) ++
     if(System.get_env("WITH_API_GRAPHQL")== "yes", do: [
                       {:absinthe, "~> 1.7"},
                       {:bonfire_api_graphql,

@@ -25,6 +25,7 @@ bonfire_app-*.tar
 # Temporary files, for example, from tests.
 /tmp/
 /data/uploads/
+.DS_Store
 
 extensions/bonfire/lib/mix/*.exs
 deps.path

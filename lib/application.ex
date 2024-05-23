@@ -76,10 +76,11 @@ defmodule Bonfire.Application do
 
   # Stuff that depends on the Endpoint and/or the above
   def apps_after,
-    # ++
-    do: maybe_oban()
+    do:
+      maybe_oban() ++
+        maybe_desktop_webapp()
 
-  # [
+  # ++ [
   #   {Tz.UpdatePeriodically, [interval_in_days: 10]}
   # ] 
 
@@ -131,7 +132,8 @@ defmodule Bonfire.Application do
       @env,
       System.get_env("TEST_INSTANCE") == "yes",
       Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
-        Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL.Schema)
+        Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL.Schema),
+      System.get_env("AS_DESKTOP_APP") in ["1", "true"]
     )
     |> Enum.reject(&is_nil/1)
     |> IO.inspect(label: "apps tree")
@@ -139,42 +141,65 @@ defmodule Bonfire.Application do
   end
 
   # include GraphQL API
-  def applications(env, test_instance?, true = _with_graphql?) do
+  def applications(env, test_instance?, true = _with_graphql?, as_desktop) do
     IO.puts("Enabling the GraphQL API...")
 
     [
       # use persistent_term backend for Absinthe
       {Absinthe.Schema, Bonfire.API.GraphQL.Schema}
     ] ++
-      applications(env, test_instance?, nil) ++
+      applications(env, test_instance?, nil, as_desktop) ++
       [
-        {Absinthe.Subscription, @endpoint_module}
+        {Absinthe.Subscription, endpoint_module(as_desktop)}
       ]
   end
 
-  def applications(_, true = _test_instance?, _any) do
+  def applications(_, true = _test_instance?, _any, as_desktop) do
     apps_before() ++
       [Bonfire.Common.TestInstanceRepo] ++
-      [@plug_protect, @endpoint_module, Bonfire.Web.FakeRemoteEndpoint] ++
+      [@plug_protect, endpoint_module(as_desktop), Bonfire.Web.FakeRemoteEndpoint] ++
       maybe_pages_beacon() ++
       apps_after()
   end
 
-  # def applications(:test, _, _any) do
+  # def applications(:test, _, _any, _as_desktop) do
   #   applications(nil, nil, nil)
   # end
 
-  def applications(:dev, _, _any) do
+  def applications(:dev, _, _any, as_desktop) do
     [
       # simple ETS based storage for non-prod
       {Bonfire.Telemetry.Storage, Bonfire.Telemetry.Metrics.metrics()}
-    ] ++ applications(nil, nil, nil)
+    ] ++ applications(nil, nil, nil, as_desktop)
+  end
+
+  # running as desktop app
+  def applications(_env, _, _any, true) do
+    endpoint_module = endpoint_module(true)
+
+    apps_before() ++
+      [@plug_protect, endpoint_module] ++
+      maybe_pages_beacon() ++
+      apps_after() ++
+      [
+        {Desktop.Window,
+         [
+           app: :bonfire,
+           id: Bonfire,
+           menubar: Bonfire.Desktop.MenuBar,
+           icon_menu: Bonfire.Desktop.TaskMenu,
+           title: "Bonfire",
+           size: {900, 800},
+           icon: "static/images/bonfire-icon.png",
+           url: &endpoint_module.url/0
+         ]}
+      ]
   end
 
   # default apps
-  def applications(_env, _, _any) do
+  def applications(_env, _, _any, _false) do
     apps_before() ++
-      [@plug_protect, @endpoint_module] ++
+      [@plug_protect, endpoint_module(false)] ++
       maybe_pages_beacon() ++
       apps_after()
   end
@@ -182,12 +207,22 @@ defmodule Bonfire.Application do
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    @endpoint_module.config_change(changed, removed)
+    endpoint_module().config_change(changed, removed)
     :ok
   end
 
+  def endpoint_module(as_desktop \\ System.get_env("AS_DESKTOP_APP") in ["1", "true"])
+  def endpoint_module(true), do: Bonfire.Desktop.Endpoint
+  def endpoint_module(_false), do: @endpoint_module
+
+  if Mix.target() == :app do
+    defp maybe_desktop_webapp, do: [Bonfire.Desktop.WebApp]
+  else
+    defp maybe_desktop_webapp, do: []
+  end
+
   def recompile do
-    Phoenix.CodeReloader.reload(@endpoint_module)
+    Phoenix.CodeReloader.reload(endpoint_module())
   end
 
   def recompile! do
@@ -215,7 +250,7 @@ defmodule Bonfire.Application do
          sites: [
            [
              site: :instance_site,
-             endpoint: @endpoint_module,
+             endpoint: endpoint_module(),
              data_source: Bonfire.Pages.Beacon.DataSource
            ]
          ]}
