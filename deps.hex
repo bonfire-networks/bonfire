@@ -35,7 +35,7 @@ live_admin = "~> 0.9.0"
 ecto_sql = "~> 3.8"
 exto = "~> 0.3"
 postgrex = ">= 0.16.2"
-ecto_psql_extras = "~> 0.7.4"
+ecto_psql_extras = "~> 0.8.0"
 # endo = "~> 0.1"
 
 # Uploads (depending on what service you use)
