@@ -37,4 +37,17 @@ defmodule Bonfire.Web.AboutLive do
        ]
      )}
   end
+
+  # catch if the :section id is "privacy"
+  def handle_params(%{"section" => "privacy"}, _url, socket) do
+    {:noreply, socket |> assign(selected_tab: :privacy)}
+  end
+
+  def handle_params(%{"section" => "configuration"}, _url, socket) do
+    {:noreply, socket |> assign(selected_tab: :configuration)}
+  end
+
+  def handle_params(tab, _url, socket) do
+    {:noreply, socket |> assign(selected_tab: :about)}
+  end
 end
