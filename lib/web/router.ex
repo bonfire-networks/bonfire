@@ -150,11 +150,10 @@ defmodule Bonfire.Web.Router.Routes do
       require_if_enabled(Surface.Catalogue.Router)
 
       ## Below you can define routes specific to your flavour of Bonfire (which aren't handled by extensions)
-
+      use_if_enabled(Bones.Web.Routes)
       # pages anyone can view
       scope "/" do
         pipe_through(:browser)
-
         live "/", Bonfire.Web.HomeLive, as: :home, private: %{cache: true}
         # live "/explore", Bonfire.Web.ExploreLive
         # , private : %{cache: true}
