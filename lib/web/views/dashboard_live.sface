@@ -19,7 +19,7 @@
 
 <section
   data-id="user_dashboard"
-  class="flex flex-wrap items-stretch max-w-screen-md mx-auto p-4 pt-0 mt-0 items-start gap-4 !visible"
+  class="flex flex-wrap items-stretch p-4 pt-0 mt-0 items-start gap-4 !visible"
 >
   <div class="grid grid-cols-2 w-full gap-4">
     <StatelessComponent module={maybe_component(Bonfire.Tag.Web.WidgetTagsLive, @__context__)} />
