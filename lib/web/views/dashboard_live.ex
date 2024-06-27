@@ -20,7 +20,6 @@ defmodule Bonfire.Web.DashboardLive do
        page_header: false,
        is_guest?: is_guest?,
        without_sidebar: is_guest?,
-       without_secondary_widgets: true,
        no_header: is_guest?,
        page_title: l("Dashboard"),
        sidebar_widgets: [
