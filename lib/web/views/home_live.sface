@@ -3,7 +3,7 @@
     <div
       :if={Config.get([:ui, :theme, :instance_image], nil)}
       style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
-      class="bg-center bg-no-repeat h-[230px] lg:h-[320px] bg-cover bg-white w-full rounded-t-xl"
+      class="bg-center bg-no-repeat h-[200px] bg-cover bg-white w-full rounded-t-xl"
     >
     </div>
     <div class="flex px-4 lg:px-0 flex-col mx-auto gap-4 max-w-lg text-center">
