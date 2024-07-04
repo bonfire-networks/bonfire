@@ -81,10 +81,11 @@ defmodule Bonfire.Web.HomeLive do
     # debug(params, "param")
 
     feed_name =
-      if module_enabled?(Bonfire.Social.Pins) and
-           Config.get(
+      if module_enabled?(Bonfire.Social.Pins, socket) and
+           Bonfire.Common.Settings.get(
              [Bonfire.UI.Social.FeedsLive, :curated],
-             false
+             false,
+             socket.assigns
            ) do
         :curated
       else
