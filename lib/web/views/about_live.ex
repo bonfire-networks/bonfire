@@ -8,6 +8,28 @@ defmodule Bonfire.Web.AboutLive do
 
   def mount(_params, _session, socket) do
     is_guest? = is_nil(current_user_id(socket.assigns))
+    current_user = current_user(socket.assigns)
+
+    show_users =
+      Bonfire.Common.Settings.get(
+        [Bonfire.Web.AboutLive, :include, :users],
+        false
+      )
+
+    show_users =
+      Bonfire.Common.Settings.get(
+        [Bonfire.Web.AboutLive, :include, :users],
+        false
+      )
+
+    {users, page_info} =
+      with true <- show_users,
+           {title, %{page_info: page_info, edges: edges}} <-
+             Bonfire.UI.Me.UsersDirectoryLive.list_users(current_user, _params, nil) do
+        {edges, page_info}
+      else
+        _ -> {[], nil}
+      end
 
     {:ok,
      socket
@@ -17,6 +39,8 @@ defmodule Bonfire.Web.AboutLive do
        nav_items: Bonfire.Common.ExtensionModule.default_nav(),
        page_header: false,
        is_guest?: is_guest?,
+       users: users |> debug("CACCA"),
+       page_info: page_info,
        without_sidebar: is_guest?,
        without_secondary_widgets: is_guest?,
        no_header: is_guest?,
@@ -35,6 +59,19 @@ defmodule Bonfire.Web.AboutLive do
            ]
          ]
        ]
+     )}
+  end
+
+  def handle_event("load_more", attrs, socket) do
+    {title, %{page_info: page_info, edges: edges}} =
+      Bonfire.UI.Me.UsersDirectoryLive.list_users(current_user(socket.assigns), attrs, nil)
+
+    {:noreply,
+     socket
+     |> assign(
+       loaded: true,
+       users: e(socket.assigns, :users, []) ++ edges,
+       page_info: page_info
      )}
   end
 

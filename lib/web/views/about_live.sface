@@ -16,10 +16,43 @@
       <article class="prose max-w-max">{templated_or_remote_markdown(Config.get([:ui, :theme, :instance_welcome, :description], ""))}</article>
     </div>
   </div>
-  <div class={
-    "px-3",
-    "!px-0": !current_user_id(@__context__)
-  }>
+
+  <div class="p-4" :if={Config.get([Bonfire.Web.AboutLive, :include, :users], true)}>
+    <h2 class="text-lg font-semibold">{l("Network")}</h2>
+    <div class="flex flex-col mt-3 gap-2">
+      <div
+        :for={user <- @users}
+        class="p-4 border rounded-lg shadow bg-base-100 border-base-content/10"
+      >
+        <StatelessComponent
+          module={maybe_component(Bonfire.UI.Me.ProfileItemLive)}
+          character={e(user, :character, nil) || e(user, :activity, :subject, :character, nil)}
+          profile={e(user, :profile, nil) || e(user, :activity, :subject, :profile, nil)}
+          show_summary
+          wrapper_class="flex items-start gap-3 profile-item group justify-between gap-6"
+          avatar_class="w-16 h-16"
+          show_controls={[:follow]}
+        />
+        <!-- <Bonfire.UI.Me.UserPreviewLive user={user} /> -->
+      </div>
+    </div>
+
+    <Bonfire.UI.Common.LoadMoreLive
+      :if={@page_info}
+      live_handler={__MODULE__}
+      page_info={@page_info}
+      hide_guest_fallback
+    />
+  </div>
+
+  <div
+    :if={Config.get([Bonfire.Web.AboutLive, :include, :preferences], true)}
+    class={
+      "px-4",
+      "!px-0": !current_user_id(@__context__)
+    }
+  >
+    <h2 class="mb-3 text-lg font-semibold">{l("Digital Space defaults")}</h2>
     <StatelessComponent
       selected_tab={@selected_tab}
       module={maybe_component(Bonfire.UI.Me.SettingsViewsLive.InstanceSummaryLive, @__context__)}
