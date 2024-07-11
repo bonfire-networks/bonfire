@@ -39,7 +39,7 @@ defmodule Bonfire.Web.AboutLive do
        nav_items: Bonfire.Common.ExtensionModule.default_nav(),
        page_header: false,
        is_guest?: is_guest?,
-       users: users |> debug("CACCA"),
+       users: users,
        page_info: page_info,
        without_sidebar: is_guest?,
        without_secondary_widgets: is_guest?,
