@@ -14,7 +14,14 @@
 
   <section class="">
     <div class="w-full bg-base-100 rounded-xl shadow-sm lg:!mt-0 border border-base-content/5">
-      <div class="font-semibold h-[50px] flex items-center px-4 border-b border-base-content/10">{l("Recent activities")}</div>
+      <div class="font-semibold h-[50px] flex items-center px-4 border-b border-base-content/10">
+        {#case @feed_name}
+          {#match :curated}
+            {l("Top discussions")}
+          {#match _}
+            {l("Recent activities")}
+        {/case}
+      </div>
       <StatefulComponent
         module={maybe_component(Bonfire.UI.Social.FeedLive, @__context__)}
         :if={@feed_component_id}
