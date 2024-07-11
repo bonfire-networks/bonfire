@@ -1,6 +1,6 @@
 Code.eval_file("mess.exs", (if File.exists?("../../lib/mix/mess.exs"), do: "../../lib/mix/"))
 
-defmodule Bonfire.Spark.MixProject do
+defmodule Bonfire.MixProject do
   use Mix.Project
 
   @in_umbrella? File.exists?("../../lib/mix/mess.exs")

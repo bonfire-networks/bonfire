@@ -1,5 +1,5 @@
-# Bonfire Spark
+# Bonfire 
 
-An essential Bonfire extension that sets up the other extensions and starts the app.
+An essential Bonfire extension that bootstraps any other enabled extensions and starts the app. Also includes views such as the homepage and dashboard.
 
-NOTE: this extension uses top-level naming for the OTP app (`:bonfire`) and modules (`Bonfire.`).
+See https://bonfirenetworks.org for details about Bonfire.
