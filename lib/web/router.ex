@@ -154,7 +154,7 @@ defmodule Bonfire.Web.Router.Routes do
       # pages anyone can view
       scope "/" do
         pipe_through(:browser)
-        live "/", Bonfire.Web.HomeLive, as: :home, private: %{cache: true}
+        live "/", Bonfire.Web.HomeLive, as: :home, private: %{cache: false}
         # live "/explore", Bonfire.Web.ExploreLive
         # , private : %{cache: true}
         live "/about", Bonfire.Web.AboutLive, private: %{cache: true}
@@ -301,11 +301,11 @@ defmodule Bonfire.Web.Router do
   use Bonfire.Web.Router.Routes
 
   # mastodon-compatible API
-  if module_enabled?(Bonfire.API.GraphQL.MastoCompatible.Router) do
-    import Bonfire.API.GraphQL.MastoCompatible.Router
-    IO.puts("Generate Masto-compatible API...")
-    include_masto_api()
-  end
+  # if module_enabled?(Bonfire.API.GraphQL.MastoCompatible.Router) do
+  #   import Bonfire.API.GraphQL.MastoCompatible.Router
+  #   IO.puts("Generate Masto-compatible API...")
+  #   include_masto_api()
+  # end
 end
 
 # generate an initial version of the reverse router (note that it will be re-generated at app start and when extensions are enabled/disabled)
