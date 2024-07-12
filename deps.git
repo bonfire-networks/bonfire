@@ -38,7 +38,7 @@ bonfire_ui_messages = "https://github.com/bonfire-networks/bonfire_ui_messages"
 bonfire_ui_reactions = "https://github.com/bonfire-networks/bonfire_ui_reactions"
 bonfire_ui_moderation = "https://github.com/bonfire-networks/bonfire_ui_moderation"
 
-# bonfire_data_shared_user = "https://github.com/bonfire-networks/bonfire_data_shared_user"
+bonfire_data_shared_user = "https://github.com/bonfire-networks/bonfire_data_shared_user"
 bonfire_tag = "https://github.com/bonfire-networks/bonfire_tag"
 bonfire_classify = "https://github.com/bonfire-networks/bonfire_classify"
 bonfire_invite_links= "https://github.com/bonfire-networks/bonfire_invite_links"
