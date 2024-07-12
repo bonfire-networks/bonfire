@@ -6,7 +6,7 @@ defmodule Bonfire.Web.AboutLive do
 
   on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.LoadCurrentUser]}
 
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
     is_guest? = is_nil(current_user_id(socket.assigns))
     current_user = current_user(socket.assigns)
 
@@ -16,16 +16,10 @@ defmodule Bonfire.Web.AboutLive do
         false
       )
 
-    show_users =
-      Bonfire.Common.Settings.get(
-        [Bonfire.Web.AboutLive, :include, :users],
-        false
-      )
-
     {users, page_info} =
       with true <- show_users,
-           {title, %{page_info: page_info, edges: edges}} <-
-             Bonfire.UI.Me.UsersDirectoryLive.list_users(current_user, _params, nil) do
+           {_title, %{page_info: page_info, edges: edges}} <-
+             Bonfire.UI.Me.UsersDirectoryLive.list_users(current_user, params, nil) do
         {edges, page_info}
       else
         _ -> {[], nil}
@@ -63,7 +57,7 @@ defmodule Bonfire.Web.AboutLive do
   end
 
   def handle_event("load_more", attrs, socket) do
-    {title, %{page_info: page_info, edges: edges}} =
+    {_title, %{page_info: page_info, edges: edges}} =
       Bonfire.UI.Me.UsersDirectoryLive.list_users(current_user(socket.assigns), attrs, nil)
 
     {:noreply,
@@ -84,7 +78,7 @@ defmodule Bonfire.Web.AboutLive do
     {:noreply, socket |> assign(selected_tab: :configuration)}
   end
 
-  def handle_params(tab, _url, socket) do
+  def handle_params(_tab, _url, socket) do
     {:noreply, socket |> assign(selected_tab: :about)}
   end
 end

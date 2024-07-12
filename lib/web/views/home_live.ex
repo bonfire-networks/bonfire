@@ -5,7 +5,7 @@ defmodule Bonfire.Web.HomeLive do
   use Bonfire.UI.Common.Web, :surface_live_view
 
   alias Bonfire.Me.Accounts
-  alias Bonfire.UI.Social.FeedLive
+  # alias Bonfire.UI.Social.FeedLive
 
   # @changelog File.read!("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
 
@@ -34,7 +34,7 @@ defmodule Bonfire.Web.HomeLive do
     end
   end
 
-  defp do_mount(params, _session, socket) do
+  defp do_mount(_params, _session, socket) do
     links =
       Config.get([:ui, :theme, :instance_welcome, :links], %{
         l("About Bonfire") => "https://bonfirenetworks.org/",
@@ -59,7 +59,6 @@ defmodule Bonfire.Web.HomeLive do
        links: links,
        #  changelog: @changelog,
        error: nil,
-       #  form: login_form(params),
        loading: true,
        feed: nil,
        feed_id: nil,
@@ -69,8 +68,6 @@ defmodule Bonfire.Web.HomeLive do
        #  nav_items: Bonfire.Common.ExtensionModule.default_nav()
      )}
   end
-
-  defp login_form(params), do: Accounts.changeset(:login, params)
 
   # def handle_params(%{"tab" => _tab} = params, url, socket) do
   #   Bonfire.UI.Social.FeedsLive.handle_params(params, url, socket)
