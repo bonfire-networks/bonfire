@@ -11,6 +11,24 @@ defmodule Bonfire.Web.DashboardLive do
   def mount(_params, _session, socket) do
     is_guest? = is_nil(current_user_id(socket.assigns))
 
+    sidebar_widgets = [
+      users: [
+        secondary: Enum.filter([
+          Bonfire.Common.Config.get([Bonfire.Web.DashboardLive, :include, :popular_topics], false) && {Bonfire.Tag.Web.WidgetTagsLive, []},
+          Bonfire.Common.Config.get([Bonfire.Web.DashboardLive, :include, :admins], false) && {Bonfire.UI.Me.WidgetAdminsLive, []},
+          Bonfire.Common.Config.get([Bonfire.Web.DashboardLive, :include, :recent_users], false) && {Bonfire.UI.Me.WidgetHighlightUsersLive, []}
+        ], & &1)
+      ]
+    ]
+
+    default_feed = Bonfire.Common.Config.get([Bonfire.Web.DashboardLive, :default_feed], :my)
+    page_title =
+      case default_feed do
+        :my -> l("Following")
+        :curated -> l("Curated activities")
+        _ -> l("Active discussions")
+      end
+
     {:ok,
      socket
      |> assign(
@@ -21,15 +39,8 @@ defmodule Bonfire.Web.DashboardLive do
        is_guest?: is_guest?,
        without_sidebar: is_guest?,
        no_header: is_guest?,
-       page_title: l("Dashboard"),
-       sidebar_widgets: [
-         users: [
-           secondary: [
-             #  {Bonfire.Tag.Web.WidgetTagsLive, []},
-             {Bonfire.UI.Me.WidgetAdminsLive, []}
-           ]
-         ]
-       ],
+       page_title: page_title,
+       sidebar_widgets: sidebar_widgets,
        loading: true,
        feed: nil,
        feed_id: nil,

@@ -3,7 +3,7 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
      !Bonfire.Common.Extend.module_enabled?(Bonfire.ValueFlows.API.Schema) do
   defmodule Bonfire.API.GraphQL.Schema do
     @moduledoc """
-    Root GraphQL Schema. 
+    Root GraphQL Schema.
     Only active if the `Bonfire.API.GraphQL` extension is present.
     """
 

@@ -1,29 +1,29 @@
-{!-- <Bonfire.UI.Common.PreviewContentLive id="preview_content">
-  <:extra_contents>
-    <div id="the_extra_contents" data-role="persistent_feed">
-      <StatefulComponent
-        module={maybe_component(Bonfire.UI.Social.FeedLive, @__context__)}
-        :if={@feed_component_id}
-        id={@feed_component_id}
-        feed_id={@feed_id}
-        feed_name={@feed_name}
-        feed_ids={@feed_ids}
-        page_title={@page_title}
-        feed={@feed}
-        page_info={@page_info}
-        loading={@loading}
-      />
-    </div>
-  </:extra_contents>
-</Bonfire.UI.Common.PreviewContentLive> --}
-
 <section
   data-id="user_dashboard"
-  class="flex flex-wrap items-stretch p-4 pt-0 mt-0 items-start gap-4 !visible"
+  class=""
 >
-  <div class="grid grid-cols-2 w-full gap-4">
-    <StatelessComponent module={maybe_component(Bonfire.Tag.Web.WidgetTagsLive, @__context__)} />
-    <StatelessComponent module={maybe_component(Bonfire.UI.Me.WidgetHighlightUsersLive, @__context__)} />
-  </div>
-  <StatelessComponent module={maybe_component(Bonfire.UI.Social.WidgetDiscussionsLive, @__context__)} />
+  {#case Bonfire.Common.Config.get([Bonfire.Web.DashboardLive, :default_feed], :my)}
+    {#match :my}
+    <StatefulComponent
+      module={maybe_component(Bonfire.UI.Social.FeedLive, e(@__context__, :socket, nil))}
+      id={ComponentID.new(Bonfire.UI.Social.FeedLive, Bonfire.Social.Feeds.my_feed_id(:inbox, e(@__context__, :socket, nil)), __MODULE__)}
+      feed_id={Bonfire.Social.Feeds.my_feed_id(:inbox, e(@__context__, :socket, nil))}
+      feed_name={:my}
+      feed_title={l("Following")}
+      hide_tabs
+    />
+    {#match :curated}
+     <StatefulComponent
+      module={maybe_component(Bonfire.UI.Social.FeedLive, e(@__context__, :socket, nil))}
+      id={ComponentID.new(Bonfire.UI.Social.FeedLive, :curated, __MODULE__)}
+      feed_id={:curated}
+      feed_name={:curated}
+      feed_title={l("Curated Activities")}
+      hide_tabs
+    />
+  {#match :popular}
+    <StatelessComponent module={maybe_component(Bonfire.UI.Social.WidgetDiscussionsLive, @__context__)} />
+  {#match _}
+    <StatelessComponent module={maybe_component(Bonfire.UI.Social.WidgetDiscussionsLive, @__context__)} />
+  {/case}
 </section>
