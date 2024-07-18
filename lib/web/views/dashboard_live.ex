@@ -13,15 +13,27 @@ defmodule Bonfire.Web.DashboardLive do
 
     sidebar_widgets = [
       users: [
-        secondary: Enum.filter([
-          Bonfire.Common.Config.get([Bonfire.Web.DashboardLive, :include, :popular_topics], false) && {Bonfire.Tag.Web.WidgetTagsLive, []},
-          Bonfire.Common.Config.get([Bonfire.Web.DashboardLive, :include, :admins], false) && {Bonfire.UI.Me.WidgetAdminsLive, []},
-          Bonfire.Common.Config.get([Bonfire.Web.DashboardLive, :include, :recent_users], false) && {Bonfire.UI.Me.WidgetHighlightUsersLive, []}
-        ], & &1)
+        secondary:
+          Enum.filter(
+            [
+              Bonfire.Common.Config.get(
+                [Bonfire.Web.DashboardLive, :include, :popular_topics],
+                false
+              ) && {Bonfire.Tag.Web.WidgetTagsLive, []},
+              Bonfire.Common.Config.get([Bonfire.Web.DashboardLive, :include, :admins], false) &&
+                {Bonfire.UI.Me.WidgetAdminsLive, []},
+              Bonfire.Common.Config.get(
+                [Bonfire.Web.DashboardLive, :include, :recent_users],
+                false
+              ) && {Bonfire.UI.Me.WidgetHighlightUsersLive, []}
+            ],
+            & &1
+          )
       ]
     ]
 
     default_feed = Bonfire.Common.Config.get([Bonfire.Web.DashboardLive, :default_feed], :my)
+
     page_title =
       case default_feed do
         :my -> l("Following")
