@@ -71,8 +71,8 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
     import_types(Bonfire.Tag.GraphQL.TagSchema)
     import_types(Bonfire.Classify.GraphQL.ClassifySchema)
 
-    import_types(Bonfire.Quantify.Units.GraphQL)
-    import_types(Bonfire.Geolocate.GraphQL)
+    # import_types(Bonfire.Quantify.Units.GraphQL)
+    # import_types(Bonfire.Geolocate.GraphQL)
 
     # import_types(Bonfire.ValueFlows.API.Schema)
     # import_types(Bonfire.ValueFlows.API.Schema.Subscriptions)
@@ -97,8 +97,8 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
 
       # import_fields(:locales_queries)
 
-      import_fields(:measurement_query)
-      import_fields(:geolocation_query)
+      # import_fields(:measurement_query)
+      # import_fields(:geolocation_query)
 
       # ValueFlows
       # import_fields(:value_flows_query)
@@ -119,8 +119,8 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
       import_fields(:tag_mutations)
       import_fields(:classify_mutations)
 
-      import_fields(:geolocation_mutation)
-      import_fields(:measurement_mutation)
+      # import_fields(:geolocation_mutation)
+      # import_fields(:measurement_mutation)
 
       # ValueFlows
 
@@ -166,7 +166,7 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
         # :group,
         # :topic,
         :category,
-        :spatial_thing
+        # :spatial_thing
       ])
 
       resolve_type(&schema_to_api_type/2)
@@ -193,7 +193,7 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
         # :topic,
         :category,
         :tag,
-        :spatial_thing
+        # :spatial_thing
       ])
 
       resolve_type(&schema_to_api_type/2)
