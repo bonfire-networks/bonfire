@@ -165,7 +165,7 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
         # :organisation,
         # :group,
         # :topic,
-        :category,
+        :category
         # :spatial_thing
       ])
 
@@ -192,7 +192,7 @@ if Application.compile_env(:bonfire_api_graphql, :modularity) != :disabled and
         # :group,
         # :topic,
         :category,
-        :tag,
+        :tag
         # :spatial_thing
       ])
 
