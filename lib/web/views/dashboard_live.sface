@@ -1,5 +1,5 @@
 <section data-id="user_dashboard" class="">
-  {#case Bonfire.Common.Config.get([Bonfire.Web.DashboardLive, :default_feed], :my)}
+  {#case @default_feed}
     {#match :my}
       <StatefulComponent
         module={maybe_component(Bonfire.UI.Social.FeedLive, e(@__context__, :socket, nil))}
@@ -14,6 +14,7 @@
         hide_tabs
       />
     {#match :curated}
+      <!-- TODO: cache -->
       <StatefulComponent
         module={maybe_component(Bonfire.UI.Social.FeedLive, e(@__context__, :socket, nil))}
         id={ComponentID.new(Bonfire.UI.Social.FeedLive, :curated, __MODULE__)}

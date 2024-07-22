@@ -9,22 +9,27 @@ defmodule Bonfire.Web.DashboardLive do
   on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.UserRequired]}
 
   def mount(_params, _session, socket) do
-    is_guest? = is_nil(current_user_id(socket.assigns))
+    current_user = current_user(socket.assigns)
+    is_guest? = is_nil(current_user)
 
     sidebar_widgets = [
       users: [
         secondary:
           Enum.filter(
             [
-              Bonfire.Common.Config.get(
+              Settings.get(
                 [Bonfire.Web.DashboardLive, :include, :popular_topics],
-                false
+                true,
+                current_user: current_user
               ) && {Bonfire.Tag.Web.WidgetTagsLive, []},
-              Bonfire.Common.Config.get([Bonfire.Web.DashboardLive, :include, :admins], false) &&
+              Settings.get([Bonfire.Web.DashboardLive, :include, :admins], true,
+                current_user: current_user
+              ) &&
                 {Bonfire.UI.Me.WidgetAdminsLive, []},
-              Bonfire.Common.Config.get(
+              Settings.get(
                 [Bonfire.Web.DashboardLive, :include, :recent_users],
-                false
+                true,
+                current_user: current_user
               ) && {Bonfire.UI.Me.WidgetHighlightUsersLive, []}
             ],
             & &1
@@ -32,7 +37,10 @@ defmodule Bonfire.Web.DashboardLive do
       ]
     ]
 
-    default_feed = Bonfire.Common.Config.get([Bonfire.Web.DashboardLive, :default_feed], :my)
+    default_feed =
+      Settings.get([Bonfire.Web.DashboardLive, :default_feed], :popular,
+        current_user: current_user
+      )
 
     page_title =
       case default_feed do
@@ -48,6 +56,7 @@ defmodule Bonfire.Web.DashboardLive do
        selected_tab: :about,
        nav_items: Bonfire.Common.ExtensionModule.default_nav(),
        page_header: false,
+       default_feed: default_feed,
        is_guest?: is_guest?,
        without_sidebar: is_guest?,
        no_header: is_guest?,
