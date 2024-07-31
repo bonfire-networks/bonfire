@@ -1,8 +1,7 @@
 bonfire_common = "https://github.com/bonfire-networks/bonfire_common"
 bonfire_ui_common = "https://github.com/bonfire-networks/bonfire_ui_common"
 bonfire_ui_me = "https://github.com/bonfire-networks/bonfire_ui_me" 
-activity_pub = "https://github.com/bonfire-networks/activity_pub#develop"
-
+activity_pub = "https://github.com/bonfire-networks/activity_pub#main"
 
 bonfire_mailer = "https://github.com/bonfire-networks/bonfire_mailer"
 bonfire_epics = "https://github.com/bonfire-networks/bonfire_epics"
@@ -54,11 +53,10 @@ boruta = "https://github.com/bonfire-networks/boruta"
 
 # exto = "https://github.com/bonfire-networks/exto"
 
-# needle = "https://github.com/bonfire-networks/needle"
+needle = "https://github.com/bonfire-networks/needle"
 
 # needle_ulid = "https://github.com/bonfire-networks/needle_ulid"
 
-# activity_pub = "https://github.com/bonfire-networks/activity_pub#develop"
 mfm_parser = "https://akkoma.dev/AkkomaGang/mfm-parser.git"
 nodeinfo = "https://github.com/bonfire-networks/nodeinfo"
 emote = "https://github.com/bonfire-networks/emote"
