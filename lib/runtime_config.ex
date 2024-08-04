@@ -62,13 +62,13 @@ defmodule Bonfire.RuntimeConfig do
           ],
           # These steps are run in parallel and require the outputs of the previous ones
           [
-            # possibly fetch contents of URLs (depends on ),
+            # possibly fetch contents of URLs,
             {Bonfire.Files.Acts.URLPreviews, on: :post},
 
             # possibly occurring in a thread,
             {Bonfire.Social.Acts.Threaded, on: :post},
 
-            # with extracted tags/mentions fully hooked up (depends on ),
+            # with extracted tags/mentions fully hooked up,
             {Bonfire.Tag.Acts.Tag, on: :post},
 
             # maybe set as sensitive,
@@ -79,7 +79,7 @@ defmodule Bonfire.RuntimeConfig do
             # possibly with uploaded/linked media (optionally depends on URLPreviews),
             {Bonfire.Files.Acts.AttachMedia, on: :post},
 
-            # with appropriate boundaries established (depends on  and Threaded),
+            # with appropriate boundaries established (depends Threaded),
             {Bonfire.Boundaries.Acts.SetBoundaries, on: :post},
 
             # summarised by an activity (possibly appearing in feeds),
@@ -96,7 +96,7 @@ defmodule Bonfire.RuntimeConfig do
           # Preload data (TODO: move this to seperate act) & Publish live feed updates via (in-memory) PubSub
           {Bonfire.Social.Acts.LivePush, on: :post},
 
-          # These steps are run in parallel, and could casually in the background (without waiting for their result, but still notifying the user of there's an error)
+          # These steps are run in parallel. TODO: could casually in the background (without waiting for their result, but still notifying the user of there's an error)
           [
             # Enqueue for indexing by meilisearch
             {Bonfire.Search.Acts.Queue, on: :post},
