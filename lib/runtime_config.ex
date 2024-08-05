@@ -2,7 +2,7 @@ defmodule Bonfire.RuntimeConfig do
   @behaviour Bonfire.Common.ConfigModule
   def config_module, do: true
 
-  alias Bonfire.Ecto.Acts, as: Ecto
+  alias Bonfire.Ecto.Acts, as: EctoActs
 
   @page_act_opts [on: :page, attrs: :page_attrs]
   @section_act_opts [on: :section, attrs: :section_attrs]
@@ -19,8 +19,8 @@ defmodule Bonfire.RuntimeConfig do
       # Create a changeset for deletion
       {Bonfire.Social.Acts.Objects.Delete, on: :object, ap_on: :ap_object},
 
-      # mark for deletion
-      {Ecto.Delete,
+      # mark for deletion # FIXME - no longer needed?
+      {EctoActs.Delete,
        on: :object,
        delete_extra_associations: [
          :post_content,
@@ -29,10 +29,10 @@ defmodule Bonfire.RuntimeConfig do
        ]},
 
       # Now we have a short critical section
-      Ecto.Begin,
+      EctoActs.Begin,
       # Run our deletes
-      Ecto.Work,
-      Ecto.Commit,
+      EctoActs.Work,
+      EctoActs.Commit,
 
       # Prepare for federation and add to queue (oban)
       {Bonfire.Social.Acts.Federate, on: :object, ap_on: :ap_object},
@@ -88,10 +88,10 @@ defmodule Bonfire.RuntimeConfig do
           ],
 
           # Now we have a short critical section
-          Ecto.Begin,
+          EctoActs.Begin,
           # Run our inserts
-          Ecto.Work,
-          Ecto.Commit,
+          EctoActs.Work,
+          EctoActs.Commit,
 
           # Preload data (TODO: move this to seperate act) & Publish live feed updates via (in-memory) PubSub
           {Bonfire.Social.Acts.LivePush, on: :post},
@@ -144,10 +144,10 @@ defmodule Bonfire.RuntimeConfig do
           # {Bonfire.Social.Acts.Feeds,       @page_act_opts}, # appearing in feeds?
 
           # Now we have a short critical section
-          Ecto.Begin,
+          EctoActs.Begin,
           # Run our inserts
-          Ecto.Work,
-          Ecto.Commit,
+          EctoActs.Work,
+          EctoActs.Commit,
 
           # These things are free to happen casually in the background.
           # Publish live feed updates via (in-memory) pubsub?
@@ -190,10 +190,10 @@ defmodule Bonfire.RuntimeConfig do
           # {Bonfire.Social.Acts.Feeds,       @section_act_opts}, # appearing in feeds?
 
           # Now we have a short critical section
-          Ecto.Begin,
+          EctoActs.Begin,
           # Run our inserts
-          Ecto.Work,
-          Ecto.Commit,
+          EctoActs.Work,
+          EctoActs.Commit,
 
           # These things are free to happen casually in the background.
           # Publish live feed updates via (in-memory) pubsub?
@@ -237,10 +237,10 @@ defmodule Bonfire.RuntimeConfig do
           {Bonfire.Social.Acts.Feeds, @question_act_opts},
 
           # Now we have a short critical section
-          Ecto.Begin,
+          EctoActs.Begin,
           # Run our inserts
-          Ecto.Work,
-          Ecto.Commit,
+          EctoActs.Work,
+          EctoActs.Commit,
 
           # These things are free to happen casually in the background.
           # Publish live feed updates via (in-memory) pubsub?
@@ -283,10 +283,10 @@ defmodule Bonfire.RuntimeConfig do
           # {Bonfire.Social.Acts.Feeds,       @label_act_opts}, # appearing in feeds?
 
           # Now we have a short critical section
-          Ecto.Begin,
+          EctoActs.Begin,
           # Run our inserts
-          Ecto.Work,
-          Ecto.Commit,
+          EctoActs.Work,
+          EctoActs.Commit,
 
           # These things are free to happen casually in the background.
           # Publish live feed updates via (in-memory) pubsub?

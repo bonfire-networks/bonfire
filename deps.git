@@ -47,15 +47,15 @@ apical = "https://github.com/bonfire-networks/apical"
 boruta = "https://github.com/bonfire-networks/boruta"
 # boruta = "https://gitlab.com/patatoid/boruta_auth"
 
-# arrows = "https://github.com/bonfire-networks/arrows"
+arrows = "https://github.com/bonfire-networks/arrows"
 
-# untangle = "https://github.com/bonfire-networks/untangle"
+untangle = "https://github.com/bonfire-networks/untangle"
 
-# exto = "https://github.com/bonfire-networks/exto"
+exto = "https://github.com/bonfire-networks/exto"
 
 needle = "https://github.com/bonfire-networks/needle"
 
-# needle_ulid = "https://github.com/bonfire-networks/needle_ulid"
+needle_ulid = "https://github.com/bonfire-networks/needle_ulid"
 
 mfm_parser = "https://akkoma.dev/AkkomaGang/mfm-parser.git"
 nodeinfo = "https://github.com/bonfire-networks/nodeinfo"
@@ -63,7 +63,7 @@ emote = "https://github.com/bonfire-networks/emote"
 paginator = "https://github.com/bonfire-networks/paginator"
 voodoo = "https://github.com/bonfire-networks/voodoo"
 
-# ecto_sparkles = "https://github.com/bonfire-networks/ecto_sparkles"
+ecto_sparkles = "https://github.com/bonfire-networks/ecto_sparkles"
 
 #twinkle_star = "https://github.com/bonfire-networks/twinkle_star"
 
