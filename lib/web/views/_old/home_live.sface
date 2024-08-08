@@ -14,8 +14,8 @@
     </section>
 
     <section class="max-w-screen-xl h-full flex-1 mt-0 grid lg:grid-cols-5 gap-4">
-      <div class="w-full lg:border border-base-content/10 col-span-3 -mt-4 lg:!mt-0 rounded-xl">
-        <div class="text-lg font-semibold h-[50px] flex items-center px-4 border-b border-base-content/10">{l("Recent activities")}</div>
+      <div class="w-full lg:border border-base-content/20 col-span-3 -mt-4 lg:!mt-0 rounded-xl">
+        <div class="text-lg font-semibold h-[50px] flex items-center px-4 border-b border-base-content/20">{l("Recent activities")}</div>
         <StatefulComponent
           module={maybe_component(Bonfire.UI.Social.FeedLive, @__context__)}
           :if={@feed_component_id}
