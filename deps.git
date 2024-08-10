@@ -49,5 +49,36 @@ live_admin = "https://github.com/bonfire-networks/live_admin"
 
 ex_aws = "https://github.com/bonfire-networks/ex_aws"
 
+entrepot = "https://github.com/bonfire-networks/entrepot"
+entrepot_ecto = "https://github.com/bonfire-networks/entrepot_ecto"
+
+mfm_parser = "https://akkoma.dev/AkkomaGang/mfm-parser.git"
+nodeinfo = "https://github.com/bonfire-networks/nodeinfo"
+
+emote = "https://github.com/bonfire-networks/emote"
+
+paginator = "https://github.com/bonfire-networks/paginator"
+
+#twinkle_star = "https://github.com/bonfire-networks/twinkle_star"
+#tree_magic = "https://github.com/bonfire-networks/tree_magic.ex"
+
+# phoenix_live_view = "https://github.com/phoenixframework/phoenix_live_view"
+
+# live_view_native = "https://github.com/bonfire-networks/live_view_native#wip"
+
+# surface = "https://github.com/surface-ui/surface" 
+
+# surface_catalogue = "https://github.com/surface-ui/surface_catalogue"  # Testing a UI component library 
+
+paper_trail = "https://github.com/bonfire-networks/paper_trail#with-pointers"
+
+# source_inspector = "https://github.com/tmbb/source_inspector"
+
+# sentry = "https://github.com/getsentry/sentry-elixir"
+
+forecastr = "https://github.com/bonfire-networks/forecastr"
+
+# image = "https://github.com/elixir-image/image"
+
 ex_cldr_territories = "https://github.com/elixir-cldr/cldr_territories" 
 # temp ^ until next release
