@@ -105,4 +105,3 @@ opentelemetry_telemetry = "~> 1.1"
 oban_live_dashboard = "~> 0.1.1"
 opentelemetry_process_propagator = "~> 0.2"
 
-forecastr = "~> 0.3.0"
