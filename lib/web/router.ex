@@ -50,7 +50,7 @@ defmodule Bonfire.Web.Router.Routes do
       alias Bonfire.Common.Config
       require OrionWeb.Router
       require LiveAdmin.Router
-      import Bonfire.OpenID.Plugs.Authorize
+      import_if_enabled(Bonfire.OpenID.Plugs.Authorize)
 
       pipeline :load_current_auth do
         if module = maybe_module(Bonfire.UI.Me.Plugs.LoadCurrentUser) do
