@@ -63,6 +63,7 @@ mogrify = "~> 0.9.1"
 cachex = "~> 3.2"
 sizeable = "~> 1.0"
 geo = "~> 3.6"
+recase = "~> 0.8"
 
 # Testing
 floki = "~> 0.36"
@@ -89,7 +90,7 @@ text_corpus_udhr = "~> 0.1.0"
 #result = "~> 1.7"
 
 # telemetry
-telemetry = "~> 1.2.0"
+telemetry = ">= 1.1"
 telemetry_metrics = "~> 1.0"
 telemetry_poller = "~> 1.1"
 opentelemetry_exporter = "~> 1.0"
