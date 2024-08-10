@@ -43,6 +43,8 @@ bonfire_classify = "https://github.com/bonfire-networks/bonfire_classify"
 bonfire_invite_links= "https://github.com/bonfire-networks/bonfire_invite_links"
 
 ## UTILS
+voodoo = "https://github.com/bonfire-networks/voodoo"
+
 live_admin = "https://github.com/bonfire-networks/live_admin"
 
 ex_aws = "https://github.com/bonfire-networks/ex_aws"
