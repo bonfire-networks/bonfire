@@ -90,7 +90,7 @@ text_corpus_udhr = "~> 0.1.0"
 #result = "~> 1.7"
 
 # telemetry
-telemetry = ">= 1.1"
+telemetry = ">= 1.1.0"
 telemetry_metrics = "~> 1.0"
 telemetry_poller = "~> 1.1"
 opentelemetry_exporter = "~> 1.0"
