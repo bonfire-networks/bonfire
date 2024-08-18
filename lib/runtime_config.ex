@@ -19,13 +19,12 @@ defmodule Bonfire.RuntimeConfig do
       # Create a changeset for deletion
       {Bonfire.Social.Acts.Objects.Delete, on: :object, ap_on: :ap_object},
 
-      # mark for deletion # FIXME - no longer needed?
+      # mark for deletion 
       {EctoActs.Delete,
        on: :object,
        delete_extra_associations: [
          :post_content,
-         :tagged,
-         :media
+         :tagged
        ]},
 
       # Now we have a short critical section
@@ -35,10 +34,15 @@ defmodule Bonfire.RuntimeConfig do
       EctoActs.Commit,
 
       # Prepare for federation and add to queue (oban)
-      {Bonfire.Social.Acts.Federate, on: :object, ap_on: :ap_object},
+      [
+        {Bonfire.Social.Acts.Federate, on: :object, ap_on: :ap_object},
 
-      # Enqueue for un-indexing by meilisearch
-      {Bonfire.Search.Acts.Queue, on: :object}
+        # Enqueue for un-indexing by meilisearch
+        {Bonfire.Search.Acts.Queue, on: :object},
+
+        # Delete associated media
+        {Bonfire.Files.Acts.Delete, on: :delete_media}
+      ]
     ]
 
     config :bonfire_social_graph, Bonfire.Social.Graph.Follows, []
