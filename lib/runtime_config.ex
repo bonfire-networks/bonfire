@@ -58,24 +58,21 @@ defmodule Bonfire.RuntimeConfig do
             # with a sanitised body and tags extracted,
             {Bonfire.Social.Acts.PostContents, on: :post},
 
-            # assign a caretaker,
-            {Bonfire.Me.Acts.Caretaker, on: :post},
-
-            # record the creator,
-            {Bonfire.Me.Acts.Creator, on: :post}
+            # possibly occurring in a thread,
+            {Bonfire.Social.Acts.Threaded, on: :post}
           ],
           # These steps are run in parallel and require the outputs of the previous ones
           [
-            # possibly fetch contents of URLs,
+            # halt if it looks like spam (depends on PostContents and Threaded),
+            # {Bonfire.Social.Acts.AntiSpam, on: :post, mode: :halt},
+
+            # possibly fetch contents of URLs (depends on PostContents),
             {Bonfire.Files.Acts.URLPreviews, on: :post},
 
-            # possibly occurring in a thread,
-            {Bonfire.Social.Acts.Threaded, on: :post},
-
-            # with extracted tags/mentions fully hooked up,
+            # with extracted tags/mentions fully hooked up (depends on PostContents),
             {Bonfire.Tag.Acts.Tag, on: :post},
 
-            # maybe set as sensitive,
+            # maybe set as sensitive (depends on PostContents),
             {Bonfire.Social.Acts.Sensitivity, on: :post}
           ],
           # These steps are run in parallel and require the outputs of the previous ones
@@ -83,12 +80,20 @@ defmodule Bonfire.RuntimeConfig do
             # possibly with uploaded/linked media (optionally depends on URLPreviews),
             {Bonfire.Files.Acts.AttachMedia, on: :post},
 
-            # with appropriate boundaries established (depends Threaded),
+            # with appropriate boundaries established (depends on Threaded),
             {Bonfire.Boundaries.Acts.SetBoundaries, on: :post},
 
+            # NOTE: the following ones are here only to avoid executing unless the rest is valid
+
             # summarised by an activity (possibly appearing in feeds),
-            {Bonfire.Social.Acts.Activity, on: :post}
+            {Bonfire.Social.Acts.Activity, on: :post},
             # {Bonfire.Social.Acts.Feeds,       on: :post},
+
+            # assign a caretaker,
+            {Bonfire.Me.Acts.Caretaker, on: :post},
+
+            # record the creator,
+            {Bonfire.Me.Acts.Creator, on: :post}
           ],
 
           # Now we have a short critical section
@@ -97,7 +102,7 @@ defmodule Bonfire.RuntimeConfig do
           EctoActs.Work,
           EctoActs.Commit,
 
-          # Preload data (TODO: move this to seperate act) & Publish live feed updates via (in-memory) PubSub
+          # Preload data (TODO: move preload to separate act) + Publish live feed updates via (in-memory) PubSub
           {Bonfire.Social.Acts.LivePush, on: :post},
 
           # These steps are run in parallel. TODO: could casually in the background (without waiting for their result, but still notifying the user of there's an error)
@@ -107,7 +112,10 @@ defmodule Bonfire.RuntimeConfig do
 
             # Oban would rather we put these here than in the transaction above
             # Prepare JSON for federation and add to queue (oban).
-            {Bonfire.Social.Acts.Federate, on: :post}
+            {Bonfire.Social.Acts.Federate, on: :post},
+
+            # auto-flag if it looks like spam (depends on the post already existing),
+            {Bonfire.Social.Acts.AntiSpam, on: :post, mode: :flag}
           ],
 
           # Once the activity/object exists (including in AP db), we can apply these side effects
