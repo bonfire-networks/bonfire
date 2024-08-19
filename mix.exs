@@ -82,10 +82,10 @@ defmodule Bonfire.MixProject do
 
       # error reporting
       {:sentry, "~> 10.0", optional: true},
-      {:orion, "~> 1.0"},
-      {:live_admin, #"~> 0.9.0"
-      git: "https://github.com/bonfire-networks/live_admin"
-      },
+      {:orion, "~> 1.0.5"},
+      # {:live_admin, #"~> 0.12.0"
+      # git: "https://github.com/bonfire-networks/live_admin"
+      # },
 
       # API
       # {:exonerate, "~> 1.1.3", runtime: Mix.env() != :prod},

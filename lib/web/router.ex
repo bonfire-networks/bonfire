@@ -49,7 +49,7 @@ defmodule Bonfire.Web.Router.Routes do
       # use Plug.ErrorHandler
       alias Bonfire.Common.Config
       require OrionWeb.Router
-      require LiveAdmin.Router
+      require_if_enabled(LiveAdmin.Router)
       import_if_enabled(Bonfire.OpenID.Plugs.Authorize)
 
       pipeline :load_current_auth do

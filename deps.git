@@ -45,7 +45,8 @@ bonfire_invite_links= "https://github.com/bonfire-networks/bonfire_invite_links"
 ## UTILS
 voodoo = "https://github.com/bonfire-networks/voodoo"
 
-live_admin = "https://github.com/bonfire-networks/live_admin"
+# live_admin = "https://github.com/bonfire-networks/live_admin"
+# FIXME: update integration to use latest version from hex instead
 
 ex_aws = "https://github.com/bonfire-networks/ex_aws"
 
@@ -66,7 +67,10 @@ paginator = "https://github.com/bonfire-networks/paginator"
 
 # live_view_native = "https://github.com/bonfire-networks/live_view_native#wip"
 
-# surface = "https://github.com/surface-ui/surface" 
+# TEMP: use surface from main which has components removed and moved to seperare lib
+surface = "https://github.com/surface-ui/surface" 
+surface_form = "https://github.com/surface-ui/surface_form#489e0cad5b5b910d82bb7705968e74b4671ab911" 
+# ^ with PR https://github.com/surface-ui/surface_form/pull/2 for compat with phoenix_html 4.0
 
 # surface_catalogue = "https://github.com/surface-ui/surface_catalogue"  # Testing a UI component library 
 

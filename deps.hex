@@ -10,25 +10,25 @@ ex_cldr = "~> 2.30" # internationalisation
 
 # Web
 # livebook = "~> 0.7.2"
-surface = "~> 0.11.2" # note: usually we should let bonfire_ui_common control this
+surface = "~> 0.11.4" # note: usually we should let bonfire_ui_common control this
 phoenix = "~> 1.7.0" # note: should match version supported by version of surface used
 # phoenix_live_view = "<= 0.20.1" # usually should let surface decide the version
 phoenix_live_view = "~> 0.20.7" # usually should let surface decide the version
 # live_view_native = "~> 0.2.0"
 # live_view_native_swiftui = "~> 0.2.1"
-# phoenix_html = "~> 4.0" # note: usually we should let bonfire_ui_common control this
+phoenix_html = "~> 4.0" # note: usually we should let surface decide the version
 phoenix_view = "~> 2.0" # should match phx/lv - dunno why isn't upgraded otherwise
 plug_crypto = "~> 2.0" # newer crypto for plug/phoenix
 plug_cowboy = "~> 2.7" # should match the version in phoenix's mix.exs
 cowboy = "~> 2.12" # should match the version used in plug_cowboy
 # gettext = "<= 0.21.0" # note: usually we should let bonfire_ui_common control this
 bandit = "~> 1.0" # alternative to Cowboy web server
-orion = "~> 1.0" # tracing with web UI (at /admin/system/orion)
+orion = "~> 1.0.5" # tracing with web UI (at /admin/system/orion)
 corsica = "~> 2.1"
 
 # admin tools
 phoenix_live_dashboard = "~> 0.8.0"
-live_admin = "~> 0.9.0"
+# live_admin = "~> 0.12.0"
 # wobserver_ng = "~> 1.14"
 
 # DB
