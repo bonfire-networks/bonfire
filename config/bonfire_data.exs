@@ -396,6 +396,7 @@ edge =
     :request,
     :post_content,
     :media,
+    :named,
     # :object_media,
     :object_created,
     :object_caretaker,
@@ -414,6 +415,7 @@ edge =
 
 edges =
   common.([
+    :named,
     :controlled,
     :activities,
     :request,
@@ -758,6 +760,7 @@ config :bonfire_data_social, Activity,
        # mixins (note most should be linked to the object rather than the activity)
        (unquote_splicing(
           common.([
+            :named,
             :feed_publishes,
             :object_media,
             :object_created,
@@ -900,6 +903,12 @@ config :bonfire_data_social, Flag,
   code:
     (quote do
        (unquote_splicing(edges))
+
+       unquote_splicing(
+         common.([
+           #  :named
+         ])
+       )
      end)
 
 config :bonfire_data_social, Request,
