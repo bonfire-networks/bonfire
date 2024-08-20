@@ -102,6 +102,7 @@ alias Bonfire.Data.Social.Replied
 alias Bonfire.Data.Social.Request
 alias Bonfire.Data.Social.Pin
 alias Bonfire.Data.Social.Sensitive
+alias Bonfire.Data.Social.Emoji
 
 alias Bonfire.Pages.Page
 alias Bonfire.Pages.Section
@@ -397,6 +398,7 @@ edge =
     :post_content,
     :media,
     :named,
+    :extra_info,
     # :object_media,
     :object_created,
     :object_caretaker,
@@ -416,6 +418,7 @@ edge =
 edges =
   common.([
     :named,
+    :extra_info,
     :controlled,
     :activities,
     :request,
@@ -881,6 +884,17 @@ config :bonfire_label, Bonfire.Label,
            :post_content
          ])
        )
+     end)
+
+config :bonfire_data_social, Emoji,
+  code:
+    (quote do
+       (unquote_splicing(
+          common.([
+            :media,
+            :extra_info
+          ])
+        ))
      end)
 
 # has_one:  [activity: {Activity, foreign_key: :object_id, references: :boosted_id}] # requires an ON clause
