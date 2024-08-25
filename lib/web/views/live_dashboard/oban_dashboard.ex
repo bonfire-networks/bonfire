@@ -3,6 +3,7 @@ defmodule Bonfire.Web.ObanDashboard do
   use Phoenix.LiveDashboard.PageBuilder
   import Ecto.Query
   alias Bonfire.Common.Utils
+  use Bonfire.Common.E
   use Untangle
 
   @impl true
@@ -63,7 +64,7 @@ defmodule Bonfire.Web.ObanDashboard do
           |> Map.merge(%{
             job: &1.args["op"],
             scheduled_at: DateTime.to_string(&1.scheduled_at),
-            data: Utils.e(&1.args, "params", "json", nil),
+            data: e(&1.args, "params", "json", nil),
             params: inspect(Map.drop(&1.args["params"] || %{}, ["json"])),
             errors: inspect(&1.errors)
           })
