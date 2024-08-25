@@ -56,7 +56,7 @@ entrepot_ecto = "https://github.com/bonfire-networks/entrepot_ecto"
 mfm_parser = "https://akkoma.dev/AkkomaGang/mfm-parser.git"
 nodeinfo = "https://github.com/bonfire-networks/nodeinfo"
 
-emote = "https://github.com/bonfire-networks/emote"
+# emote = "https://github.com/bonfire-networks/emote"
 
 paginator = "https://github.com/bonfire-networks/paginator"
 

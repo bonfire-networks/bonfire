@@ -65,6 +65,7 @@ sizeable = "~> 1.0"
 geo = "~> 3.6"
 recase = "~> 0.8"
 ex_cldr_numbers = "~> 2.33.2"
+emote = "~> 0.1"
 
 # Testing
 floki = "~> 0.36"
