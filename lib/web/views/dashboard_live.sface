@@ -10,7 +10,7 @@
         )}
         feed_id={Bonfire.Social.Feeds.my_feed_id(:inbox, e(@__context__, :socket, nil))}
         feed_name={:my}
-        feed_title={l("Following")}
+        feed_title={l("My Following")}
         hide_tabs
       />
     {#match :curated}

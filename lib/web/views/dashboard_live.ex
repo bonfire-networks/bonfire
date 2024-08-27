@@ -44,7 +44,7 @@ defmodule Bonfire.Web.DashboardLive do
 
     page_title =
       case default_feed do
-        :my -> l("Following")
+        :my -> l("My Following")
         :curated -> l("Curated activities")
         _ -> l("Active discussions")
       end
