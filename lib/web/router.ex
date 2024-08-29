@@ -259,13 +259,12 @@ defmodule Bonfire.Web.Router.Routes do
               metrics: Bonfire.Telemetry.Metrics,
               metrics_history:
                 if(Config.env() == :dev, do: {Bonfire.Telemetry.Storage, :metrics_history, []}),
-              # metrics: FlamegraphsWeb.Telemetry,
               additional_pages: [
                 oban_queues: Bonfire.Web.ObanDashboard,
                 oban: Oban.LiveDashboard,
                 orion: Bonfire.Web.OrionLink,
-                data: Bonfire.Web.DataLink
-                # flame_on: FlameOn.DashboardPage
+                data: Bonfire.Web.DataLink,
+                flame_on: FlameOn.DashboardPage
                 # _profiler: {PhoenixProfiler.Dashboard, []}
               ]
             )
