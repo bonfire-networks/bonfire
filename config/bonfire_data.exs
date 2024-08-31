@@ -872,6 +872,8 @@ config :bonfire_data_social, Boost,
        (unquote_splicing(edges))
      end)
 
+# has_one:  [activity: {Activity, foreign_key: :object_id, references: :boosted_id}] # requires an ON clause
+
 config :bonfire_label, Bonfire.Label,
   code:
     (quote do
@@ -896,8 +898,6 @@ config :bonfire_data_social, Emoji,
           ])
         ))
      end)
-
-# has_one:  [activity: {Activity, foreign_key: :object_id, references: :boosted_id}] # requires an ON clause
 
 config :bonfire_data_social, Like,
   code:
@@ -1025,7 +1025,24 @@ config :bonfire_data_social, Replied,
        belongs_to(:post, unquote(Post), foreign_key: :id, define_field: false)
        belongs_to(:post_content, unquote(PostContent), foreign_key: :id, define_field: false)
 
+       # used for sorting reply threads
        field(:path_sorter, :any, virtual: true)
+
+       # FIXME? won't show pins of custom type (eg. answer)
+       has_one(:pinned, unquote(Edge),
+         foreign_key: :object_id,
+         references: :id,
+         where: [table_id: "1P1NS0METH1NGT0H1GH11GHT1T"]
+       )
+
+       # NOTE: query requires an ON clause to filter by thread
+       #  has_one(:pinned, unquote(Pin), foreign_key: :id, references: :id) 
+       # has_one(:pinned_edge, through: [:pinned, :edge])
+       #  has_one(:pins_in_thread, unquote(Edge), # FIXME? won't show pins of custom type (eg. answer)
+       #    foreign_key: :subject_id,
+       #    references: :thread_id,
+       #    where: [table_id: "1P1NS0METH1NGT0H1GH11GHT1T"]
+       #  )
 
        # used in changesets
        field(:replying_to, :map, virtual: true)
