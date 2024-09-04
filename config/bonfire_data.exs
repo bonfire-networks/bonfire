@@ -782,7 +782,7 @@ config :bonfire_data_social, Activity,
        has_one(:activity, unquote(Activity), foreign_key: :id, references: :id)
 
        # Virtuals
-       field(:path, EctoMaterializedPath.ULIDs, virtual: true)
+       field(:path, EctoMaterializedPath.UIDs, virtual: true)
        field(:federate_activity_pub, :any, virtual: true)
 
        # Edge counts
