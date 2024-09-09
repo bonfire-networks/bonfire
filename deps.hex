@@ -1,7 +1,7 @@
 untangle = "~> 0.3"
 arrows = "~> 0.2"
 needle_ulid = "~> 0.3"
-needle = "~> 0.7"
+# needle = "~> 0.7"
 ecto_sparkles = "~> 0.2"
 
 # earmark = "~> 1.4.28" # handle markdown
@@ -10,7 +10,7 @@ ex_cldr = "~> 2.30" # internationalisation
 
 # Web
 # livebook = "~> 0.7.2"
-surface = "~> 0.11.4" # note: usually we should let bonfire_ui_common control this
+surface = "~> 0.11.5" # note: usually we should let bonfire_ui_common control this
 phoenix = "~> 1.7.0" # note: should match version supported by version of surface used
 # phoenix_live_view = "<= 0.20.1" # usually should let surface decide the version
 phoenix_live_view = "~> 0.20.7" # usually should let surface decide the version
@@ -66,6 +66,8 @@ geo = "~> 3.6"
 recase = "~> 0.8"
 ex_cldr_numbers = "~> 2.33.2"
 emote = "~> 0.1"
+uuidv7 = "~> 0.2"
+uniq = "~> 0.6"
 
 # Testing
 floki = "~> 0.36"
