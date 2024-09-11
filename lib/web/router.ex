@@ -157,7 +157,7 @@ defmodule Bonfire.Web.Router.Routes do
         live "/", Bonfire.Web.HomeLive, as: :home, private: %{cache: true}
         # live "/explore", Bonfire.Web.ExploreLive
         # , private : %{cache: true}
-        live "/about", Bonfire.Web.AboutLive, private: %{cache: false}
+        live "/about", Bonfire.Web.AboutLive, private: %{cache: true}
         live "/about/:section", Bonfire.Web.AboutLive, private: %{cache: true}
         live "/privacy", Bonfire.Web.PrivacyPolicyLive, private: %{cache: true}
         live "/conduct", Bonfire.Web.CodeOfConductLive, private: %{cache: true}
