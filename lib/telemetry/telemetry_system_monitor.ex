@@ -71,7 +71,7 @@ defmodule Bonfire.Telemetry.SystemMonitor do
       to ->
         title = "Alert: #{alarm_name}"
 
-        Bamboo.Email.new_email(
+        Bonfire.Mailer.new(
           subject: "[System alert from Bonfire] " <> title,
           html_body:
             title <>
