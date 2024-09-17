@@ -68,6 +68,7 @@ ex_cldr_numbers = "~> 2.33.2"
 emote = "~> 0.1"
 uuidv7 = "~> 0.2"
 uniq = "~> 0.6"
+rustler_precompiled = "~> 0.8"
 
 # Testing
 floki = "~> 0.36"
