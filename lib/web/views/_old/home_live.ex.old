@@ -28,7 +28,7 @@ defmodule Bonfire.Web.HomeLive do
   end
 
   defp mounted(params, _session, socket) do
-    is_guest? = is_nil(current_user_id(socket.assigns))
+    is_guest? = is_nil(current_user_id(assigns(socket)))
 
     links =
       Config.get([:ui, :theme, :instance_welcome, :links], %{
@@ -89,9 +89,9 @@ defmodule Bonfire.Web.HomeLive do
     # instance_name =
     #   Config.get([:ui, :theme, :instance_name]) || l("An instance of %{app}", app: app)
 
-    show_about_instance? = !current_user_id(socket.assigns) or current_url(socket) == "/about"
+    show_about_instance? = !current_user_id(assigns(socket)) or current_url(socket) == "/about"
 
-    context = socket.assigns[:__context__]
+    context = assigns(socket)[:__context__]
 
     feed_name =
       if module_enabled?(Bonfire.Social.Pins, context) and
@@ -102,7 +102,7 @@ defmodule Bonfire.Web.HomeLive do
            ) do
         :curated
       else
-        e(socket, :assigns, :live_action, nil) ||
+        e(assigns(socket), :live_action, nil) ||
           Settings.get(
             [Bonfire.UI.Social.FeedLive, :default_feed],
             :default,

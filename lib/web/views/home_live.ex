@@ -3,6 +3,7 @@ defmodule Bonfire.Web.HomeLive do
   The main instance home page, mainly for guests visiting the instance
   """
   use Bonfire.UI.Common.Web, :surface_live_view
+  # use Bonfire.UI.Common.Web.Native, :live_view
 
   alias Bonfire.Me.Accounts
   # alias Bonfire.UI.Social.FeedLive
@@ -12,7 +13,7 @@ defmodule Bonfire.Web.HomeLive do
   on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.LoadCurrentUser]}
 
   def mount(params, session, socket) do
-    current_user = current_user(socket.assigns)
+    current_user = current_user(assigns(socket))
 
     case Settings.get([:ui, :homepage_redirect_to], nil, current_user) do
       url when is_binary(url) ->
@@ -82,11 +83,11 @@ defmodule Bonfire.Web.HomeLive do
            Bonfire.Common.Settings.get(
              [Bonfire.UI.Social.FeedsLive, :curated],
              false,
-             socket.assigns
+             assigns(socket)
            ) do
         :curated
       else
-        # e(socket, :assigns, :live_action, nil) ||
+        # e(assigns(socket), :live_action, nil) ||
         # Config.get(
         #   [Bonfire.UI.Social.FeedLive, :default_feed]
         # ) ||

@@ -9,7 +9,7 @@ defmodule Bonfire.Web.DashboardLive do
   on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.UserRequired]}
 
   def mount(_params, _session, socket) do
-    current_user = current_user(socket.assigns)
+    current_user = current_user(assigns(socket))
     is_guest? = is_nil(current_user)
 
     sidebar_widgets = [
@@ -75,7 +75,7 @@ defmodule Bonfire.Web.DashboardLive do
   # def handle_params(params, _url, socket) do
   #   # debug(params, "param")
 
-  #   context = socket.assigns[:__context__]
+  #   context = assigns(socket)[:__context__]
 
   #   feed_name =
   #     if module_enabled?(Bonfire.Social.Pins, context) and
@@ -86,7 +86,7 @@ defmodule Bonfire.Web.DashboardLive do
   #          ) do
   #       :curated
   #     else
-  #       e(socket, :assigns, :live_action, nil) ||
+  #       e(assigns(socket), :live_action, nil) ||
   #         Settings.get(
   #           [Bonfire.UI.Social.FeedLive, :default_feed],
   #           :my,

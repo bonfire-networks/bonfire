@@ -7,7 +7,7 @@ defmodule Bonfire.Web.CodeOfConductLive do
   on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.LoadCurrentUser]}
 
   def mount(_params, _session, socket) do
-    is_guest? = is_nil(current_user_id(socket.assigns))
+    is_guest? = is_nil(current_user_id(assigns(socket)))
 
     {:ok,
      socket
