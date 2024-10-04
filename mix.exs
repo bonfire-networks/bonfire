@@ -1,4 +1,10 @@
-Code.eval_file("mess.exs", (if File.exists?("../../lib/mix/mess.exs"), do: "../../lib/mix/"))
+if not Code.ensure_loaded?(Mess) do
+  Code.eval_file("lib/mix/mess.ex")
+end
+
+if not Code.ensure_loaded?(Bonfire.Mixer) do
+  Code.eval_file("lib/mix/mixer.ex")
+end
 
 defmodule Bonfire.MixProject do
   use Mix.Project
