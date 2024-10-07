@@ -47,7 +47,7 @@ repo_connection_config =
         username: System.get_env("POSTGRES_USER", "postgres"),
         password: db_pw,
         hostname: System.get_env("POSTGRES_HOST", "localhost"),
-        database: "bonfire_test_#{test_instance}_#{System.get_env("MIX_TEST_PARTITION")}",
+        database: "bonfire_test_#{test_instance}_#{System.get_env("MIX_TEST_PARTITION") || 0}",
         socket_options: maybe_repo_ipv6,
         pool: Ecto.Adapters.SQL.Sandbox
       ]
