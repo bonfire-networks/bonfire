@@ -29,3 +29,4 @@ bonfire_app-*.tar
 
 extensions/bonfire/lib/mix/*.exs
 deps.path
+/lib/_wip

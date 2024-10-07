@@ -279,6 +279,10 @@ defmodule Bonfire.Web.Router.Routes do
           if module_enabled?(Bamboo.SentEmailViewerPlug) do
             forward("/admin/emails", Bamboo.SentEmailViewerPlug)
           end
+
+          if module_enabled?(PanDoRa.Live) do
+            live("/pan_do_ra", PanDoRa.Live)
+          end
         end
       end
 
