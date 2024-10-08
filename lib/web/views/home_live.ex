@@ -6,7 +6,6 @@ defmodule Bonfire.Web.HomeLive do
   use_if_enabled(Bonfire.UI.Common.Web.Native, :view)
 
   alias Bonfire.Me.Accounts
-
   # @changelog File.read!("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
 
   on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.LoadCurrentUser]}

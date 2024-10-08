@@ -10,6 +10,9 @@
     Hello Bonfire native beta 2!
   </Text>
 
+<.link navigate="/app">
+    Sign in 
+  </.link>
 
 <%= if @feed_component_id do %>
   <.stateful_component

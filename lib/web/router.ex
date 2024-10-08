@@ -163,6 +163,9 @@ defmodule Bonfire.Web.Router.Routes do
         live "/conduct", Bonfire.Web.CodeOfConductLive, private: %{cache: true}
         live "/changelog", Bonfire.Web.ChangelogLive, private: %{cache: true}
 
+        # TEMP: for testing native apps
+        live("/app", Bonfire.Web.DashboardLive)
+
         # a default homepage which you can customise (at path "/")
         # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename this default path (eg. to "/home")
         # live "/", Bonfire.Website.HomeGuestLive, as: :landing
