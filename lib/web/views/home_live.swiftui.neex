@@ -10,9 +10,10 @@
     Hello Bonfire native beta 2!
   </Text>
 
-  <StatefulComponent
+
+<%= if @feed_component_id do %>
+  <.stateful_component
         module={maybe_component(Bonfire.UI.Social.FeedLive, @__context__)}
-        :if={@feed_component_id}
         id={@feed_component_id}
         hide_tabs
         feed_id={@feed_id}
@@ -25,4 +26,6 @@
         loading={@loading}
         time_limit={30}
       />
+<% end %>
+
 </VStack>

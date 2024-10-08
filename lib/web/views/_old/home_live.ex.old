@@ -132,5 +132,5 @@ defmodule Bonfire.Web.HomeLive do
      |> assign(..., FeedLive.maybe_widgets(e(..., :assigns, nil), feed_name))}
   end
 
-  render_sface_or_native()
+  # render_sface_or_native()
 end

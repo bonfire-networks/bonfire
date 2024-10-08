@@ -3,10 +3,9 @@ defmodule Bonfire.Web.HomeLive do
   The main instance home page, mainly for guests visiting the instance
   """
   use Bonfire.UI.Common.Web, :surface_live_view
-  # use Bonfire.UI.Common.Web.Native, :live_view
+  use_if_enabled(Bonfire.UI.Common.Web.Native, :view)
 
   alias Bonfire.Me.Accounts
-  # alias Bonfire.UI.Social.FeedLive
 
   # @changelog File.read!("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
 
@@ -109,5 +108,5 @@ defmodule Bonfire.Web.HomeLive do
     }
   end
 
-  render_sface_or_native()
+  # # render_sface_or_native()
 end
