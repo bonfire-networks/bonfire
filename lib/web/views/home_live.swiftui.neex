@@ -7,15 +7,15 @@
   <% end %>
 
   <Text>
-    Hello Bonfire native beta 2!
+    Hello Bonfire native beta testers!
   </Text>
 
-<Button style={"buttonStyle(.bordered)"}>
-  Sign in 
-</Button>
-<.link navigate="/app">
-    Sign in 
-</.link>
+
+  <.link navigate="/app">
+    <Button style={"buttonStyle(.bordered)"}>
+      Sign in 
+    </Button>
+  </.link>
 
 <%!-- <%= if @feed_component_id do %>
   <.stateful_component
