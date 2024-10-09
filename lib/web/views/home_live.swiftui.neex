@@ -11,11 +11,11 @@
   </Text>
 
 
-  <.link navigate="/app">
     <Button style={"buttonStyle(.bordered)"}>
+  <.link navigate="/app">
       Sign in 
-    </Button>
   </.link>
+    </Button>
 
 <%!-- <%= if @feed_component_id do %>
   <.stateful_component
