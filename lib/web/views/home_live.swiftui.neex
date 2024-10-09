@@ -10,11 +10,14 @@
     Hello Bonfire native beta 2!
   </Text>
 
+<Button style={"buttonStyle(.bordered)"}>
+  Sign in 
+</Button>
 <.link navigate="/app">
     Sign in 
-  </.link>
+</.link>
 
-<%= if @feed_component_id do %>
+<%!-- <%= if @feed_component_id do %>
   <.stateful_component
         module={maybe_component(Bonfire.UI.Social.FeedLive, @__context__)}
         id={@feed_component_id}
@@ -29,6 +32,6 @@
         loading={@loading}
         time_limit={30}
       />
-<% end %>
+<% end %> --%>
 
 </VStack>

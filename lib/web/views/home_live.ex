@@ -5,6 +5,8 @@ defmodule Bonfire.Web.HomeLive do
   use Bonfire.UI.Common.Web, :surface_live_view
   use_if_enabled(Bonfire.UI.Common.Web.Native, :view)
 
+  # use_if_enabled(Bonfire.UI.Common.Web.Native, [:view, layouts: [swiftui: {Bonfire.UI.Common.LayoutView.SwiftUI, :app_tab}]])
+
   alias Bonfire.Me.Accounts
   # @changelog File.read!("#{Config.get(:project_path, "../..")}/docs/CHANGELOG.md")
 
