@@ -126,6 +126,8 @@ defmodule Bonfire.Web.Router.Routes do
 
       use_if_enabled(Bonfire.ExtensionTemplate.Web.Routes)
 
+      use_if_enabled(ArticleAI.Web.Routes)
+
       # include GraphQL API
       use_if_enabled(Bonfire.API.GraphQL.Router)
 
@@ -303,8 +305,9 @@ end
 IO.puts("Compile routes...")
 
 defmodule Bonfire.Web.Router do
-  # , generate_open_api: false
   use Bonfire.Web.Router.Routes
+
+  # , generate_open_api: false
 
   # mastodon-compatible API
   # if module_enabled?(Bonfire.API.GraphQL.MastoCompatible.Router) do
