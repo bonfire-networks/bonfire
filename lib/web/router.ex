@@ -304,7 +304,6 @@ IO.puts("Compile routes...")
 
 defmodule Bonfire.Web.Router do
   use Bonfire.Web.Router.Routes
-
   # , generate_open_api: false
 
   # mastodon-compatible API
