@@ -126,6 +126,8 @@ defmodule Bonfire.Web.Router.Routes do
 
       use_if_enabled(Bonfire.ExtensionTemplate.Web.Routes)
 
+      use_if_enabled(Bonfire.PanDoRa.Web.Routes)
+
       use_if_enabled(ArticleAI.Web.Routes)
 
       # include GraphQL API
@@ -283,10 +285,6 @@ defmodule Bonfire.Web.Router.Routes do
 
           if module_enabled?(Bamboo.SentEmailViewerPlug) do
             forward("/admin/emails", Bamboo.SentEmailViewerPlug)
-          end
-
-          if module_enabled?(PanDoRa.Live) do
-            live("/pan_do_ra", PanDoRa.Live)
           end
         end
       end
