@@ -34,7 +34,7 @@ phoenix_live_dashboard = "~> 0.8.0"
 # DB
 ecto_sql = "~> 3.8"
 exto = "~> 0.3"
-postgrex = "~> 0.18.0"
+postgrex = "~> 0.19.1"
 ecto_psql_extras = "~> 0.8.0"
 # endo = "~> 0.1"
 
@@ -46,11 +46,11 @@ ex_marcel = "~> 0.1.0"
 eqrcode = "~> 0.1.10"
 
 # Misc
-req = "~> 0.4.0"
+req = "~> 0.5.0"
 finch = "~> 0.16"
 httpoison = "~> 2.1"
 jason = "~> 1.4.0"
-poison = "~> 5.0" # not our preferred one, but some libs use it
+poison = "~> 6.0" # not our preferred one, but some libs use it
 # tz = "~> 0.26.2" # FIXME: was disabled because crashes on Yunohost / Debian 11
 timex = "~> 3.7.8"
 solid = "~> 0.13"
@@ -60,9 +60,9 @@ mdex = "~> 0.1" # handle markdown
 sourceror = "~> 1.6.0"
 owl = "~> 0.9.0" # command line UI
 mogrify = "~> 0.9.3"
-cachex = "~> 3.2"
+cachex = "~> 4.0.2"
 sizeable = "~> 1.0"
-geo = "~> 3.6"
+geo = "~> 4.0"
 recase = "~> 0.8"
 ex_cldr_numbers = "~> 2.33.2"
 emote = "~> 0.1"

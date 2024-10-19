@@ -57,15 +57,30 @@ defmodule Bonfire.Application do
                [
                  expiration: Cachex.Spec.expiration(default: :timer.hours(default_cache_hours())),
                  # increase for instances with more users (at least num. of users*2+1)
-                 limit:
-                   Cachex.Spec.limit(
-                     # max number of entries
-                     size: 2_500,
-                     # the policy to use for eviction
-                     policy: Cachex.Policy.LRW,
-                     # what % to reclaim when limit is reached
-                     reclaim: 0.1
+                 hooks: [
+                   # Cachex.Spec.hook(module: Cachex.Stats),
+                   Cachex.Spec.hook(
+                     module: Cachex.Limit.Scheduled,
+                     args: {
+                       # setting cache max size
+                       2_500,
+                       # options for `Cachex.prune/3`
+                       [],
+                       # options for `Cachex.Limit.Scheduled`
+                       []
+                     }
                    )
+                 ]
+                 # NOTE: limit is deprecated in 4.0, replaced by hooks ^
+                 #  limit:
+                 #    Cachex.Spec.limit(
+                 #      # max number of entries
+                 #      size: 2_500,
+                 #      # the policy to use for eviction
+                 #      policy: Cachex.Policy.LRW,
+                 #      # what % to reclaim when limit is reached
+                 #      reclaim: 0.1
+                 #    )
                ]
              ]}
         }
