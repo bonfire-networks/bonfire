@@ -17,8 +17,6 @@ defmodule Bonfire.Application do
   @config if Code.ensure_loaded?(Bonfire.Umbrella.MixProject),
             do: Bonfire.Umbrella.MixProject.config(),
             else: Mix.Project.config()
-  @deps_loaded Bonfire.Common.Extensions.loaded_deps(:nested)
-  @deps_tree_flat Bonfire.Common.Extensions.loaded_deps(:tree_flat)
 
   def default_cache_hours, do: Config.get(:default_cache_hours) || 3
 
@@ -122,13 +120,8 @@ defmodule Bonfire.Application do
   def named_version, do: "#{name()} #{version()}"
   def repository, do: project()[:sources_url] || project()[:source_url]
   def required_deps, do: project()[:required_deps]
-  def deps(opt \\ nil)
-  # as loaded at compile time, nested
-  def deps(:nested), do: @deps_loaded
-  #  as loaded at compile time, flat
-  def deps(:tree_flat), do: @deps_tree_flat
-  # as defined in the top-level app's mix.exs / deps.hex / etc
-  def deps(_), do: config()[:deps]
+
+  # NOTE: bellow was moved to `Bonfire`
 
   def start(_type, _args) do
     Bonfire.Telemetry.setup(@env, @repo_module)

@@ -1,7 +1,7 @@
 bonfire_common = "https://github.com/bonfire-networks/bonfire_common"
 bonfire_ui_common = "https://github.com/bonfire-networks/bonfire_ui_common"
 bonfire_ui_me = "https://github.com/bonfire-networks/bonfire_ui_me" 
-activity_pub = "https://github.com/bonfire-networks/activity_pub#main"
+activity_pub = "https://github.com/bonfire-networks/activity_pub"
 
 bonfire_mailer = "https://github.com/bonfire-networks/bonfire_mailer"
 bonfire_epics = "https://github.com/bonfire-networks/bonfire_epics"

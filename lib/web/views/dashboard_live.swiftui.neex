@@ -186,7 +186,7 @@
   <.tab tag={:profile} name="" icon_system_name="person.crop.circle">
     <Bonfire.UI.Me.ProfileLive.SwiftUI.render />
   </.tab>
-</.tab_bar>
+</.tab_bar> 
 
   <.modal id="filters" show={@show_search_filters} on_cancel="dismiss_filters">
     <VStack class="detents:medium:large ultrathinmaterial dragindicator:visible" template={:content}>
