@@ -92,3 +92,5 @@ forecastr = "https://github.com/bonfire-networks/forecastr"
 
 ex_cldr_territories = "https://github.com/elixir-cldr/cldr_territories" 
 # temp ^ until next release
+
+# tz_world = "https://github.com/kipcole9/tz_world"
