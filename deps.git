@@ -80,7 +80,7 @@ live_view_native_stylesheet = "https://github.com/bonfire-networks/live_view_nat
 
 # surface_catalogue = "https://github.com/surface-ui/surface_catalogue"  # Testing a UI component library 
 
-paper_trail = "https://github.com/bonfire-networks/paper_trail#with-pointers"
+# paper_trail = "https://github.com/bonfire-networks/paper_trail#with-pointers"
 
 # source_inspector = "https://github.com/tmbb/source_inspector"
 
