@@ -34,7 +34,11 @@ config :bonfire_data_access_control,
 config :bonfire, :verb_names, verbs
 
 # FIXME on older elixir versions
-known_deps = Bonfire.Mixer.deps_tree_flat() || []
+known_deps =
+  if Code.ensure_loaded?(Bonfire.Common.Extend),
+    do: Bonfire.Common.Extend.deps_tree_flat() || [],
+    else: []
+
 # |> IO.inspect(label: "deps in config", limit: :infinity)
 
 maybe_extension_module = fn extension, module, fallback ->

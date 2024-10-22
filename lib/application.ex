@@ -175,10 +175,14 @@ defmodule Bonfire.Application do
   # end
 
   def applications(:dev, _, _any, as_desktop) do
-    [
-      # simple ETS based storage for non-prod
-      {Bonfire.Telemetry.Storage, Bonfire.Telemetry.Metrics.metrics()}
-    ] ++ applications(nil, nil, nil, as_desktop)
+    if Code.ensure_loaded?(CircularBuffer) do
+      [
+        # simple ETS based storage for non-prod
+        {Bonfire.Telemetry.Storage, Bonfire.Telemetry.Metrics.metrics()}
+      ]
+    else
+      []
+    end ++ applications(nil, nil, nil, as_desktop)
   end
 
   # running as desktop app
