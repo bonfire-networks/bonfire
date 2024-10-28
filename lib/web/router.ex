@@ -97,7 +97,7 @@ defmodule Bonfire.Web.Router.Routes do
 
       # use_if_enabled(Bonfire.AI.Web.Routes)
 
-      use_if_enabled(Bonfire.Boundaries.Web.Routes)
+      use_if_enabled(Bonfire.UI.Boundaries.Web.Routes)
 
       use_if_enabled(Bonfire.Pages.Web.Routes)
 

@@ -10,6 +10,7 @@ bonfire_search = "https://github.com/bonfire-networks/bonfire_search"
 bonfire_data_assort = "https://github.com/bonfire-networks/bonfire_data_assort"
 bonfire_files = "https://github.com/bonfire-networks/bonfire_files"
 bonfire_boundaries = "https://github.com/bonfire-networks/bonfire_boundaries"
+bonfire_ui_boundaries = "https://github.com/bonfire-networks/bonfire_ui_boundaries"
 bonfire_federate_activitypub = "https://github.com/bonfire-networks/bonfire_federate_activitypub"
 
 
