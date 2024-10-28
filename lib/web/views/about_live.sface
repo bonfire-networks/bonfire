@@ -1,7 +1,7 @@
 <section class="max-w-[640px] mx-auto mt-0 grid items-start gap-4">
   <div class={
-    "flex flex-col bg-base-100 gap-2",
-    "shadow-sm rounded-xl border border-base-content/20": !current_user_id(@__context__)
+    "flex flex-col shadow rounded-xl bg-base-100 gap-2",
+    "shadow-sm rounded-xl border border-base-content/10": !current_user_id(@__context__)
   }>
     <div
       style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
@@ -17,10 +17,10 @@
     </div>
   </div>
 
-  <div
+  <!-- <div
     class={
       "p-4",
-      "border rounded-xl border-base-content/20": !current_user_id(@__context__)
+      "border rounded-xl border-base-content/10": !current_user_id(@__context__)
     }
     :if={Config.get([Bonfire.Web.AboutLive, :include, :users], true)}
   >
@@ -28,7 +28,7 @@
     <div class="flex flex-col mt-3 gap-2">
       <div
         :for={user <- @users}
-        class="p-4 border rounded-lg shadow bg-base-100 border-base-content/20"
+        class="p-4 border rounded-lg shadow bg-base-100 border-base-content/10"
       >
         <StatelessComponent
           module={maybe_component(Bonfire.UI.Me.ProfileItemLive)}
@@ -39,7 +39,6 @@
           avatar_class="w-16 h-16"
           show_controls={[:follow]}
         />
-        <!-- <Bonfire.UI.Me.UserPreviewLive user={user} /> -->
       </div>
     </div>
 
@@ -49,15 +48,11 @@
       page_info={@page_info}
       hide_guest_fallback
     />
-  </div>
+  </div> -->
 
   <div
     :if={Config.get([Bonfire.Web.AboutLive, :include, :preferences], true)}
-    class={
-      "px-4",
-      "p-4 bg-base-100 rounded-xl shadow-sm border border-base-content/20":
-        !current_user_id(@__context__)
-    }
+    class="px-4 p-4 bg-base-100 rounded-xl shadow"
   >
     <StatelessComponent
       selected_tab={@selected_tab}

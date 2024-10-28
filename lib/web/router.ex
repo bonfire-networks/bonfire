@@ -158,7 +158,7 @@ defmodule Bonfire.Web.Router.Routes do
       # pages anyone can view
       scope "/" do
         pipe_through(:browser)
-        live "/", Bonfire.Web.HomeLive, as: :home, private: %{cache: true}
+        live "/", Bonfire.Web.HomeLive, as: :home, private: %{cache: false}
         # live "/explore", Bonfire.Web.ExploreLive
         # , private : %{cache: true}
         live "/about", Bonfire.Web.AboutLive, private: %{cache: true}
