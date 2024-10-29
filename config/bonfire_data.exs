@@ -321,10 +321,10 @@ common_assocs = %{
   # + the actual tags
   tags:
     quote do
-      has_many(:tagged, unquote(maybe_extension_schema.(:bonfire_tag, Tagged)), unquote(mixin))
+      has_many(:tagged, Tagged, unquote(mixin))
 
       many_to_many(:tags, unquote(Pointer),
-        join_through: unquote(maybe_extension_schema.(:bonfire_tag, Tagged)),
+        join_through: Tagged,
         unique: true,
         join_keys: [id: :id, tag_id: :id],
         on_replace: :delete
@@ -332,13 +332,13 @@ common_assocs = %{
     end,
   object_tags:
     quote do
-      has_many(:tagged, unquote(maybe_extension_schema.(:bonfire_tag, Tagged)),
+      has_many(:tagged, Tagged,
         foreign_key: :id,
         references: :object_id
       )
 
       many_to_many(:tags, unquote(Pointer),
-        join_through: unquote(maybe_extension_schema.(:bonfire_tag, Tagged)),
+        join_through: Tagged,
         unique: true,
         join_keys: [id: :object_id, tag_id: :id],
         on_replace: :delete
@@ -1199,7 +1199,7 @@ config :bonfire_classify, Category,
 
        # add references of tagged objects to any Category
        many_to_many(:tags, unquote(Pointer),
-         join_through: unquote(maybe_extension_schema.(:bonfire_tag, Tagged)),
+         join_through: Tagged,
          unique: true,
          join_keys: [tag_id: :id, id: :id],
          on_replace: :delete
