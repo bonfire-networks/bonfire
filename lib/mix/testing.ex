@@ -28,7 +28,7 @@ defmodule Bonfire.Testing do
     ExUnit.start()
 
     if System.get_env("TEST_WITH_MNEME") != "no",
-      do: Mneme.start(restart: true),
+      do: Mneme.start(),
       else: Mneme.Options.configure([])
 
     repo = Bonfire.Common.Config.repo()
