@@ -91,7 +91,7 @@ forecastr = "https://github.com/bonfire-networks/forecastr"
 
 # image = "https://github.com/elixir-image/image"
 
-ex_cldr_territories = "https://github.com/elixir-cldr/cldr_territories" 
+# ex_cldr_territories = "https://github.com/elixir-cldr/cldr_territories" 
 # temp ^ until next release
 
 # tz_world = "https://github.com/kipcole9/tz_world"

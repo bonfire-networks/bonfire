@@ -51,12 +51,14 @@ defmodule Bonfire.Web.Endpoint do
 
     #{if Extend.module_enabled?(PhoenixGon.View), do: PhoenixGon.View.render_gon_script(conn) |> Phoenix.HTML.safe_to_string()}
 
-    <link rel="manifest" href="/pwa/manifest.json" />
+    <link rel="manifest" href="/pwa/manifest.json" /> 
+    <!-- TODO: move to JS hook?
     <script type="module">
-      import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+      import '@pwabuilder/pwaupdate';
       const el = document.createElement('pwa-update');
       document.body.appendChild(el);
     </script>
+    -->
     """
   end
 
