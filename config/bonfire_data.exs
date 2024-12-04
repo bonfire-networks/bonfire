@@ -33,21 +33,22 @@ config :bonfire_data_access_control,
 
 config :bonfire, :verb_names, verbs
 
-# FIXME on older elixir versions
-known_deps =
-  if Code.ensure_loaded?(Bonfire.Common.Extend),
-    do: Bonfire.Common.Extend.deps_tree_flat() || [],
-    else: []
+# # FIXME on older elixir versions
+# known_deps =
+#   if Code.ensure_loaded?(Bonfire.Common.Extend),
+#     do: Bonfire.Common.Extend.deps_tree_flat() || [],
+#     else: []
 
-# |> IO.inspect(label: "deps in config", limit: :infinity)
+# # |> IO.inspect(label: "deps in config", limit: :infinity)
 
-maybe_extension_module = fn extension, module, fallback ->
-  if extension in known_deps, do: module, else: fallback
-end
+# maybe_extension_module = fn extension, module, fallback ->
+#   if extension in known_deps, do: module, else: fallback
+# end
 
-maybe_extension_schema = fn extension, module ->
-  maybe_extension_module.(extension, module, Needle.Pointer)
-end
+# # FIXME: in prod all extensions are loaded
+# maybe_extension_schema = fn extension, module ->
+#   maybe_extension_module.(extension, module, Needle.Pointer)
+# end
 
 #### Alias modules for readability
 alias Needle.Pointer
@@ -688,8 +689,8 @@ config :bonfire_data_identity, User,
        has_one(:self, unquote(Self), foreign_key: :id)
 
        has_one(
-         :shared_user,
-         unquote(maybe_extension_schema.(:bonfire_data_shared_user, Bonfire.Data.SharedUser)),
+         :shared_user, Bonfire.Data.SharedUser,
+        #  unquote(maybe_extension_schema.(:bonfire_data_shared_user, Bonfire.Data.SharedUser)), # FIXME
          foreign_key: :id
        )
 
