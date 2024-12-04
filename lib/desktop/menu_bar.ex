@@ -19,12 +19,12 @@ if System.get_env("AS_DESKTOP_APP") in ["1", "true"] do
               ><%= item.text %></item>
           <% end %> --%>
           <hr />
-          <item onclick="quit"><%= l("Quit") %></item>
+          <item onclick="quit">{l("Quit")}</item>
         </menu>
         <menu label={l("Extra")}>
-          <item onclick="notification"><%= l("Show Notification") %></item>
-          <item onclick="observer"><%= l("Show Observer") %></item>
-          <item onclick="browser"><%= l("Open Browser") %></item>
+          <item onclick="notification">{l("Show Notification")}</item>
+          <item onclick="observer">{l("Show Observer")}</item>
+          <item onclick="browser">{l("Open Browser")}</item>
         </menu>
       </menubar>
       """

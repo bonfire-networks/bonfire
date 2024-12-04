@@ -28,16 +28,16 @@ defmodule Bonfire.Web.ObanDashboard do
       <:col field={:attempt} text_align="right" />
       <:col :let={row} field={:params}>
         <span style="font-size: 0.8rem; font-family: ui-monospace, monospace; max-width: 580px">
-          <%= row.params %>
+          {row.params}
         </span>
       </:col>
       <:col :let={row} field={:data}>
         <span style="font-size: 0.7rem; font-family: ui-monospace, monospace; max-width: 580px">
-          <%= row.data %>
+          {row.data}
         </span>
       </:col>
       <:col :let={row} field={:errors}>
-        <span style="font-size: 0.7rem;"><%= row.errors %></span>
+        <span style="font-size: 0.7rem;">{row.errors}</span>
       </:col>
       <:col field={:scheduled_at} sortable={:desc} />
     </.live_table>
