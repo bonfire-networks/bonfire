@@ -689,8 +689,9 @@ config :bonfire_data_identity, User,
        has_one(:self, unquote(Self), foreign_key: :id)
 
        has_one(
-         :shared_user, Bonfire.Data.SharedUser,
-        #  unquote(maybe_extension_schema.(:bonfire_data_shared_user, Bonfire.Data.SharedUser)), # FIXME
+         :shared_user,
+         Bonfire.Data.SharedUser,
+         #  unquote(maybe_extension_schema.(:bonfire_data_shared_user, Bonfire.Data.SharedUser)), # FIXME
          foreign_key: :id
        )
 
