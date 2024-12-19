@@ -2,7 +2,7 @@ defmodule Bonfire.Web.ObanDashboard do
   @moduledoc false
   use Phoenix.LiveDashboard.PageBuilder
   import Ecto.Query
-  alias Bonfire.Common.Utils
+  # alias Bonfire.Common.Utils
   use Bonfire.Common.E
   use Untangle
 
