@@ -165,6 +165,14 @@ common_assocs = %{
 
   # Information about the content of posts, e.g. a scrubbed html body
   post_content: quote(do: has_one(:post_content, unquote(PostContent), unquote(mixin_updatable))),
+  object_post_content:
+    quote(
+      do:
+        has_one(:object_post_content, unquote(PostContent),
+          foreign_key: :id,
+          references: :object_id
+        )
+    ),
 
   # Information about a user or other object that they wish to make available
   profile: quote(do: has_one(:profile, unquote(Profile), unquote(mixin_updatable))),
@@ -772,6 +780,7 @@ config :bonfire_data_social, Activity,
             :named,
             :feed_publishes,
             :object_media,
+            :object_post_content,
             :object_created,
             :object_caretaker,
             :object_replied,
