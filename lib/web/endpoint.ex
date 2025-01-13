@@ -88,4 +88,8 @@ defmodule Bonfire.Web.Endpoint do
     Code.eval_file(Path.join(:code.priv_dir(app), "extras/router_reverse.ex"))
     Code.put_compiler_option(:ignore_module_conflict, false)
   end
+
+  def node_name do
+    Node.self()
+  end
 end

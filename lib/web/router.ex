@@ -62,76 +62,14 @@ defmodule Bonfire.Web.Router.Routes do
 
       # please note the order matters here, because of pipelines being defined in some module and re-used in others
 
-      # required for some default pipelines
+      # these two one required first as they define some pipelines use by other routes
       use Bonfire.UI.Common.Routes
-
-      #  required for auth
       use Bonfire.UI.Me.Routes
+      # ^ required for auth
 
-      # include routes for active Bonfire extensions (no need to comment out, they'll be skipped if not available or if disabled)
-      # TODO: automatically include all active extensions, or introduce a RouterModule behaviour?
-      # ui_extensions = Bonfire.UI.Common.NavModule.app_modules()
-      # |> Enum.flat_map(fn {app, _nav_module} -> Application.spec(&1, :modules) || [] end)
-      # |> Enum.filter(& Code.ensure_loaded?(&1) and function_exported?(&1, :declare_routes, 0))
-      # |> debug()
-      # # quoted_use_if_enabled(ui_extensions)
-      # for extension <- ui_extensions do
-      #   require extension
-      #   extension.__using__(nil)
-      # end
-
-      # use_if_enabled Bonfire.Website.Web.Routes
-
-      use_if_enabled(Bonfire.Files.Routes)
-
-      use_if_enabled(Bonfire.UI.Social.Routes)
-      use_if_enabled(Bonfire.UI.Posts.Routes)
-      use_if_enabled(Bonfire.UI.Messages.Routes)
-      use_if_enabled(Bonfire.UI.Reactions.Routes)
-      # use_if_enabled(Bonfire.UI.Social.Graph.Routes)
-      # use_if_enabled(Bonfire.UI.Moderation.Routes)
-
-      use_if_enabled(Bonfire.Gatherings.Web.Routes)
-
-      use_if_enabled(Bonfire.Poll.Web.Routes)
-
-      # use_if_enabled(Bonfire.AI.Web.Routes)
-
-      use_if_enabled(Bonfire.UI.Boundaries.Web.Routes)
-
-      use_if_enabled(Bonfire.Pages.Web.Routes)
-
-      use_if_enabled(Bonfire.OpenID.Web.Routes)
-
-      use_if_enabled(Bonfire.Search.Web.Routes)
-
-      use_if_enabled(Bonfire.Tag.Web.Routes)
-      use_if_enabled(Bonfire.UI.Topics.Routes)
-      use_if_enabled(Bonfire.UI.Groups.Routes)
-      use_if_enabled(Bonfire.Label.Web.Routes)
-
-      use_if_enabled(Bonfire.Geolocate.Web.Routes)
-      use_if_enabled(Bonfire.UI.Coordination.Routes)
-      use_if_enabled(Bonfire.UI.Kanban.Routes)
-      use_if_enabled(Bonfire.Breadpub.Web.Routes)
-      use_if_enabled(Bonfire.Recyclapp.Routes)
-      use_if_enabled(Bonfire.Upcycle.Web.Routes)
-      use_if_enabled(Bonfire.UI.Reflow.Routes)
-
-      use_if_enabled(RauversionExtension.UI.Routes)
-
-      use_if_enabled(Bonfire.Pages.Beacon.Web.Routes)
-
-      use_if_enabled(Bonfire.Encrypt.Web.Routes)
-
-      use_if_enabled(Bonfire.ExtensionTemplate.Web.Routes)
-
-      use_if_enabled(Bonfire.PanDoRa.Web.Routes)
-
-      use_if_enabled(ArticleAI.Web.Routes)
-
-      # include GraphQL API
-      use_if_enabled(Bonfire.API.GraphQL.Router)
+      # include routes for active Bonfire extensions 
+      require Bonfire.UI.Common.RoutesModule
+      Bonfire.UI.Common.RoutesModule.use_modules()
 
       # mastodon-compatible API
       # IO.inspect(opts, label: "router_opts")
@@ -142,19 +80,14 @@ defmodule Bonfire.Web.Router.Routes do
       # end
 
       # include federation routes
-      use_if_enabled(ActivityPub.Web.Router)
+      use_many_if_enabled([ActivityPub.Web.Router, NodeinfoWeb.Router])
 
-      # include nodeinfo routes
-      use_if_enabled(NodeinfoWeb.Router)
-
-      # optionally include Livebook for developers
-      # use_if_enabled(Bonfire.Livebook.Web.Routes)
+      # FIXME: temp workaround
+      # use Bonfire.PanDoRa.Web.Routes
 
       # optionally include Surface Catalogue for the stylebook
       require_if_enabled(Surface.Catalogue.Router)
 
-      ## Below you can define routes specific to your flavour of Bonfire (which aren't handled by extensions)
-      use_if_enabled(Bones.Web.Routes)
       # pages anyone can view
       scope "/" do
         pipe_through(:browser)
