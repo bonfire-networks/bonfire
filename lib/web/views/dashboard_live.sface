@@ -1,4 +1,5 @@
 <section data-id="user_dashboard" class="">
+  <!-- TODO: use WidgetsLive here, so the list and order can be changed in config & user settings -->
   {#case @default_feed}
     {#match :my}
       <StatefulComponent
