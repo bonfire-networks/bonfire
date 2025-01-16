@@ -88,6 +88,8 @@ defmodule Bonfire.Web.Router.Routes do
       # optionally include Surface Catalogue for the stylebook
       require_if_enabled(Surface.Catalogue.Router)
 
+      import_if_enabled(Oban.Web.Router)
+
       # pages anyone can view
       scope "/" do
         pipe_through(:browser)
@@ -178,6 +180,11 @@ defmodule Bonfire.Web.Router.Routes do
                 label_with: :name
               )
             end
+
+            if module_enabled?(Oban.Web.Router) do
+              oban_dashboard "/admin/system/oban"
+            end
+            
           end
 
           # do
