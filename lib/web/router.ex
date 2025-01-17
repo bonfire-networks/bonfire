@@ -182,9 +182,8 @@ defmodule Bonfire.Web.Router.Routes do
             end
 
             if module_enabled?(Oban.Web.Router) do
-              oban_dashboard "/admin/system/oban"
+              oban_dashboard("/admin/system/oban")
             end
-            
           end
 
           # do
