@@ -6,7 +6,7 @@
     <div
       style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
       class={
-        "bg-center h-[320px] bg-no-repeat bg-cover bg-white",
+        "bg-center aspect-video h-[320px] bg-no-repeat bg-cover bg-white",
         "rounded-t-xl": !current_user_id(@__context__)
       }
     >
