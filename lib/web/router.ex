@@ -67,7 +67,7 @@ defmodule Bonfire.Web.Router.Routes do
       use Bonfire.UI.Me.Routes
       # ^ required for auth
 
-      # include routes for active Bonfire extensions  
+      # include routes for active Bonfire extensions
       require Bonfire.UI.Common.RoutesModule
       Bonfire.UI.Common.RoutesModule.use_modules()
 
@@ -76,7 +76,7 @@ defmodule Bonfire.Web.Router.Routes do
       # if opts[:generate_open_api] !=false and module_enabled?(Bonfire.API.GraphQL.MastoCompatible.Router) do
       #   import Bonfire.API.GraphQL.MastoCompatible.Router
       #   IO.puts("Generate Masto-compatible API...")
-      #   include_masto_api() 
+      #   include_masto_api()
       # end
 
       # include federation routes
@@ -95,7 +95,7 @@ defmodule Bonfire.Web.Router.Routes do
         pipe_through(:browser)
         live "/", Bonfire.Web.HomeLive, as: :home, private: %{cache: false}
         # live "/explore", Bonfire.Web.ExploreLive
-        # , private : %{cache: true}   
+        # , private : %{cache: true}
         live "/about", Bonfire.Web.AboutLive, private: %{cache: true}
         live "/about/:section", Bonfire.Web.AboutLive, private: %{cache: true}
         live "/privacy", Bonfire.Web.PrivacyPolicyLive, private: %{cache: true}

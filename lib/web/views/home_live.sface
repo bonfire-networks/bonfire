@@ -3,7 +3,7 @@
     <div
       :if={Config.get([:ui, :theme, :instance_image], nil)}
       style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
-      class="bg-center aspect-video bg-no-repeat h-[220px] bg-cover bg-white w-full rounded-t-box"
+      class="bg-center bg-no-repeat h-[220px] bg-cover bg-white w-full rounded-t-box"
     >
     </div>
     <div class="flex px-4 flex-col gap-3">
@@ -13,16 +13,13 @@
     </div>
 
     <div class="flex items-center justify-center px-4 gap-4">
-      <LinkLive to={~p"/signup"} class="btn btn-outline border-base-content/10 flex-1">
-        {l("Get started")}
-      </LinkLive>
-      <LinkLive to={~p"/about"} class="btn btn-outline border-base-content/10 flex-1">
+      <LinkLive to={~p"/about"} class="btn btn-sm lg:btn-md btn-secondary btn-soft flex-1">
         {l("About")}
       </LinkLive>
-      <LinkLive to={~p"/conduct"} class="btn btn-outline border-base-content/10 flex-1">
+      <LinkLive to={~p"/conduct"} class="btn btn-sm lg:btn-md btn-secondary btn-soft flex-1">
         {l("Conduct")}
       </LinkLive>
-      <LinkLive to={~p"/users"} class="btn btn-outline border-base-content/10 flex-1">
+      <LinkLive to={~p"/users"} class="btn btn-sm lg:btn-md btn-secondary btn-soft flex-1">
         {l("Members")}
       </LinkLive>
     </div>

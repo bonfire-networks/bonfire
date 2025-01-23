@@ -8,7 +8,7 @@
       <div
         :if={Config.get([:ui, :theme, :instance_image], nil)}
         style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
-        class="bg-center aspect-video bg-no-repeat h-[230px] lg:h-[320px] bg-cover bg-white w-full rounded-xl"
+        class="bg-center bg-no-repeat h-[230px] lg:h-[320px] bg-cover bg-white w-full rounded-xl"
       >
       </div>
     </section>
