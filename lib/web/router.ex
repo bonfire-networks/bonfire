@@ -83,7 +83,7 @@ defmodule Bonfire.Web.Router.Routes do
       use_many_if_enabled([ActivityPub.Web.Router, NodeinfoWeb.Router])
 
       # FIXME: temp workaround
-      use Bonfire.PanDoRa.Web.Routes
+      use_many_if_enabled([Bonfire.PanDoRa.Web.Routes])
 
       # optionally include Surface Catalogue for the stylebook
       require_if_enabled(Surface.Catalogue.Router)
@@ -101,7 +101,7 @@ defmodule Bonfire.Web.Router.Routes do
         live "/privacy", Bonfire.Web.PrivacyPolicyLive, private: %{cache: true}
         live "/conduct", Bonfire.Web.CodeOfConductLive, private: %{cache: true}
         live "/changelog", Bonfire.Web.ChangelogLive, private: %{cache: true}
-        # live "/pandora", Bonfire.PanDoRa.Web.SearchLive, private: %{cache: false}
+        live "/pandora", Bonfire.PanDoRa.Web.SearchLive, private: %{cache: false}
         # live "/pandora/:section", Bonfire.PanDoRa.Web.SearchLive, private: %{cache: false}
 
         # live "/pandora/:section/:subsection", Bonfire.PanDoRa.Web.SearchLive,
